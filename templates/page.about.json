@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "section_iAHzV3": {
       "type": "section",
@@ -84,6 +85,7 @@
       ],
       "name": "t:names.hero",
       "settings": {
+        "link": "",
         "open_in_new_tab": false,
         "media_type_1": "video",
         "media_type_2": "image",
@@ -118,6 +120,7 @@
           "settings": {
             "icon": "plant",
             "width": 30,
+            "link": "",
             "open_in_new_tab": false
           },
           "blocks": {}
@@ -146,11 +149,43 @@
             "padding-inline-end": 0
           },
           "blocks": {}
+        },
+        "button_xzCkCG": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Shop now",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        },
+        "button_Pb8bCA": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Shop now",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
         }
       },
       "block_order": [
         "icon_9ix4BY",
-        "text_F9pGra"
+        "text_F9pGra",
+        "button_xzCkCG",
+        "button_Pb8bCA"
       ],
       "name": "t:names.pull_quote",
       "settings": {
@@ -165,7 +200,7 @@
         "section_width": "page-width",
         "section_height": "medium",
         "section_height_custom": 50,
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-3",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -185,6 +220,7 @@
       "type": "hero",
       "name": "t:names.hero",
       "settings": {
+        "link": "",
         "open_in_new_tab": false,
         "media_type_1": "image",
         "media_type_2": "image",
@@ -275,6 +311,7 @@
       "type": "hero",
       "name": "t:names.hero",
       "settings": {
+        "link": "",
         "open_in_new_tab": false,
         "media_type_1": "image",
         "media_type_2": "image",
