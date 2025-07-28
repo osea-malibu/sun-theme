@@ -253,11 +253,11 @@
       },
       "scheme-6": {
         "settings": {
-          "background": "#ffffff",
-          "foreground_heading": "#000000",
-          "foreground": "#ffffff",
-          "primary": "#ffffff",
-          "primary_hover": "#acacac",
+          "background": "#f0f2e6",
+          "foreground_heading": "#1d4d41",
+          "foreground": "#1d4d41",
+          "primary": "#1d4d41",
+          "primary_hover": "#0b2e25",
           "border": "rgba(0,0,0,0)",
           "shadow": "#000000",
           "primary_button_background": "#ffffff",
