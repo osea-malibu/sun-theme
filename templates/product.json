@@ -25,8 +25,9 @@
             "slideshow_mobile_controls_style": "dots",
             "thumbnail_position": "bottom",
             "thumbnail_width": 44,
-            "aspect_ratio": "1",
+            "aspect_ratio": "1/1.25",
             "constrain_to_viewport": false,
+            "media_fit": "cover",
             "media_radius": 0,
             "extend_media": true,
             "zoom": true,
@@ -47,6 +48,8 @@
             "custom_width": 92,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
+            "height": "fit",
+            "details_position": "flex-start",
             "gap": 0,
             "sticky_details_desktop": true,
             "inherit_color_scheme": true,
@@ -68,6 +71,7 @@
               "type": "group",
               "name": "Main information",
               "settings": {
+                "link": "",
                 "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
@@ -174,6 +178,12 @@
                     "type_preset": "h6",
                     "width": "100%",
                     "alignment": "left",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "color": "var(--color-foreground)",
                     "padding-block-start": 4,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -193,6 +203,7 @@
               "type": "group",
               "name": "Product form",
               "settings": {
+                "link": "",
                 "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
@@ -310,6 +321,7 @@
               "type": "group",
               "name": "Benefits",
               "settings": {
+                "link": "",
                 "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
@@ -374,6 +386,7 @@
                   "type": "group",
                   "name": "List",
                   "settings": {
+                    "link": "",
                     "open_in_new_tab": false,
                     "content_direction": "row",
                     "vertical_on_mobile": false,
@@ -477,6 +490,7 @@
               "name": "Benefits",
               "disabled": true,
               "settings": {
+                "link": "",
                 "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
@@ -541,6 +555,7 @@
                   "type": "group",
                   "name": "List",
                   "settings": {
+                    "link": "",
                     "open_in_new_tab": false,
                     "content_direction": "row",
                     "vertical_on_mobile": false,
@@ -667,6 +682,7 @@
           "type": "image",
           "name": "t:names.image",
           "settings": {
+            "link": "",
             "image_ratio": "portrait",
             "width": "custom",
             "custom_width": 35,
@@ -688,6 +704,7 @@
           "type": "group",
           "name": "Content",
           "settings": {
+            "link": "",
             "open_in_new_tab": false,
             "content_direction": "column",
             "vertical_on_mobile": true,
@@ -771,7 +788,9 @@
                   "type": "_accordion-row",
                   "settings": {
                     "heading": "Natural ingredients",
-                    "open_by_default": false
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
                   },
                   "blocks": {
                     "text_DzQDeP": {
@@ -808,7 +827,9 @@
                   "type": "_accordion-row",
                   "settings": {
                     "heading": "Tested for safety",
-                    "open_by_default": false
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
                   },
                   "blocks": {
                     "text_pmWgCe": {
@@ -845,7 +866,9 @@
                   "type": "_accordion-row",
                   "settings": {
                     "heading": "Fragrance free",
-                    "open_by_default": false
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
                   },
                   "blocks": {
                     "text_mwcwMg": {
@@ -1173,6 +1196,7 @@
             "group_ynR9F8": {
               "type": "_product-card-group",
               "settings": {
+                "link": "",
                 "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
@@ -1241,6 +1265,12 @@
                     "type_preset": "paragraph",
                     "width": "100%",
                     "alignment": "left",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "color": "var(--color-foreground)",
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
