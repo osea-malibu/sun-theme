@@ -1790,7 +1790,7 @@
               "blocks": {
                 "text_ypY4Qk": {
                   "type": "text",
-                  "name": "t:names.text",
+                  "name": "Key Ingredients Header",
                   "settings": {
                     "text": "<p><strong>Key Ingredients</strong></p>",
                     "width": "fit-content",
