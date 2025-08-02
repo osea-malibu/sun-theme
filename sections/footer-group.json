@@ -148,75 +148,119 @@
                 "email_signup_erKbT8"
               ]
             },
-            "menu_zWmygn": {
-              "type": "menu",
-              "name": "t:names.menu",
+            "group_8AEWCT": {
+              "type": "group",
+              "name": "Footer Menu Columns",
               "settings": {
-                "menu": "sun-footer-shop",
-                "heading": "SHOP",
-                "menu_spacing": 12,
-                "show_as_accordion": true,
-                "accordion_icon": "plus",
-                "accordion_dividers": true,
+                "link": "",
+                "open_in_new_tab": false,
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
                 "inherit_color_scheme": true,
                 "color_scheme": "",
-                "heading_preset": "h3",
-                "link_preset": "paragraph",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {}
-            },
-            "menu_wX4xY4": {
-              "type": "menu",
-              "name": "t:names.menu",
-              "settings": {
-                "menu": "sun-footer-support",
-                "heading": "SUPPORT",
-                "menu_spacing": 12,
-                "show_as_accordion": true,
-                "accordion_icon": "plus",
-                "accordion_dividers": true,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "heading_preset": "h3",
-                "link_preset": "paragraph",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+              "blocks": {
+                "menu_rE4Ry8": {
+                  "type": "menu",
+                  "name": "t:names.menu",
+                  "settings": {
+                    "menu": "sun-footer-shop",
+                    "heading": "SHOP",
+                    "menu_spacing": 12,
+                    "show_as_accordion": true,
+                    "accordion_icon": "plus",
+                    "accordion_dividers": true,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "heading_preset": "h3",
+                    "link_preset": "paragraph",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "menu_LVqU4N": {
+                  "type": "menu",
+                  "name": "t:names.menu",
+                  "settings": {
+                    "menu": "sun-footer-support",
+                    "heading": "SUPPORT",
+                    "menu_spacing": 12,
+                    "show_as_accordion": true,
+                    "accordion_icon": "plus",
+                    "accordion_dividers": true,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "heading_preset": "h3",
+                    "link_preset": "paragraph",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "menu_TKTRb4": {
+                  "type": "menu",
+                  "name": "t:names.menu",
+                  "settings": {
+                    "menu": "sun-footer-company",
+                    "heading": "COMPANY",
+                    "menu_spacing": 12,
+                    "show_as_accordion": true,
+                    "accordion_icon": "plus",
+                    "accordion_dividers": true,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "heading_preset": "h3",
+                    "link_preset": "paragraph",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
               },
-              "blocks": {}
-            },
-            "menu_wrEdRR": {
-              "type": "menu",
-              "name": "t:names.menu",
-              "settings": {
-                "menu": "sun-footer-company",
-                "heading": "COMPANY",
-                "menu_spacing": 12,
-                "show_as_accordion": true,
-                "accordion_icon": "plus",
-                "accordion_dividers": true,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "heading_preset": "h3",
-                "link_preset": "paragraph",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
+              "block_order": [
+                "menu_rE4Ry8",
+                "menu_LVqU4N",
+                "menu_TKTRb4"
+              ]
             }
           },
           "block_order": [
             "group_Nf4hCF",
-            "menu_zWmygn",
-            "menu_wX4xY4",
-            "menu_wrEdRR"
+            "group_8AEWCT"
           ]
         },
         "footer_utilities_XbLnUg": {
