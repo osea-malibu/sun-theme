@@ -453,6 +453,7 @@
         "group_tAN4xC",
         "footer_utilities_XbLnUg"
       ],
+      "disabled": true,
       "name": "Footer",
       "settings": {
         "content_direction": "column",
