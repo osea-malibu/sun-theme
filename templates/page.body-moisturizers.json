@@ -461,7 +461,7 @@
       "blocks": {
         "group_n6JNPY": {
           "type": "group",
-          "name": "t:names.group",
+          "name": "Images",
           "settings": {
             "link": "",
             "open_in_new_tab": false,
@@ -767,7 +767,7 @@
         "group_HWU4GH",
         "divider_MeQr3f"
       ],
-      "name": "t:names.custom_section",
+      "name": "Compare Products Section",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
