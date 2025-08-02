@@ -344,7 +344,7 @@
           "settings": {
             "text": "<p>Treat your skin to nourishing hydration with our body moisturizers. From standalone products to thoughtfully curated sets, our line offers hydrating solutions for all skin types.</p><p>Within our moisturizers, you’ll find varying consistencies to meet your skin’s specific hydration needs.</p>",
             "width": "100%",
-            "max_width": "normal",
+            "max_width": "none",
             "alignment": "left",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
@@ -364,80 +364,36 @@
           },
           "blocks": {}
         },
-        "popup_link_RJMizU": {
-          "type": "popup-link",
-          "name": "t:names.popup_link",
+        "text_KRaAtL": {
+          "type": "text",
+          "name": "t:names.text",
           "settings": {
-            "behavior": "drawer",
-            "heading": "Read more",
-            "type_preset": "paragraph",
+            "text": "<p>Read More</p>{{ closest.page.content }}",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
-          "blocks": {
-            "text_3t84qn": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>What is the return policy?</h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 16,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "text_axDAWh": {
-              "type": "text",
-              "disabled": true,
-              "settings": {
-                "text": "<p>Our goal is for every customer to be totally satisfied with their purchase. If this isn’t the case, let us know and we’ll do our best to work with you to make it right.</p>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_3t84qn",
-            "text_axDAWh"
-          ]
+          "blocks": {}
         }
       },
       "block_order": [
         "text_UTWcfi",
-        "popup_link_RJMizU"
+        "text_KRaAtL"
       ],
       "name": "Read More Section",
       "settings": {
@@ -447,7 +403,7 @@
         "vertical_alignment": "center",
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "flex-start",
         "gap": 12,
         "section_width": "page-width",
         "section_height": "custom",
@@ -464,8 +420,8 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "padding-block-start": 24,
+        "padding-block-end": 24
       }
     },
     "collection_list_W8MwxV": {
