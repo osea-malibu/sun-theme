@@ -1670,7 +1670,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<ul><li>Hydrates</li><li>Moisturizes</li><li>Smooths</li></ul>",
+                    "text": "<ul><li>Anti-Aging</li><li>Firms</li><li>Moisturizes</li></ul>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1696,7 +1696,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<ul><li>Hydrates</li><li>Moisturizes</li><li>Smooths</li></ul>",
+                    "text": "<ul><li>Glow</li><li>Firms</li><li>Moisturizes</li></ul>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1748,7 +1748,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<ul><li>Hydrates</li><li>Moisturizes</li><li>Smooths</li></ul>",
+                    "text": "<ul><li>Anti-Aging</li><li>Firms</li><li>Moisturizes</li></ul>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
