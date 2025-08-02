@@ -1914,7 +1914,33 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<ul><li>Alaria Esculenta Seaweed</li><li>Passion Fruit Seed Oil</li><li>Coconut Oil</li><li>Safflower Seed Oil</li></ul>",
+                    "text": "<ul><li>Undaria Seaweed</li><li>White Lupin</li><li>Botanical Oil Blend</li></ul>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_gHVzwL": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<ul><li>Undaria Seaweed</li><li>Hyaluronic Acid</li><li>Peptide</li><li>Turmeric</li></ul>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1940,7 +1966,8 @@
               "block_order": [
                 "text_4kmTy4",
                 "text_cxLErX",
-                "text_99qaKi"
+                "text_99qaKi",
+                "text_gHVzwL"
               ]
             }
           },
