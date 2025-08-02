@@ -305,6 +305,7 @@
     },
     "section_PmBNRF": {
       "type": "section",
+      "disabled": true,
       "name": "Spacer",
       "settings": {
         "content_direction": "row",
@@ -362,14 +363,85 @@
             "padding-inline-end": 0
           },
           "blocks": {}
+        },
+        "popup_link_RJMizU": {
+          "type": "popup-link",
+          "name": "t:names.popup_link",
+          "settings": {
+            "behavior": "drawer",
+            "heading": "Read more",
+            "type_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_3t84qn": {
+              "type": "text",
+              "settings": {
+                "text": "<h2>What is the return policy?</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 16,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_axDAWh": {
+              "type": "text",
+              "disabled": true,
+              "settings": {
+                "text": "<p>Our goal is for every customer to be totally satisfied with their purchase. If this isn’t the case, let us know and we’ll do our best to work with you to make it right.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_3t84qn",
+            "text_axDAWh"
+          ]
         }
       },
       "block_order": [
-        "text_UTWcfi"
+        "text_UTWcfi",
+        "popup_link_RJMizU"
       ],
       "name": "Read More Section",
       "settings": {
-        "content_direction": "row",
+        "content_direction": "column",
         "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
