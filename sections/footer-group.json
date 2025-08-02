@@ -65,7 +65,7 @@
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
                 "gap": 12,
                 "width": "fill",
                 "custom_width": 100,
@@ -107,18 +107,42 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "color": "var(--color-foreground)",
+                    "color": "var(--color-foreground-heading)",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
-                    "padding-inline-start": 38,
-                    "padding-inline-end": 42
+                    "padding-inline-start": 24,
+                    "padding-inline-end": 24
                   },
                   "blocks": {}
                 },
                 "email_signup_erKbT8": {
+                  "type": "email-signup",
+                  "name": "t:names.email_signup",
+                  "settings": {
+                    "width": "fill",
+                    "custom_width": 100,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "border_style": "all",
+                    "border_width": 1,
+                    "border_radius": 6,
+                    "input_type_preset": "paragraph",
+                    "style_class": "button",
+                    "display_type": "text",
+                    "label": "Sign up",
+                    "integrated_button": true,
+                    "button_type_preset": "paragraph",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "email_signup_tyA994": {
                   "type": "email-signup",
                   "name": "t:names.email_signup",
                   "settings": {
@@ -145,7 +169,8 @@
               },
               "block_order": [
                 "text_VaDnya",
-                "email_signup_erKbT8"
+                "email_signup_erKbT8",
+                "email_signup_tyA994"
               ]
             },
             "group_8AEWCT": {
