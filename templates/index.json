@@ -798,6 +798,7 @@
         "group_Kihafi",
         "group_hcRM3b"
       ],
+      "disabled": true,
       "name": "Collection highights",
       "settings": {
         "content_direction": "row",

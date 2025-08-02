@@ -107,7 +107,7 @@
                     "style_class": "button",
                     "display_type": "text",
                     "label": "Sign up",
-                    "integrated_button": true,
+                    "integrated_button": false,
                     "button_type_preset": "paragraph",
                     "padding-block-start": 0,
                     "padding-block-end": 0,
@@ -120,6 +120,20 @@
               "block_order": [
                 "email_signup_m63inB"
               ]
+            },
+            "spacer_6Jdyxd": {
+              "type": "spacer",
+              "name": "t:names.spacer",
+              "settings": {
+                "size": "pixel",
+                "percent_size": 10,
+                "pixel_size": 80,
+                "custom_mobile_size": false,
+                "size_mobile": "percent",
+                "percent_size_mobile": 100,
+                "pixel_size_mobile": 120
+              },
+              "blocks": {}
             },
             "group_8AEWCT": {
               "type": "group",
@@ -233,6 +247,7 @@
           },
           "block_order": [
             "group_fFface",
+            "spacer_6Jdyxd",
             "group_8AEWCT"
           ]
         },
@@ -288,7 +303,7 @@
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "flex-start",
         "gap": 24,
-        "section_width": "full-width",
+        "section_width": "page-width",
         "section_height": "",
         "color_scheme": "scheme-50cfbab7-a6e4-4192-ab32-8ab11e7af8b7",
         "background_media": "none",
