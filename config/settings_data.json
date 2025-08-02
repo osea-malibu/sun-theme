@@ -810,7 +810,7 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".disclaimer {font-size: .75rem; line-height: 1rem;}"
+      ".disclaimer {font-size: 0.75rem; line-height: 1rem;}"
     ]
   }
 }
