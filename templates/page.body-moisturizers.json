@@ -326,6 +326,17 @@
           },
           "blocks": {}
         },
+        "icon_QjhWQX": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "recycle",
+            "width": 24,
+            "link": "",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
         "text_9NxazQ": {
           "type": "text",
           "name": "t:names.text",
@@ -429,6 +440,7 @@
       "block_order": [
         "text_xgQKmJ",
         "text_iV3H3L",
+        "icon_QjhWQX",
         "text_9NxazQ",
         "icon_w6wkpt",
         "text_gz6JQp",
