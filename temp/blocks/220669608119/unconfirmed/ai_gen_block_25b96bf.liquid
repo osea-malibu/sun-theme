@@ -1,6 +1,611 @@
+{% doc %}
+  @prompt
+    I need to add this form:
+    <form aria-live="polite" data-testid="klaviyo-form-TA8JnT" novalidate="" class="needsclick klaviyo-form klaviyo-form-version-cid_1 go3279073480 kl-private-reset-css-Xuajs1" style="display: flex; flex-direction: row; box-sizing: border-box; width: 100%; overflow: visible; border-radius: 6px; border-style: none; border-width: 0px; border-color: rgb(0, 0, 0); background-color: rgba(255, 255, 255, 0); background-repeat: no-repeat; background-position-y: 50%; padding: 0px; flex: 1 1 0%;"><div class="needsclick  kl-private-reset-css-Xuajs1" style="display: flex; flex-direction: column; width: 100%; margin: 0px; padding: 0px; min-height: 0px; justify-content: center;"><div data-testid="form-row" class="needsclick  kl-private-reset-css-Xuajs1" style="display: flex; flex-direction: row; align-items: stretch; position: relative;"><div component="[object Object]" data-testid="form-component" class="needsclick  kl-private-reset-css-Xuajs1" style="display: flex; justify-content: flex-start; padding: 0px; position: relative; flex: 1 0 0px;"><div class="needsclick  kl-private-reset-css-Xuajs1" style="display: flex; flex-grow: 1; flex-direction: column; align-self: flex-end;"><div class="needsclick go3799247919 kl-private-reset-css-Xuajs1" style="display: flex; flex-direction: row; box-sizing: border-box; border-radius: 6px; padding: 0px; height: 40px; text-align: left; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 16px; font-weight: 400; letter-spacing: 0px; background-color: rgb(255, 255, 255); border: 1px solid rgb(29, 77, 65);"><button aria-label="Search Countries" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" class="needsclick go3847840624 kl-private-reset-css-Xuajs1" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; box-sizing: border-box; border: 1px solid rgba(0, 0, 0, 0); border-top-left-radius: 6px; border-bottom-left-radius: 6px; width:
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-newsletter-form-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;}
+
+  .ai-newsletter-form__content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap:16px;
+  }
+
+  .ai-newsletter-form__heading-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    font-size: {{ block.settings.heading_size }}px;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-newsletter-form__subtext-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    text-align: {{ block.settings.text_alignment }};
+    margin: 0;
+  }
+
+  .ai-newsletter-form__form-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: {{ block.settings.form_layout }};
+    gap:8px;
+    align-items: stretch;
+  }
+
+  .ai-newsletter-form__input-wrapper-{{ ai_gen_id }} {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: {{ block.settings.input_background }};
+    border: {{ block.settings.input_border_width }}px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-newsletter-form__country-selector-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    border-right: 1px solid {{ block.settings.input_border_color }};
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: {{ block.settings.input_text_color }};
+    min-width: 60px;
+  }
+
+  .ai-newsletter-form__input-{{ ai_gen_id }} {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    font-size: {{ block.settings.input_font_size }}px;
+    color: {{ block.settings.input_text_color }};
+    outline: none;
+  }
+
+  .ai-newsletter-form__input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.placeholder_color }};
+  }
+
+  .ai-newsletter-form__button-{{ ai_gen_id }} {
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    cursor: pointer;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: {{ block.settings.button_font_weight }};
+    transition: all0.3s ease;
+    white-space: nowrap;
+  }
+
+  .ai-newsletter-form__button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  .ai-newsletter-form__success-{{ ai_gen_id }} {
+    color: {{ block.settings.success_color }};
+    font-size: 14px;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  .ai-newsletter-form__error-{{ ai_gen_id }} {
+    color: {{ block.settings.error_color }};
+    font-size: 14px;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  .ai-newsletter-form__privacy-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.privacy_text_color }};
+    text-align: {{ block.settings.text_alignment }};
+    margin-top: 8px;
+  }
+
+  .ai-newsletter-form__privacy-{{ ai_gen_id }} a {
+    color: {{ block.settings.privacy_link_color }};
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-newsletter-form__form-wrapper-{{ ai_gen_id }} {
+      flex-direction: column;}
+
+    .ai-newsletter-form__country-selector-{{ ai_gen_id }} {
+      border-right: none;
+      border-bottom: 1px solid {{ block.settings.input_border_color }};
+      padding: 8px 12px;
+    }
+  }
+{% endstyle %}
+
+<newsletter-form-{{ ai_gen_id }}
+  class="ai-newsletter-form-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {%- form 'customer' -%}
+    <input type="hidden" name="contact[tags]" value="newsletter">
+    
+    <div class="ai-newsletter-form__content-{{ ai_gen_id }}">
+      {%- if block.settings.heading != blank -%}
+        <h2 class="ai-newsletter-form__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if block.settings.subtext != blank -%}
+        <div class="ai-newsletter-form__subtext-{{ ai_gen_id }}">{{ block.settings.subtext }}</div>
+      {%- endif -%}
+
+      <div class="ai-newsletter-form__form-wrapper-{{ ai_gen_id }}">
+        <div class="ai-newsletter-form__input-wrapper-{{ ai_gen_id }}">
+          {% if block.settings.show_country_selector %}
+            <button
+              type="button"
+              class="ai-newsletter-form__country-selector-{{ ai_gen_id }}"
+              aria-label="Select country"
+              data-country-selector>
+              {{ block.settings.default_country_code }}
+              <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          {% endif %}
+          
+          <input
+            type="email"
+            name="contact[email]"
+            class="ai-newsletter-form__input-{{ ai_gen_id }}"
+            value="{{ form.email }}"
+            aria-required="true"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            {% if form.errors %}
+              aria-invalid="true"
+              aria-describedby="ai-newsletter-form-error-{{ ai_gen_id }}"
+            {% endif %}{% if form.posted_successfully? %}
+              aria-describedby="ai-newsletter-form-success-{{ ai_gen_id }}"
+            {% endif %}placeholder="{{ block.settings.email_placeholder }}"
+            required
+          ></div>
+        
+        <button
+          type="submit"
+          class="ai-newsletter-form__button-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_text }}
+        </button>
+      </div>
+
+      {%- if form.errors -%}
+        <div
+          id="ai-newsletter-form-error-{{ ai_gen_id }}"
+          class="ai-newsletter-form__error-{{ ai_gen_id }}"
+        >
+          {{ form.errors.messages.email }}
+        </div>
+      {%- endif -%}
+
+      {%- if form.posted_successfully? -%}
+        <div
+          id="ai-newsletter-form-success-{{ ai_gen_id }}"
+          class="ai-newsletter-form__success-{{ ai_gen_id }}"
+        >
+          {{ block.settings.success_message }}
+        </div>
+      {%- endif -%}
+
+      {%- if block.settings.privacy_text != blank -%}
+        <div class="ai-newsletter-form__privacy-{{ ai_gen_id }}">
+          {{ block.settings.privacy_text }}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endform -%}
+</newsletter-form-{{ ai_gen_id }}><script>
+  (function() {
+    class NewsletterForm{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.countrySelector = this.querySelector('[data-country-selector]');
+        if (this.countrySelector) {
+          this.setupCountrySelector();
+        }
+      }
+
+      setupCountrySelector() {
+        const countries = [
+          { code: 'US', name: 'United States' },
+          { code: 'CA', name: 'Canada' },
+          { code: 'GB', name: 'United Kingdom' },
+          { code: 'AU', name: 'Australia' },
+          { code: 'DE', name: 'Germany' },
+          { code: 'FR', name: 'France' },
+          { code: 'IT', name: 'Italy' },
+          { code: 'ES', name: 'Spain' },
+          { code: 'NL', name: 'Netherlands' },
+          { code: 'SE', name: 'Sweden' }
+        ];
+
+        this.countrySelector.addEventListener('click', () => {
+          const currentCode = this.countrySelector.textContent.trim().split(' ')[0];
+          const currentIndex = countries.findIndex(country => country.code === currentCode);
+          const nextIndex = (currentIndex + 1) % countries.length;
+          const nextCountry = countries[nextIndex];
+          
+          this.countrySelector.innerHTML = `
+            ${nextCountry.code}
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          `;
+        });
+      }
+    }
+
+    customElements.define('newsletter-form-{{ ai_gen_id }}', NewsletterForm{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Newsletter Signup",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Stay in the loop"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Subscribe to our newsletter for exclusive offers and updates."
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thanks for subscribing!"
+    },
+    {
+      "type": "richtext",
+      "id": "privacy_text",
+      "label": "Privacy text",
+      "default": "<p>By subscribing, you agree to our <a href=\"/pages/privacy-policy\">Privacy Policy</a></p>"
+    },
+    {
+      "type": "header",
+      "content": "Form Layout"
+    },
+    {
+      "type": "select",
+      "id": "form_layout",
+      "label": "Form layout",
+      "options": [
+        {
+          "value": "row",
+          "label": "Horizontal"
+        },
+        {
+          "value": "column",
+          "label": "Vertical"
+        }
+      ],
+      "default": "row"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_country_selector",
+      "label": "Show country selector",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "default_country_code",
+      "label": "Default country code",
+      "default": "US"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "color",
+      "id": "input_background",
+      "label": "Input background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input text color",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border color",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Placeholder color",
+      "default": "#9bb0aa"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#0b2e25"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "Success message color",
+      "default": "#008060"
+    },
+    {
+      "type": "color",
+      "id": "error_color",
+      "label": "Error message color",
+      "default": "#D82C0D"
+    },
+    {
+      "type": "color",
+      "id": "privacy_text_color",
+      "label": "Privacy text color",
+      "default": "#9bb0aa"
+    },
+    {
+      "type": "color",
+      "id": "privacy_link_color",
+      "label": "Privacy link color",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "input_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Input font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "Button font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "header",
+      "content": "Border Radius"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Form border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Input border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Border Width"
+    },
+    {
+      "type": "range",
+      "id": "input_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Input border width",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border width",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Signup"
+    }
+  ]
+}
 {% endschema %}
