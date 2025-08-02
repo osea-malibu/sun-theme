@@ -239,7 +239,7 @@
                   "type": "menu",
                   "name": "t:names.menu",
                   "settings": {
-                    "menu": "footer-makeup",
+                    "menu": "",
                     "heading": "Makeup",
                     "menu_spacing": 12,
                     "show_as_accordion": true,
@@ -260,7 +260,7 @@
                   "type": "menu",
                   "name": "t:names.menu",
                   "settings": {
-                    "menu": "footer-about",
+                    "menu": "",
                     "heading": "About",
                     "menu_spacing": 12,
                     "show_as_accordion": true,
@@ -329,29 +329,6 @@
             "padding-inline-end": 40
           },
           "blocks": {
-            "image_qRCb6g": {
-              "type": "image",
-              "name": "Image",
-              "settings": {
-                "image": "shopify://shop_images/PITCH-white.svg",
-                "link": "",
-                "image_ratio": "adapt",
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
             "footer_utilities_cD3HPK": {
               "type": "footer-utilities",
               "name": "t:names.footer_utilities",
@@ -439,7 +416,6 @@
             }
           },
           "block_order": [
-            "image_qRCb6g",
             "footer_utilities_cD3HPK"
           ]
         }
