@@ -247,15 +247,16 @@
               "name": "t:names.product_buy_buttons",
               "settings": {
                 "stacking": false,
-                "show_pickup_availability": true,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
+                "show_pickup_availability": false,
+                "padding-block-start": 12,
+                "padding-block-end": 12,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
               "blocks": {
                 "quantity": {
                   "type": "quantity",
+                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -340,7 +341,7 @@
         "padding-block-end": 48
       }
     },
-    "section_PmBNRF": {
+    "section_htXhep": {
       "type": "section",
       "name": "Spacer",
       "settings": {
@@ -2796,7 +2797,7 @@
     "main",
     "product_list_hG6TX8",
     "section_xTCdjF",
-    "section_PmBNRF",
+    "section_htXhep",
     "section_yTzzFc",
     "section_A8VjWa",
     "section_FFWbnU",
