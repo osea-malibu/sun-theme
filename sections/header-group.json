@@ -27,55 +27,10 @@
             "case": "none"
           },
           "blocks": {}
-        },
-        "announcement_MHUQgy": {
-          "type": "_announcement",
-          "name": "t:names.announcement",
-          "settings": {
-            "text": "Sign up for our newsletter",
-            "link": "shopify://pages/contact",
-            "font": "var(--font-body--family)",
-            "font_size": "var(--font-size--body-sm)",
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "announcement_aJBrg8": {
-          "type": "_announcement",
-          "name": "t:names.announcement",
-          "settings": {
-            "text": "Shop our latest arrivals!",
-            "link": "",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "announcement_UNyCWD": {
-          "type": "_announcement",
-          "name": "t:names.announcement",
-          "settings": {
-            "text": "Just launched: bestselling skincare bundles",
-            "link": "shopify://collections/bundles",
-            "font": "var(--font-primary--family)",
-            "font_size": "var(--font-size--body-sm)",
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {}
         }
       },
       "block_order": [
-        "announcement_Up6wRY",
-        "announcement_MHUQgy",
-        "announcement_aJBrg8",
-        "announcement_UNyCWD"
+        "announcement_Up6wRY"
       ],
       "settings": {
         "speed": 5,
