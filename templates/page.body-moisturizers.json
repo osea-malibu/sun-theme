@@ -1644,7 +1644,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>Scent Profile</strong></p>",
+                    "text": "<ul><li>Hydrates</li><li>Moisturizes</li><li>Smooths</li></ul>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
