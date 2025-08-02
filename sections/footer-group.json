@@ -22,12 +22,12 @@
             "open_in_new_tab": false,
             "content_direction": "row",
             "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
+            "horizontal_alignment": "center",
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
+            "gap": 10,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -53,38 +53,14 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "email_signup_axQh6X": {
-              "type": "email-signup",
-              "name": "t:names.email_signup",
-              "settings": {
-                "width": "fill",
-                "custom_width": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "border_style": "all",
-                "border_width": 1,
-                "border_radius": 100,
-                "input_type_preset": "paragraph",
-                "style_class": "button",
-                "display_type": "text",
-                "label": "Sign up",
-                "integrated_button": false,
-                "button_type_preset": "paragraph",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
             "menu_zWmygn": {
               "type": "menu",
               "name": "t:names.menu",
               "settings": {
                 "menu": "sun-footer-shop",
-                "heading": "",
+                "heading": "SHOP",
                 "menu_spacing": 12,
-                "show_as_accordion": false,
+                "show_as_accordion": true,
                 "accordion_icon": "caret",
                 "accordion_dividers": false,
                 "inherit_color_scheme": true,
@@ -105,7 +81,7 @@
                 "menu": "sun-footer-support",
                 "heading": "",
                 "menu_spacing": 12,
-                "show_as_accordion": false,
+                "show_as_accordion": true,
                 "accordion_icon": "caret",
                 "accordion_dividers": false,
                 "inherit_color_scheme": true,
@@ -126,7 +102,7 @@
                 "menu": "sun-footer-company",
                 "heading": "",
                 "menu_spacing": 12,
-                "show_as_accordion": false,
+                "show_as_accordion": true,
                 "accordion_icon": "caret",
                 "accordion_dividers": false,
                 "inherit_color_scheme": true,
@@ -142,7 +118,6 @@
             }
           },
           "block_order": [
-            "email_signup_axQh6X",
             "menu_zWmygn",
             "menu_wX4xY4",
             "menu_wrEdRR"
