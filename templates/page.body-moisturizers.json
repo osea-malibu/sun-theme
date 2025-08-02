@@ -339,7 +339,7 @@
       "blocks": {
         "group_QXNTiD": {
           "type": "group",
-          "name": "t:names.group",
+          "name": "Read More Section",
           "settings": {
             "link": "",
             "open_in_new_tab": false,
@@ -406,7 +406,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Read More</p><p>{{ closest.page.content }}</p>",
+                "text": "<p>Read More</p><p></p>",
                 "width": "100%",
                 "max_width": "none",
                 "alignment": "left",
