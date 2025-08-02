@@ -286,16 +286,16 @@
         "vertical_alignment": "center",
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 80,
-        "section_width": "page-width",
+        "vertical_alignment_flex_direction_column": "flex-start",
+        "gap": 24,
+        "section_width": "full-width",
         "section_height": "",
         "color_scheme": "scheme-50cfbab7-a6e4-4192-ab32-8ab11e7af8b7",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
         "padding-block-start": 60,
-        "padding-block-end": 0
+        "padding-block-end": 60
       }
     }
   },
