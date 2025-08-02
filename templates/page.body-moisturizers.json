@@ -352,6 +352,17 @@
           },
           "blocks": {}
         },
+        "icon_w6wkpt": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "paw_print",
+            "width": 24,
+            "link": "",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
         "text_gz6JQp": {
           "type": "text",
           "name": "t:names.text",
@@ -419,6 +430,7 @@
         "text_xgQKmJ",
         "text_iV3H3L",
         "text_9NxazQ",
+        "icon_w6wkpt",
         "text_gz6JQp",
         "icon_gNnY48",
         "text_QekH34"
