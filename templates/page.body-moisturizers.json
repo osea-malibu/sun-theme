@@ -2848,17 +2848,6 @@
         "padding-block-end": 24,
         "gap_between_elements": 24
       }
-    },
-    "custom_liquid_pqCLpf": {
-      "type": "custom-liquid",
-      "name": "t:names.custom_liquid",
-      "settings": {
-        "custom_liquid": "<small class=\"block text-center tracking-wide leading-tight\">Copyright &copy; {{ 'now' | date: \"%Y\" }} OSEA International. All rights reserved.</small>",
-        "color_scheme": "",
-        "section_width": "page-width",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
     }
   },
   "order": [
@@ -2874,7 +2863,6 @@
     "section_4FV4Wx",
     "section_Nhf6eh",
     "section_4448FY",
-    "marquee_MpdK4b",
-    "custom_liquid_pqCLpf"
+    "marquee_MpdK4b"
   ]
 }
