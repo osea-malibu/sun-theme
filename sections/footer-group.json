@@ -11,6 +11,17 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "custom_liquid_QFGCeV": {
+      "type": "custom-liquid",
+      "name": "t:names.custom_liquid",
+      "settings": {
+        "custom_liquid": "<small class=\"block text-center tracking-wide leading-tight\">Copyright &copy; {{ 'now' | date: \"%Y\" }} OSEA International. All rights reserved.</small>",
+        "color_scheme": "",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -414,6 +425,7 @@
         "footer_utilities_XbLnUg": {
           "type": "footer-utilities",
           "name": "t:names.footer_utilities",
+          "disabled": true,
           "settings": {
             "divider_thickness": 1,
             "padding-block-start": 20,
@@ -453,7 +465,6 @@
         "group_tAN4xC",
         "footer_utilities_XbLnUg"
       ],
-      "disabled": true,
       "name": "Footer",
       "settings": {
         "content_direction": "column",
@@ -476,6 +487,7 @@
     }
   },
   "order": [
+    "custom_liquid_QFGCeV",
     "footer"
   ]
 }
