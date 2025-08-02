@@ -196,7 +196,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Customer Support:<a href=\"mailto:support@oseamalibu.com\">support@oseamalibu.com</a></p>",
+                    "text": "<p>Customer Support: <a href=\"mailto:support@oseamalibu.com\">support@oseamalibu.com</a></p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -222,7 +222,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Skincare Studio:<a href=\"mailto:skincarestudio@oseamalibu.com\">skincarestudio@oseamalibu.com</a></p>",
+                    "text": "<p>Skincare Studio: <a href=\"mailto:skincarestudio@oseamalibu.com\">skincarestudio@oseamalibu.com</a></p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
