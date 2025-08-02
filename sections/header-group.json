@@ -62,7 +62,7 @@
           "type": "_header-menu",
           "static": true,
           "settings": {
-            "menu": "sun-hamburger-menu",
+            "menu": "ocean-navbar",
             "menu_style": "featured_collections",
             "featured_products_aspect_ratio": "4 / 5",
             "featured_collections_aspect_ratio": "16 / 9",
