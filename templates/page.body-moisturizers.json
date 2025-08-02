@@ -341,6 +341,20 @@
             "image_8a4Qht"
           ]
         },
+        "spacer_yqzjDd": {
+          "type": "spacer",
+          "name": "t:names.spacer",
+          "settings": {
+            "size": "percent",
+            "percent_size": 100,
+            "pixel_size": 120,
+            "custom_mobile_size": false,
+            "size_mobile": "percent",
+            "percent_size_mobile": 100,
+            "pixel_size_mobile": 120
+          },
+          "blocks": {}
+        },
         "group_HpRjbb": {
           "type": "group",
           "name": "Right Side",
@@ -356,7 +370,7 @@
             "vertical_alignment_flex_direction_column": "center",
             "gap": 12,
             "width": "custom",
-            "custom_width": 75,
+            "custom_width": 60,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
             "height": "fit",
@@ -587,6 +601,7 @@
       },
       "block_order": [
         "group_cArbrW",
+        "spacer_yqzjDd",
         "group_HpRjbb"
       ],
       "name": "t:names.custom_section",
