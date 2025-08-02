@@ -1058,7 +1058,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Matte finish</p>",
+                    "text": "<p>Radiant sheen</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1084,7 +1084,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Matte finish</p>",
+                    "text": "<p>Glowing finish</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
