@@ -1390,7 +1390,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Matte finish</p>",
+                    "text": "<p>Grapefruit, lime and cypress with mango and mandarin notes</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1416,7 +1416,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Matte finish</p>",
+                    "text": "<p>Grapefruit, lime and cypress with mango and mandarin notes</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1442,7 +1442,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Matte finish</p>",
+                    "text": "<p>Grapefruit, lime and cypress with mango and mandarin notes</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
