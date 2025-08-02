@@ -16,7 +16,7 @@
           "type": "text",
           "name": "Title",
           "settings": {
-            "text": "<h1>Body Moisturizers</h1>",
+            "text": "<h2>Body Moisturizers</h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -31,7 +31,7 @@
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
-            "padding-block-start": 0,
+            "padding-block-start": 5,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
