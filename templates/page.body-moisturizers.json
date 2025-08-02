@@ -837,7 +837,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>Undaria Algae™ Body Butter</strong></p>",
+                "text": "<p><a href=\"https://oseamalibu.com/products/undaria-algae-body-butter\" target=\"_blank\" title=\"https://oseamalibu.com/products/undaria-algae-body-butter\"><strong>Undaria Algae™ Body Butter</strong></a></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
