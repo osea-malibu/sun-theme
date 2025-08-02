@@ -274,6 +274,17 @@
     "marquee_MpdK4b": {
       "type": "marquee",
       "blocks": {
+        "icon_PipMwd": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "heart",
+            "width": 24,
+            "link": "",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
         "text_xgQKmJ": {
           "type": "text",
           "name": "t:names.text",
@@ -297,6 +308,17 @@
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "icon_Q6Een9": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "star",
+            "width": 24,
+            "link": "",
+            "open_in_new_tab": false
           },
           "blocks": {}
         },
@@ -438,7 +460,9 @@
         }
       },
       "block_order": [
+        "icon_PipMwd",
         "text_xgQKmJ",
+        "icon_Q6Een9",
         "text_iV3H3L",
         "icon_QjhWQX",
         "text_9NxazQ",
