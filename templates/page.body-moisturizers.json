@@ -378,11 +378,22 @@
           },
           "blocks": {}
         },
+        "icon_gNnY48": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "plant",
+            "width": 24,
+            "link": "",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
         "text_QekH34": {
           "type": "text",
           "settings": {
-            "text": "<p></p><p>Clean Beauty Since 1996</p>",
-            "width": "fit-content",
+            "text": "<p>Clean Beauty Since 1996</p>",
+            "width": "100%",
             "max_width": "normal",
             "alignment": "left",
             "type_preset": "custom",
@@ -409,6 +420,7 @@
         "text_iV3H3L",
         "text_9NxazQ",
         "text_gz6JQp",
+        "icon_gNnY48",
         "text_QekH34"
       ],
       "name": "t:names.marquee_section",
