@@ -92,6 +92,32 @@
                 "padding-inline-end": 0
               },
               "blocks": {
+                "text_eWnXcm": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<h2><strong>Sign up and save 10% on your first order</strong></h2>",
+                    "width": "100%",
+                    "max_width": "narrow",
+                    "alignment": "left",
+                    "type_preset": "h2",
+                    "font": "var(--font-heading--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "balance",
+                    "color": "var(--color-foreground-heading)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
                 "email_signup_zDbCwi": {
                   "type": "email-signup",
                   "name": "t:names.email_signup",
@@ -102,12 +128,12 @@
                     "color_scheme": "",
                     "border_style": "all",
                     "border_width": 1,
-                    "border_radius": 100,
+                    "border_radius": 6,
                     "input_type_preset": "paragraph",
                     "style_class": "button",
                     "display_type": "text",
                     "label": "Sign up",
-                    "integrated_button": false,
+                    "integrated_button": true,
                     "button_type_preset": "paragraph",
                     "padding-block-start": 0,
                     "padding-block-end": 0,
@@ -118,6 +144,7 @@
                 }
               },
               "block_order": [
+                "text_eWnXcm",
                 "email_signup_zDbCwi"
               ]
             },
