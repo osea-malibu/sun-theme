@@ -295,6 +295,7 @@
                 },
                 "add-to-cart": {
                   "type": "add-to-cart",
+                  "name": "ADD TO BAG",
                   "static": true,
                   "settings": {
                     "style_class": "button-secondary"
