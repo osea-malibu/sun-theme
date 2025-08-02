@@ -593,7 +593,7 @@
               "type": "image",
               "name": "t:names.image",
               "settings": {
-                "image": "shopify://shop_images/osea-3000-anti-aging-body-balm.jpg",
+                "image": "shopify://shop_images/OSEA_AntiAgingBodyBalm_B-BALM-DTC-1.jpg",
                 "link": "",
                 "image_ratio": "adapt",
                 "width": "custom",
@@ -617,6 +617,29 @@
               "name": "t:names.image",
               "settings": {
                 "image": "shopify://shop_images/OSEA_UndariaAlgaeOil_UAO-1-DTC-1.jpg",
+                "link": "",
+                "image_ratio": "adapt",
+                "width": "custom",
+                "custom_width": 25,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "image_bFQyVJ": {
+              "type": "image",
+              "name": "t:names.image",
+              "settings": {
+                "image": "shopify://shop_images/2024_UndariaAlgaeBodyLotion_UBCL-1_1000x1275_2c942a2b-0b2d-442e-8e96-7634a3b76d7b.jpg",
                 "link": "",
                 "image_ratio": "adapt",
                 "width": "custom",
@@ -663,6 +686,7 @@
             "image_TyV6iq",
             "image_H3HPbH",
             "image_fxPLdd",
+            "image_bFQyVJ",
             "image_wBDVMd"
           ]
         },
@@ -813,7 +837,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>Hyaluronic Body Serum</strong></p>",
+                "text": "<p><strong>Undaria Algae™ Body Butter</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
