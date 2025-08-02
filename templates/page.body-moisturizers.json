@@ -305,7 +305,6 @@
     },
     "section_PmBNRF": {
       "type": "section",
-      "disabled": true,
       "name": "Spacer",
       "settings": {
         "content_direction": "row",
@@ -426,7 +425,6 @@
     },
     "section_A8VjWa": {
       "type": "section",
-      "disabled": true,
       "name": "Spacer",
       "settings": {
         "content_direction": "row",
