@@ -1338,7 +1338,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Matte finish</p>",
+                    "text": "<p>Fragrance-free</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
