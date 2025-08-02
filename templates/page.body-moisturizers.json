@@ -339,7 +339,7 @@
       "blocks": {
         "group_QXNTiD": {
           "type": "group",
-          "name": "Read More Section",
+          "name": "Read More Group",
           "settings": {
             "link": "",
             "open_in_new_tab": false,
@@ -668,7 +668,7 @@
         },
         "group_HWU4GH": {
           "type": "group",
-          "name": "Compare products header",
+          "name": "Products names",
           "settings": {
             "link": "",
             "open_in_new_tab": false,
