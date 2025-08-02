@@ -921,7 +921,7 @@
             },
             "group_wUNyTQ": {
               "type": "group",
-              "name": "Finish",
+              "name": "Finish header",
               "settings": {
                 "link": "",
                 "open_in_new_tab": false,
