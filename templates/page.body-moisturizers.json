@@ -325,11 +325,27 @@
             "padding-inline-end": 0
           },
           "blocks": {}
+        },
+        "button_kz7mfj": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "TAKE THE QUIZ",
+            "link": "shopify://pages/quiz",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
         }
       },
       "block_order": [
         "text_JrMB8M",
-        "text_kifLmr"
+        "text_kifLmr",
+        "button_kz7mfj"
       ],
       "name": "t:names.custom_section",
       "settings": {
