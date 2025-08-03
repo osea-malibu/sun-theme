@@ -1,4 +1,4 @@
-c{% liquid
+{% liquid
   assign product = closest.product
   if request.visual_preview_mode and product == blank
     assign product = collections.all.products.first
