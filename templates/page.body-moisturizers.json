@@ -242,21 +242,20 @@
               },
               "blocks": {}
             },
-            "buy_buttons_CdFWEP": {
+            "buy_buttons_a7tRxY": {
               "type": "buy-buttons",
               "name": "t:names.product_buy_buttons",
               "settings": {
                 "stacking": false,
-                "show_pickup_availability": false,
-                "padding-block-start": 12,
-                "padding-block-end": 12,
+                "show_pickup_availability": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
               "blocks": {
                 "quantity": {
                   "type": "quantity",
-                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -265,13 +264,12 @@
                   "type": "add-to-cart",
                   "static": true,
                   "settings": {
-                    "style_class": "button"
+                    "style_class": "button-secondary"
                   },
                   "blocks": {}
                 },
                 "accelerated-checkout": {
                   "type": "accelerated-checkout",
-                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -284,7 +282,7 @@
             "product_card_gallery_faqXPQ",
             "product_title_GL4MXn",
             "price_tWrny8",
-            "buy_buttons_CdFWEP"
+            "buy_buttons_a7tRxY"
           ]
         }
       },
