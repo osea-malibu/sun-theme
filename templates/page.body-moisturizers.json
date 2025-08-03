@@ -247,15 +247,16 @@
               "name": "t:names.product_buy_buttons",
               "settings": {
                 "stacking": false,
-                "show_pickup_availability": true,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
+                "show_pickup_availability": false,
+                "padding-block-start": 12,
+                "padding-block-end": 12,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
               "blocks": {
                 "quantity": {
                   "type": "quantity",
+                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -264,12 +265,13 @@
                   "type": "add-to-cart",
                   "static": true,
                   "settings": {
-                    "style_class": "button-secondary"
+                    "style_class": "button"
                   },
                   "blocks": {}
                 },
                 "accelerated-checkout": {
                   "type": "accelerated-checkout",
+                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
