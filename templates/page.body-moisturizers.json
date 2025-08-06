@@ -318,7 +318,7 @@
           "settings": {
             "link": "",
             "open_in_new_tab": false,
-            "content_direction": "column",
+            "content_direction": "row",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
@@ -330,8 +330,8 @@
             "custom_width": 100,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
-            "height": "custom",
-            "custom_height": 100,
+            "height": "fill",
+            "custom_height": 18,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "background_media": "none",
@@ -354,6 +354,7 @@
             "text_zwYqUc": {
               "type": "text",
               "name": "t:names.text",
+              "disabled": true,
               "settings": {
                 "text": "<p>Treat your skin to nourishing hydration with our body moisturizers. From standalone products to thoughtfully curated sets, our line offers hydrating solutions for all skin types.</p><p>Within our moisturizers, you’ll find varying consistencies to meet your skin’s specific hydration needs. </p>",
                 "width": "fit-content",
@@ -380,7 +381,6 @@
             "custom_liquid_iF3yb6": {
               "type": "custom-liquid",
               "name": "t:names.custom_liquid",
-              "disabled": true,
               "settings": {
                 "custom_liquid": "<div class=\"spacing-style\" style=\"--padding-block-start: 40px; --margin-inline-start: auto; --margin-inline-end: auto; max-width: 48rem\">\n  <input aria-hidden=\"true\" id=\"collapsible-{{ section.id }}\" class=\"visually-hidden\" type=\"checkbox\">\n  \n  <div class=\"read-more-content\" style=\"overflow: hidden; max-height: 5rem; transition: max-height var(--animation-speed) var(--animation-easing); line-height: var(--font-paragraph--line-height);\">\n    <p style=\"margin-block-end: var(--margin-md);\">Treat your skin to nourishing hydration with our body moisturizers. From standalone products to thoughtfully curated sets, our line offers hydrating solutions for all skin types.</p>\n    \n    <p style=\"margin-block-end: var(--margin-md);\">Within our moisturizers, you'll find varying consistencies to meet your skin's specific hydration needs. Whether it's a serum, balm, body oil, or traditional lotion, you'll find your favorite type of body moisturizer here, upgraded with naturally-derived products for ultimate pampering.</p>\n    \n    <p style=\"margin-block-end: var(--margin-md);\">Several of our body moisturizers are infused with Undaria seaweed, an antioxidant-rich ingredient that helps replenish your skin's natural moisture barrier. Our <a href=\"https://oseamalibu.com/products/undaria-algae-oil\">Undaria Algae™ Body Oil</a> leaves a glowing finish, while our <a href=\"https://oseamalibu.com/products/undaria-algae-body-butter\">Undaria Algae™ Body Butter</a> has a matte texture with rich ceramides for anti-aging effects. Our <a href=\"https://oseamalibu.com/products/undaria-algae-body-lotion\">Undaria Algae™ Body Lotion</a> is a recent addition to the OSEA Malibu collection, offering smoothing and hydrating benefits with a silky finish. Each of our Undaria Algae™ moisturizers contains notes of citrus and cypress for a refreshing scent profile.</p>\n    \n    <p style=\"margin-block-end: var(--margin-md);\">One of the best-loved moisturizers in our line, our <a href=\"https://oseamalibu.com/products/anti-aging-body-balm\">Anti-Aging Body Balm</a> contains alaria esculenta seaweed to help improve the appearance of skin elasticity with visibly firming benefits. Available in a new jumbo size, the balm leaves a radiant sheen and hydrates with a host of naturally-derived oils, including passion fruit seed, coconut, and safflower seed oil. Enjoy the warm fragrances of jasmine and rose geranium, balanced with a subtle hint of basil.</p>\n    \n    <p style=\"margin-block-end: var(--margin-md);\">For a powerful hydrating serum featuring five molecular weights of hyaluronic acid, try our fragrance-free <a href=\"https://oseamalibu.com/products/hyaluronic-body-serum\">Hyaluronic Body Serum</a>. Balance and replenish your skin's natural moisture level for healthy hydration.</p>\n    \n    <p style=\"margin-block-end: 0;\">If you're seeking extra-rich hydration, many of our body moisturizers can be layered. Try our <a href=\"https://oseamalibu.com/products/mega-moisture-duo\">Mega Moisture Duo</a>, featuring our Undaria Algae™ Body Oil and Lotion, or the <a href=\"https://oseamalibu.com/products/bestsellers-bodycare-set\">Bestsellers Bodycare Set</a>, which combines our best-loved moisturizers with our Salts of the Earth Body Scrub.</p>\n  </div>\n  \n  <label for=\"collapsible-{{ section.id }}\" class=\"read-more-show\" style=\"display: block; margin-block-start: var(--margin-xs); cursor: pointer; color: var(--color-primary); text-decoration: underline; transition: color var(--animation-speed) var(--animation-easing);\">Read more</label>\n  \n  <label for=\"collapsible-{{ section.id }}\" class=\"read-more-hide hidden\" style=\"display: block; margin-block-start: var(--margin-xs); cursor: pointer; color: var(--color-primary); text-decoration: underline; transition: color var(--animation-speed) var(--animation-easing);\">Read less</label>\n</div>\n\n<style>\n  /* Minimal CSS using your base.css system */\n  input[id^=\"collapsible-\"]:checked ~ .read-more-content {\n    max-height: auto;\n  }\n\n  input[id^=\"collapsible-\"]:checked ~ .read-more-show {\n    display: none;\n  }\n\n  input[id^=\"collapsible-\"]:checked ~ .read-more-hide {\n    display: block;\n  }\n\n  .read-more-show:hover,\n  .read-more-hide:hover {\n    color: var(--color-primary-hover);\n  }\n\n  /* Responsive using your existing breakpoint */\n  @media screen and (max-width: 749px) {\n    .read-more-content {\n      max-height: 3.5rem;\n    }\n  }\n</style>"
               },
