@@ -1,6 +1,911 @@
+{% doc %}
+  @prompt
+    A comparison table, 5 columns, 4 rows. But should be customizable and a carousel on mobile., Add the possibility to add image in the fist row
+    
+    The image is the first row. 
+    We should be able to have the comparison header either on the row or column., Add the image as one column above the Product row, Can I add the name of the product under each images only?
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-comparison-table-{{ ai_gen_id }} {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ai-comparison-table__desktop-{{ ai_gen_id }} {
+    display: block;
+  }
+
+  .ai-comparison-table__mobile-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-comparison-table__table-{{ ai_gen_id }} {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-comparison-table__cell-{{ ai_gen_id }} {
+    padding: {{ block.settings.cell_padding }}px;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    text-align: center;
+    vertical-align: middle;}
+
+  .ai-comparison-table__header-cell-{{ ai_gen_id }} {
+    background-color: {{ block.settings.header_background_color }};
+    color: {{ block.settings.header_text_color }};
+    font-weight: 600;
+    font-size: {{ block.settings.header_font_size }}px;
+  }
+
+  .ai-comparison-table__body-cell-{{ ai_gen_id }} {
+    background-color: {{ block.settings.cell_background_color }};
+    color: {{ block.settings.cell_text_color }};
+    font-size: {{ block.settings.cell_font_size }}px;
+  }
+
+  .ai-comparison-table__image-cell-{{ ai_gen_id }} {
+    background-color: {{ block.settings.cell_background_color }};
+    padding: {{ block.settings.cell_padding }}px;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .ai-comparison-table__image-container-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ai-comparison-table__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.image_height }}px;
+    object-fit: cover;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-comparison-table__image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.image_height }}px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-comparison-table__image-placeholder-{{ ai_gen_id }} svg {
+    width:60%;
+    height: 60%;
+    opacity: 0.5;
+  }
+
+  .ai-comparison-table__product-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_name_font_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.product_name_color }};
+    margin: 0;
+  }
+
+  .ai-comparison-table__carousel-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-comparison-table__carousel-track-{{ ai_gen_id }} {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-comparison-table__carousel-slide-{{ ai_gen_id }} {
+    flex: 0 0 100%;
+    padding: 20px;
+    background-color: {{ block.settings.background_color }};
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    margin-right: 16px;
+  }
+
+  .ai-comparison-table__carousel-slide-{{ ai_gen_id }}:last-child {
+    margin-right: 0;
+  }
+
+  .ai-comparison-table__carousel-item-{{ ai_gen_id }} {
+    margin-bottom: 16px;
+  }
+
+  .ai-comparison-table__carousel-item-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-comparison-table__carousel-header-{{ ai_gen_id }} {
+    background-color: {{ block.settings.header_background_color }};
+    color: {{ block.settings.header_text_color }};
+    padding: 12px;
+    border-radius: {{ block.settings.border_radius }}px;
+    font-weight: 600;
+    font-size: {{ block.settings.header_font_size }}px;
+    margin-bottom: 16px;
+  }
+
+  .ai-comparison-table__carousel-label-{{ ai_gen_id }} {
+    font-weight: 600;
+    color: {{ block.settings.header_text_color }};
+    margin-bottom: 8px;
+    font-size: {{ block.settings.cell_font_size }}px;
+  }
+
+  .ai-comparison-table__carousel-value-{{ ai_gen_id }} {
+    color: {{ block.settings.cell_text_color }};
+    font-size: {{ block.settings.cell_font_size }}px;
+  }
+
+  .ai-comparison-table__carousel-controls-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .ai-comparison-table__carousel-button-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-comparison-table__carousel-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  .ai-comparison-table__carousel-button-{{ ai_gen_id }}:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .ai-comparison-table__carousel-dots-{{ ai_gen_id }} {
+    display: flex;
+    gap: 8px;}
+
+  .ai-comparison-table__carousel-dot-{{ ai_gen_id }} {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: {{ block.settings.border_color }};
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-comparison-table__carousel-dot-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.button_color }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-comparison-table__desktop-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-comparison-table__mobile-{{ ai_gen_id }} {
+      display: block;
+    }
+  }
+{% endstyle %}<comparison-table-{{ ai_gen_id }}
+  class="ai-comparison-table-{{ ai_gen_id }}"
+  data-header-orientation="{{ block.settings.header_orientation }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-comparison-table__desktop-{{ ai_gen_id }}">
+    <table class="ai-comparison-table__table-{{ ai_gen_id }}">
+      {% if block.settings.header_orientation == 'column' %}
+        {% if block.settings.show_images %}
+          <tr>
+            <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+              {{ block.settings.image_header_label }}
+            </td>
+            {% for i in (1..5) %}
+              {% assign image_key = 'column_' | append: i | append: '_image' %}
+              {% assign product_name_key = 'column_' | append: i | append: '_product_name' %}
+              <td class="ai-comparison-table__image-cell-{{ ai_gen_id }}">
+                <div class="ai-comparison-table__image-container-{{ ai_gen_id }}">
+                  {% if block.settings[image_key] %}
+                    <img
+                      src="{{ block.settings[image_key] | image_url: width: 200 }}"
+                      alt="{{ block.settings[image_key].alt | escape }}"
+                      class="ai-comparison-table__image-{{ ai_gen_id }}"
+                loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-comparison-table__image-placeholder-{{ ai_gen_id }}">
+                      {{ 'image' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings[product_name_key] != blank %}
+                    <p class="ai-comparison-table__product-name-{{ ai_gen_id }}">
+                      {{ block.settings[product_name_key] }}
+                    </p>
+                  {% endif %}
+                </div>
+              </td>
+            {% endfor %}
+          </tr>
+        {% endif %}
+        
+        {% for row in (1..4) %}
+          <tr>
+            {% assign header_key = 'row_' | append: row | append: '_header' %}<td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+              {{ block.settings[header_key] }}
+            </td>
+            {% for col in (1..5) %}
+              {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
+              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__body-cell-{{ ai_gen_id }}">
+                {{ block.settings[cell_key] }}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      {% else %}
+        {% if block.settings.show_images %}
+          <tr>
+            {% for i in (1..5) %}
+              {% assign image_key = 'column_' | append: i | append: '_image' %}
+              {% assign product_name_key = 'column_' | append: i | append: '_product_name' %}
+              <td class="ai-comparison-table__image-cell-{{ ai_gen_id }}">
+                <div class="ai-comparison-table__image-container-{{ ai_gen_id }}">
+                  {% if block.settings[image_key] %}
+                    <img
+                      src="{{ block.settings[image_key] | image_url: width: 200 }}"
+                      alt="{{ block.settings[image_key].alt | escape }}"
+                      class="ai-comparison-table__image-{{ ai_gen_id }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-comparison-table__image-placeholder-{{ ai_gen_id }}">
+                      {{ 'image' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings[product_name_key] != blank %}
+                    <p class="ai-comparison-table__product-name-{{ ai_gen_id }}">
+                      {{ block.settings[product_name_key] }}
+                    </p>
+                  {% endif %}
+                </div>
+              </td>
+            {% endfor %}
+          </tr>
+        {% endif %}
+        <tr>
+          {% for col in (1..5) %}
+            {% assign header_key = 'column_' | append: col | append: '_header' %}
+            <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+              {{ block.settings[header_key] }}
+            </td>{% endfor %}
+        </tr>
+        {% for row in (1..4) %}
+          <tr>
+            {% for col in (1..5) %}
+              {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
+              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__body-cell-{{ ai_gen_id }}">
+                {{ block.settings[cell_key] }}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      {% endif %}
+    </table>
+  </div>
+
+  <div class="ai-comparison-table__mobile-{{ ai_gen_id }}">
+    <div class="ai-comparison-table__carousel-{{ ai_gen_id }}">
+      <div class="ai-comparison-table__carousel-track-{{ ai_gen_id }}">
+        {% for col in (1..5) %}
+          {% assign header_key = 'column_' | append: col | append: '_header' %}
+          {% assign image_key = 'column_' | append: col | append: '_image' %}
+          {% assign product_name_key = 'column_' | append: col | append: '_product_name' %}
+          <div class="ai-comparison-table__carousel-slide-{{ ai_gen_id }}">
+            <div class="ai-comparison-table__carousel-header-{{ ai_gen_id }}">
+              {% if block.settings.header_orientation == 'column' %}
+                Column {{ col }}
+              {% else %}
+                {{ block.settings[header_key] }}
+              {% endif %}
+            </div>
+            {% if block.settings.show_images %}
+              <div class="ai-comparison-table__carousel-item-{{ ai_gen_id }}">
+                {% if block.settings.header_orientation == 'column' %}
+                  <div class="ai-comparison-table__carousel-label-{{ ai_gen_id }}">
+                    {{ block.settings.image_header_label }}
+                  </div>
+                {% endif %}
+                <div class="ai-comparison-table__carousel-value-{{ ai_gen_id }}">
+                  <div class="ai-comparison-table__image-container-{{ ai_gen_id }}">
+                    {% if block.settings[image_key] %}
+                      <img
+                        src="{{ block.settings[image_key] | image_url: width: 200 }}"
+                        alt="{{ block.settings[image_key].alt | escape }}"
+                        class="ai-comparison-table__image-{{ ai_gen_id }}"
+                        loading="lazy"
+                      >
+                    {% else %}
+                      <div class="ai-comparison-table__image-placeholder-{{ ai_gen_id }}">
+                        {{ 'image' | placeholder_svg_tag }}
+                      </div>
+                    {% endif %}
+                    {% if block.settings[product_name_key] != blank %}
+                      <p class="ai-comparison-table__product-name-{{ ai_gen_id }}">
+                        {{ block.settings[product_name_key] }}
+                      </p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+            
+            {% for row in (1..4) %}
+              {% assign row_header_key = 'row_' | append: row | append: '_header' %}
+              {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
+              <div class="ai-comparison-table__carousel-item-{{ ai_gen_id }}">
+                {% if block.settings.header_orientation == 'column' %}
+                  <div class="ai-comparison-table__carousel-label-{{ ai_gen_id }}">
+                    {{ block.settings[row_header_key] }}
+                  </div>
+                {% endif %}
+                <div class="ai-comparison-table__carousel-value-{{ ai_gen_id }}">
+                  {{ block.settings[cell_key] }}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+      
+      <div class="ai-comparison-table__carousel-controls-{{ ai_gen_id }}"><button
+          class="ai-comparison-table__carousel-button-{{ ai_gen_id }}"
+          data-direction="prev"
+          aria-label="Previous item"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15,18 9,12 15,6"></polyline>
+          </svg>
+        </button>
+        
+        <div class="ai-comparison-table__carousel-dots-{{ ai_gen_id }}">
+          {% for i in (1..5) %}
+            <button
+              class="ai-comparison-table__carousel-dot-{{ ai_gen_id }} {% if forloop.first %}active{% endif %}"
+              data-slide="{{ forloop.index0 }}"
+              aria-label="Go to slide {{ forloop.index }}"
+            ></button>
+          {% endfor %}
+        </div>
+        
+        <button
+          class="ai-comparison-table__carousel-button-{{ ai_gen_id }}"
+          data-direction="next"
+          aria-label="Next item"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,18 15,12 9,6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</comparison-table-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ComparisonTable{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentSlide = 0;
+        this.totalSlides = 5;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-comparison-table__carousel-track-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('[data-direction="prev"]');
+        this.nextButton = this.querySelector('[data-direction="next"]');
+        this.dots = this.querySelectorAll('.ai-comparison-table__carousel-dot-{{ ai_gen_id }}');
+        
+        this.setupEventListeners();this.updateCarousel();
+      }
+
+      setupEventListeners() {
+        this.prevButton.addEventListener('click', () => this.goToPrevSlide());
+        this.nextButton.addEventListener('click', () => this.goToNextSlide());
+        
+        this.dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => this.goToSlide(index));
+        });
+      }
+
+      goToPrevSlide() {
+        this.currentSlide = this.currentSlide > 0 ? this.currentSlide - 1 : this.totalSlides - 1;
+        this.updateCarousel();
+      }
+
+      goToNextSlide() {
+        this.currentSlide = this.currentSlide < this.totalSlides - 1 ? this.currentSlide + 1 : 0;
+        this.updateCarousel();
+      }
+
+      goToSlide(index) {
+        this.currentSlide = index;
+        this.updateCarousel();
+      }
+
+      updateCarousel() {
+        const translateX = -this.currentSlide * 100;
+        this.track.style.transform = `translateX(${translateX}%)`;
+        this.dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === this.currentSlide);
+        });this.prevButton.disabled = false;
+        this.nextButton.disabled = false;
+      }
+    }
+
+    customElements.define('comparison-table-{{ ai_gen_id }}', ComparisonTable{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Comparison Table",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "header_orientation",
+      "label": "Header orientation",
+      "options": [
+        {
+          "value": "row",
+          "label": "Row headers"
+        },
+        {
+          "value": "column",
+          "label": "Column headers"
+        }
+      ],
+      "default": "column"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_images",
+      "label": "Show images",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "image_header_label",
+      "label": "Image row label",
+      "default": "Product"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_background_color",
+      "label": "Header background color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Header text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cell_background_color",
+      "label": "Cell background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cell_text_color",
+      "label": "Cell text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#000f9f"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "product_name_color",
+      "label": "Product name color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "cell_padding",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Cell padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "header_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Header font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "cell_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Cell font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "product_name_font_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Product name font size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "min": 60,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Image height",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Column Headers"
+    },
+    {
+      "type": "text",
+      "id": "column_1_header",
+      "label": "Column 1 header",
+      "default": "Feature"
+    },
+    {
+      "type": "text",
+      "id": "column_2_header",
+      "label": "Column 2 header",
+      "default": "Basic"
+    },
+    {
+      "type": "text",
+      "id": "column_3_header",
+      "label": "Column 3 header",
+      "default": "Pro"
+    },
+    {
+      "type": "text",
+      "id": "column_4_header",
+      "label": "Column 4 header",
+      "default": "Premium"
+    },
+    {
+      "type": "text",
+      "id": "column_5_header",
+      "label": "Column 5 header",
+      "default": "Enterprise"
+    },
+    {
+      "type": "header",
+      "content": "Row Headers"
+    },
+    {
+      "type": "text",
+      "id": "row_1_header",
+      "label": "Row 1 header",
+      "default": "Price"
+    },
+    {
+      "type": "text",
+      "id": "row_2_header",
+      "label": "Row 2 header",
+      "default": "Storage"
+    },
+    {
+      "type": "text",
+      "id": "row_3_header",
+      "label": "Row 3 header",
+      "default": "Support"
+    },
+    {
+      "type": "text",
+      "id": "row_4_header",
+      "label": "Row 4 header",
+      "default": "Features"
+    },
+    {
+      "type": "header",
+      "content": "Images & Product Names"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_1_image",
+      "label": "Column 1 image"
+    },
+    {
+      "type": "text",
+      "id": "column_1_product_name",
+      "label": "Column 1 product name",
+      "default": "Product A"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_2_image",
+      "label": "Column 2 image"
+    },
+    {
+      "type": "text",
+      "id": "column_2_product_name",
+      "label": "Column 2 product name",
+      "default": "Product B"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_3_image",
+      "label": "Column 3 image"
+    },
+    {
+      "type": "text",
+      "id": "column_3_product_name",
+      "label": "Column 3 product name",
+      "default": "Product C"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_4_image",
+      "label": "Column 4 image"
+    },
+    {
+      "type": "text",
+      "id": "column_4_product_name",
+      "label": "Column 4 product name",
+      "default": "Product D"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_5_image",
+      "label": "Column 5 image"
+    },
+    {
+      "type": "text",
+      "id": "column_5_product_name",
+      "label": "Column 5 product name",
+      "default": "Product E"
+    },
+    {
+      "type": "header",
+      "content": "Row 1 Content"
+    },
+    {
+      "type": "text",
+      "id": "row_1_col_1",
+      "label": "Row 1, Column 1",
+      "default": "$9/month"
+    },
+    {
+      "type": "text",
+      "id": "row_1_col_2",
+      "label": "Row 1, Column 2",
+      "default": "$19/month"
+    },
+    {
+      "type": "text",
+      "id": "row_1_col_3",
+      "label": "Row 1, Column 3",
+      "default": "$39/month"
+    },
+    {
+      "type": "text",
+      "id": "row_1_col_4",
+      "label": "Row 1, Column 4",
+      "default": "$99/month"
+    },
+    {
+      "type": "text",
+      "id": "row_1_col_5",
+      "label": "Row 1, Column 5",
+      "default": "Custom"
+    },
+    {
+      "type": "header",
+      "content": "Row 2 Content"
+    },
+    {
+      "type": "text",
+      "id": "row_2_col_1",
+      "label": "Row 2, Column 1",
+      "default": "10GB"
+    },
+    {
+      "type": "text",
+      "id": "row_2_col_2",
+      "label": "Row 2, Column 2",
+      "default": "100GB"
+    },
+    {
+      "type": "text",
+      "id": "row_2_col_3",
+      "label": "Row 2, Column 3",
+      "default": "1TB"
+    },
+    {
+      "type": "text",
+      "id": "row_2_col_4",
+      "label": "Row 2, Column 4",
+      "default": "10TB"
+    },
+    {
+      "type": "text",
+      "id": "row_2_col_5",
+      "label": "Row 2, Column 5",
+      "default": "Unlimited"
+    },
+    {
+      "type": "header",
+      "content": "Row 3 Content"
+    },
+    {
+      "type": "text",
+      "id": "row_3_col_1",
+      "label": "Row 3, Column 1",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "row_3_col_2",
+      "label": "Row 3, Column 2",
+      "default": "Chat"
+    },
+    {
+      "type": "text",
+      "id": "row_3_col_3",
+      "label": "Row 3, Column 3",
+      "default": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "row_3_col_4",
+      "label": "Row 3, Column 4",
+      "default": "Priority"
+    },
+    {
+      "type": "text",
+      "id": "row_3_col_5",
+      "label": "Row 3, Column 5",
+      "default": "Dedicated"
+    },
+    {
+      "type": "header",
+      "content": "Row 4 Content"
+    },
+    {
+      "type": "text",
+      "id": "row_4_col_1",
+      "label": "Row 4, Column 1",
+      "default": "Basic"
+    },
+    {
+      "type": "text",
+      "id": "row_4_col_2",
+      "label": "Row 4, Column 2",
+      "default": "Standard"
+    },
+    {
+      "type": "text",
+      "id": "row_4_col_3",
+      "label": "Row 4, Column 3",
+      "default": "Advanced"
+    },
+    {
+      "type": "text",
+      "id": "row_4_col_4",
+      "label": "Row 4, Column 4",
+      "default": "Premium"
+    },
+    {
+      "type": "text",
+      "id": "row_4_col_5",
+      "label": "Row 4, Column 5",
+      "default": "Enterprise"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table"
+    }
+  ]
+}
 {% endschema %}
