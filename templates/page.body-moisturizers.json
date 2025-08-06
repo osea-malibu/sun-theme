@@ -2200,8 +2200,8 @@
               "settings": {
                 "image": "shopify://shop_images/2025-05-27___Homepage_Banner___Dream_Night_Serum_Clinicals_Mobile_LAYOUT_1.jpg",
                 "link": "",
-                "image_ratio": "portrait",
-                "width": "custom",
+                "image_ratio": "square",
+                "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
                 "custom_width_mobile": 100,
@@ -2213,7 +2213,7 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 24
               },
               "blocks": {}
             }
