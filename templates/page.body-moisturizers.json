@@ -352,7 +352,7 @@
         "text_7YekFy",
         "custom_liquid_cwayjz"
       ],
-      "name": "t:names.custom_section",
+      "name": "Read More Section",
       "settings": {
         "content_direction": "row",
         "vertical_on_mobile": true,
@@ -383,6 +383,7 @@
     },
     "section_A8VjWa": {
       "type": "section",
+      "disabled": true,
       "name": "Spacer",
       "settings": {
         "content_direction": "row",
@@ -1840,7 +1841,6 @@
         "group_z4TBir",
         "group_wTyHab"
       ],
-      "disabled": true,
       "name": "Compare Products Section Not mobile friendly",
       "settings": {
         "content_direction": "column",
