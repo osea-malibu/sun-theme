@@ -566,6 +566,7 @@
         "group_tAN4xC",
         "footer_utilities_XbLnUg"
       ],
+      "custom_css": [],
       "name": "Footer",
       "settings": {
         "content_direction": "column",
@@ -578,7 +579,7 @@
         "gap": 24,
         "section_width": "page-width",
         "section_height": "",
-        "color_scheme": "scheme-5",
+        "color_scheme": "scheme-693ea456-6ca1-483d-bafa-52633e3739dc",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
