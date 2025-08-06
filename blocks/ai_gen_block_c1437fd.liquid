@@ -96,7 +96,32 @@
     color: {{ block.settings.product_name_color }};
     margin:0;
   }
+.ai-comparison-table__list-{{ ai_gen_id }} {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
 
+.ai-comparison-table__list-item-{{ ai_gen_id }} {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.ai-comparison-table__list-item-{{ ai_gen_id }}:last-child {
+  margin-bottom: 0;
+}
+
+.ai-comparison-table__list-item-{{ ai_gen_id }}:before {
+  content: "•";
+  color: {{ block.settings.list_bullet_color }};
+  font-size: 1.2em;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
   .ai-comparison-table__carousel-{{ ai_gen_id }} {
     position: relative;
     overflow: hidden;
