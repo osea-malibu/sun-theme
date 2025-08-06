@@ -1,4 +1,9 @@
 {% doc %}
+  @prompt
+    A comparison table, 5 columns, 4 rows. But should be customizable and a carousel on mobile., Add the possibility to add image in the fist row
+    
+    The image is the first row. 
+    We should be able to have the comparison header either on the row or column., Add the image as one column above the Product row, Can I add the name of the product under each images only?, how can we make this as a reusable block to add to our Theme? When teh user select Add Section, this new block would be available., where did this go?, is there a way to have the full image?
 
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
@@ -31,12 +36,13 @@
     padding: {{ block.settings.cell_padding }}px;
     border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
     text-align: center;
-    vertical-align: middle;}
+    vertical-align: middle;
+  }
 
   .ai-comparison-table__header-cell-{{ ai_gen_id }} {
     background-color: {{ block.settings.header_background_color }};
     color: {{ block.settings.header_text_color }};
-    font-weight:600;
+    font-weight: 600;
     font-size: {{ block.settings.header_font_size }}px;
   }
 
@@ -94,34 +100,36 @@
     font-size: {{ block.settings.product_name_font_size }}px;
     font-weight: 600;
     color: {{ block.settings.product_name_color }};
-    margin:0;
+    margin: 0;
   }
-.ai-comparison-table__list-{{ ai_gen_id }} {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-align: left;
-}
 
-.ai-comparison-table__list-item-{{ ai_gen_id }} {
-  position: relative;
-  padding-left: 20px;
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
+  .ai-comparison-table__list-{{ ai_gen_id }} {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+  }
 
-.ai-comparison-table__list-item-{{ ai_gen_id }}:last-child {
-  margin-bottom: 0;
-}
+  .ai-comparison-table__list-item-{{ ai_gen_id }} {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
 
-.ai-comparison-table__list-item-{{ ai_gen_id }}:before {
-  content: "•";
-  color: {{ block.settings.list_bullet_color }};
-  font-size: 1.2em;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
+  .ai-comparison-table__list-item-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-comparison-table__list-item-{{ ai_gen_id }}:before {
+    content: "•";
+    color: {{ block.settings.list_bullet_color }};
+    font-size: 1.2em;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
   .ai-comparison-table__carousel-{{ ai_gen_id }} {
     position: relative;
     overflow: hidden;
@@ -208,7 +216,8 @@
 
   .ai-comparison-table__carousel-dots-{{ ai_gen_id }} {
     display: flex;
-    gap: 8px;}
+    gap: 8px;
+  }
 
   .ai-comparison-table__carousel-dot-{{ ai_gen_id }} {
     width: 8px;
@@ -253,8 +262,8 @@
                       src="{{ block.settings[image_key] | image_url: width: 400 }}"
                       alt="{{ block.settings[image_key].alt | escape }}"
                       class="ai-comparison-table__image-{{ ai_gen_id }}"
-                loading="lazy"
-                >
+                      loading="lazy"
+                    >
                   {% else %}
                     <div class="ai-comparison-table__image-placeholder-{{ ai_gen_id }}">
                       {{'image' | placeholder_svg_tag }}
@@ -272,13 +281,30 @@
         {% endif %}
         {% for row in (1..4) %}
           <tr>
-            {% assign header_key = 'row_' | append: row | append: '_header' %}<td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+            {% assign header_key = 'row_' | append: row | append: '_header' %}
+            <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
               {{ block.settings[header_key] }}
             </td>
             {% for col in (1..5) %}
               {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
+              {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
+              {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
               <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__body-cell-{{ ai_gen_id }}">
-                {{ block.settings[cell_key] }}
+                {% if block.settings[cell_type_key] == 'list' %}
+                  {% assign list_items = block.settings[cell_list_key] | newline_to_br | strip_newlines | split: '<br />' %}
+                  {% if list_items.size > 0 %}
+                    <ul class="ai-comparison-table__list-{{ ai_gen_id }}">
+                      {% for item in list_items %}
+                        {% assign trimmed_item = item | strip %}
+                        {% if trimmed_item != blank %}
+                          <li class="ai-comparison-table__list-item-{{ ai_gen_id }}">{{ trimmed_item }}</li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% else %}
+                  {{ block.settings[cell_key] }}
+                {% endif %}
               </td>
             {% endfor %}
           </tr>
@@ -320,12 +346,29 @@
               {{ block.settings[header_key] }}
             </td>
           {% endfor %}
-        </tr>{% for row in (1..4) %}
+        </tr>
+        {% for row in (1..4) %}
           <tr>
             {% for col in (1..5) %}
               {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
+              {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
+              {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
               <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__body-cell-{{ ai_gen_id }}">
-                {{ block.settings[cell_key] }}
+                {% if block.settings[cell_type_key] == 'list' %}
+                  {% assign list_items = block.settings[cell_list_key] | newline_to_br | strip_newlines | split: '<br />' %}
+                  {% if list_items.size > 0 %}
+                    <ul class="ai-comparison-table__list-{{ ai_gen_id }}">
+                      {% for item in list_items %}
+                        {% assign trimmed_item = item | strip %}
+                        {% if trimmed_item != blank %}
+                          <li class="ai-comparison-table__list-item-{{ ai_gen_id }}">{{ trimmed_item }}</li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% else %}
+                  {{ block.settings[cell_key] }}
+                {% endif %}
               </td>
             {% endfor %}
           </tr>
@@ -382,6 +425,8 @@
             {% for row in (1..4) %}
               {% assign row_header_key = 'row_' | append: row | append: '_header' %}
               {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
+              {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
+              {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
               <div class="ai-comparison-table__carousel-item-{{ ai_gen_id }}">
                 {% if block.settings.header_orientation == 'column' %}
                   <div class="ai-comparison-table__carousel-label-{{ ai_gen_id }}">
@@ -389,7 +434,21 @@
                   </div>
                 {% endif %}
                 <div class="ai-comparison-table__carousel-value-{{ ai_gen_id }}">
-                  {{ block.settings[cell_key] }}
+                  {% if block.settings[cell_type_key] == 'list' %}
+                    {% assign list_items = block.settings[cell_list_key] | newline_to_br | strip_newlines | split: '<br />' %}
+                    {% if list_items.size > 0 %}
+                      <ul class="ai-comparison-table__list-{{ ai_gen_id }}">
+                        {% for item in list_items %}
+                          {% assign trimmed_item = item | strip %}
+                          {% if trimmed_item != blank %}
+                            <li class="ai-comparison-table__list-item-{{ ai_gen_id }}">{{ trimmed_item }}</li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  {% else %}
+                    {{ block.settings[cell_key] }}
+                  {% endif %}
                 </div>
               </div>
             {% endfor %}
@@ -637,6 +696,12 @@
       "default": "#000000"
     },
     {
+      "type": "color",
+      "id": "list_bullet_color",
+      "label": "List bullet color",
+      "default": "#000f9f"
+    },
+    {
       "type": "range",
       "id": "border_radius",
       "min": 0,
@@ -863,139 +928,450 @@
     },
     {
       "type": "header",
-      "content": "Row1 Content"
+      "content": "Row 1 Content"
+    },
+    {
+      "type": "select",
+      "id": "row_1_col_1_type",
+      "label": "Row 1, Column 1 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "text"
     },
     {
       "type": "text",
       "id": "row_1_col_1",
-      "label": "Row 1, Column 1",
+      "label": "Row 1, Column 1 text",
       "default": "$9/month"
+    },
+    {
+      "type": "textarea",
+      "id": "row_1_col_1_list",
+      "label": "Row 1, Column 1 list (one item per line)",
+      "info": "Enter each list item on a new line"
+    },
+    {
+      "type": "select",
+      "id": "row_1_col_2_type",
+      "label": "Row 1, Column 2 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "text"
     },
     {
       "type": "text",
       "id": "row_1_col_2",
-      "label": "Row 1, Column 2",
+      "label": "Row 1, Column 2 text",
       "default": "$19/month"
+    },
+    {
+      "type": "textarea",
+      "id": "row_1_col_2_list",
+      "label": "Row 1, Column 2 list (one item per line)"
+    },
+    {
+      "type": "select",
+      "id": "row_1_col_3_type",
+      "label": "Row 1, Column 3 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "text"
     },
     {
       "type": "text",
       "id": "row_1_col_3",
-      "label": "Row 1, Column 3",
+      "label": "Row 1, Column 3 text",
       "default": "$39/month"
+    },
+    {
+      "type": "textarea",
+      "id": "row_1_col_3_list",
+      "label": "Row 1, Column 3 list (one item per line)"
+    },
+    {
+      "type": "select",
+      "id": "row_1_col_4_type",
+      "label": "Row 1, Column 4 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "text"
     },
     {
       "type": "text",
       "id": "row_1_col_4",
-      "label": "Row 1, Column 4",
+      "label": "Row 1, Column 4 text",
       "default": "$99/month"
+    },
+    {
+      "type": "textarea",
+      "id": "row_1_col_4_list",
+      "label": "Row 1, Column 4 list (one item per line)"
+    },
+    {
+      "type": "select",
+      "id": "row_1_col_5_type",
+      "label": "Row 1, Column 5 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "text"
     },
     {
       "type": "text",
       "id": "row_1_col_5",
-      "label": "Row 1, Column 5",
+      "label": "Row 1, Column 5 text",
       "default": "Custom"
+    },
+    {
+      "type": "textarea",
+      "id": "row_1_col_5_list",
+      "label": "Row 1, Column 5 list (one item per line)"
     },
     {
       "type": "header",
       "content": "Row 2 Content"
     },
     {
+      "type": "select",
+      "id": "row_2_col_1_type",
+      "label": "Row 2, Column 1 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "text"
+    },
+    {
       "type": "text",
       "id": "row_2_col_1",
-      "label": "Row 2, Column 1",
+      "label": "Row 2, Column 1 text",
       "default": "10GB"
+    },
+    {
+      "type": "textarea",
+      "id": "row_2_col_1_list",
+      "label": "Row 2, Column 1 list (one item per line)"
+    },
+    {
+      "type": "select",
+      "id": "row_2_col_2_type",
+      "label": "Row 2, Column 2 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "text"
     },
     {
       "type": "text",
       "id": "row_2_col_2",
-      "label": "Row 2, Column 2",
+      "label": "Row 2, Column 2 text",
       "default": "100GB"
+    },
+    {
+      "type": "textarea",
+      "id": "row_2_col_2_list",
+      "label": "Row 2, Column 2 list (one item per line)"
+    },
+    {
+      "type": "select",
+      "id": "row_2_col_3_type",
+      "label": "Row 2, Column 3 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "text"
     },
     {
       "type": "text",
       "id": "row_2_col_3",
-      "label": "Row 2, Column 3",
+      "label": "Row 2, Column 3 text",
       "default": "1TB"
+    },
+    {
+      "type": "textarea",
+      "id": "row_2_col_3_list",
+      "label": "Row 2, Column 3 list (one item per line)"
+    },
+    {
+      "type": "select",
+      "id": "row_2_col_4_type",
+      "label": "Row 2, Column 4 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "text"
     },
     {
       "type": "text",
       "id": "row_2_col_4",
-      "label": "Row 2, Column 4",
+      "label": "Row 2, Column 4 text",
       "default": "10TB"
+    },
+    {
+      "type": "textarea",
+      "id": "row_2_col_4_list",
+      "label": "Row 2, Column 4 list (one item per line)"
+    },
+    {
+      "type": "select",
+      "id": "row_2_col_5_type",
+      "label": "Row 2, Column 5 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "text"
     },
     {
       "type": "text",
       "id": "row_2_col_5",
-      "label": "Row 2, Column 5",
+      "label": "Row 2, Column 5 text",
       "default": "Unlimited"
+    },
+    {
+      "type": "textarea",
+      "id": "row_2_col_5_list",
+      "label": "Row 2, Column 5 list (one item per line)"
     },
     {
       "type": "header",
       "content": "Row 3 Content"
     },
     {
+      "type": "select",
+      "id": "row_3_col_1_type",
+      "label": "Row 3, Column 1 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "list"
+    },
+    {
       "type": "text",
       "id": "row_3_col_1",
-      "label": "Row 3, Column 1",
+      "label": "Row 3, Column 1 text",
       "default": "Email"
+    },
+    {
+      "type": "textarea",
+      "id": "row_3_col_1_list",
+      "label": "Row 3, Column 1 list (one item per line)",
+      "default": "Email support\nFAQ access"
+    },
+    {
+      "type": "select",
+      "id": "row_3_col_2_type",
+      "label": "Row 3, Column 2 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "list"
     },
     {
       "type": "text",
       "id": "row_3_col_2",
-      "label": "Row 3, Column 2",
+      "label": "Row 3, Column 2 text",
       "default": "Chat"
+    },
+    {
+      "type": "textarea",
+      "id": "row_3_col_2_list",
+      "label": "Row 3, Column 2 list (one item per line)",
+      "default": "Email support\nLive chat\nFAQ access"
+    },
+    {
+      "type": "select",
+      "id": "row_3_col_3_type",
+      "label": "Row 3, Column 3 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "list"
     },
     {
       "type": "text",
       "id": "row_3_col_3",
-      "label": "Row 3, Column 3",
+      "label": "Row 3, Column 3 text",
       "default": "Phone"
+    },
+    {
+      "type": "textarea",
+      "id": "row_3_col_3_list",
+      "label": "Row 3, Column 3 list (one item per line)",
+      "default": "Email support\nLive chat\nPhone support\nPriority queue"
+    },
+    {
+      "type": "select",
+      "id": "row_3_col_4_type",
+      "label": "Row 3, Column 4 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "list"
     },
     {
       "type": "text",
       "id": "row_3_col_4",
-      "label": "Row 3, Column 4",
+      "label": "Row 3, Column 4 text",
       "default": "Priority"
+    },
+    {
+      "type": "textarea",
+      "id": "row_3_col_4_list",
+      "label": "Row 3, Column 4 list (one item per line)",
+      "default": "24/7 phone support\nLive chat\nEmail support\nPriority queue\nAccount manager"
+    },
+    {
+      "type": "select",
+      "id": "row_3_col_5_type",
+      "label": "Row 3, Column 5 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "list"
     },
     {
       "type": "text",
       "id": "row_3_col_5",
-      "label": "Row 3, Column 5",
+      "label": "Row 3, Column 5 text",
       "default": "Dedicated"
+    },
+    {
+      "type": "textarea",
+      "id": "row_3_col_5_list",
+      "label": "Row 3, Column 5 list (one item per line)",
+      "default": "Dedicated account manager\n24/7 premium support\nCustom onboarding\nTraining sessions"
     },
     {
       "type": "header",
       "content": "Row 4 Content"
     },
     {
+      "type": "select",
+      "id": "row_4_col_1_type",
+      "label": "Row 4, Column 1 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "list"
+    },
+    {
       "type": "text",
       "id": "row_4_col_1",
-      "label": "Row 4, Column 1",
+      "label": "Row 4, Column 1 text",
       "default": "Basic"
+    },
+    {
+      "type": "textarea",
+      "id": "row_4_col_1_list",
+      "label": "Row 4, Column 1 list (one item per line)",
+      "default": "Basic dashboard\nCore features\nStandard templates"
+    },
+    {
+      "type": "select",
+      "id": "row_4_col_2_type",
+      "label": "Row 4, Column 2 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "list"
     },
     {
       "type": "text",
       "id": "row_4_col_2",
-      "label": "Row 4, Column 2",
+      "label": "Row 4, Column 2 text",
       "default": "Standard"
+    },
+    {
+      "type": "textarea",
+      "id": "row_4_col_2_list",
+      "label": "Row 4, Column 2 list (one item per line)",
+      "default": "Enhanced dashboard\nAdvanced features\nCustom templates\nIntegrations"
+    },
+    {
+      "type": "select",
+      "id": "row_4_col_3_type",
+      "label": "Row 4, Column 3 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "list"
     },
     {
       "type": "text",
       "id": "row_4_col_3",
-      "label": "Row 4, Column 3",
+      "label": "Row 4, Column 3 text",
       "default": "Advanced"
+    },
+    {
+      "type": "textarea",
+      "id": "row_4_col_3_list",
+      "label": "Row 4, Column 3 list (one item per line)",
+      "default": "Pro dashboard\nPremium features\nUnlimited templates\nAPI access\nAdvanced analytics"
+    },
+    {
+      "type": "select",
+      "id": "row_4_col_4_type",
+      "label": "Row 4, Column 4 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "list"
     },
     {
       "type": "text",
       "id": "row_4_col_4",
-      "label": "Row 4, Column 4",
+      "label": "Row 4, Column 4 text",
       "default": "Premium"
+    },
+    {
+      "type": "textarea",
+      "id": "row_4_col_4_list",
+      "label": "Row 4, Column 4 list (one item per line)",
+      "default": "Enterprise dashboard\nAll features\nWhite-label options\nFull API access\nAdvanced analytics\nCustom reporting"
+    },
+    {
+      "type": "select",
+      "id": "row_4_col_5_type",
+      "label": "Row 4, Column 5 type",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "list"
     },
     {
       "type": "text",
       "id": "row_4_col_5",
-      "label": "Row 4, Column 5",
+      "label": "Row 4, Column 5 text",
       "default": "Enterprise"
+    },
+    {
+      "type": "textarea",
+      "id": "row_4_col_5_list",
+      "label": "Row 4, Column 5 list (one item per line)",
+      "default": "Custom enterprise solution\nDedicated infrastructure\nCustom integrations\nAdvanced security\nCompliance tools\nPersonalized training"
     }
   ],
   "presets": [
