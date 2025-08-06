@@ -359,7 +359,7 @@
             "link_hover_color": "{{ shop.brand.colors.secondary[0].background }}",
             "heading_size": 16,
             "text_size": 16,
-            "padding": 0,
+            "padding": 24,
             "border_radius": 0
           },
           "blocks": {}
@@ -372,7 +372,7 @@
       "settings": {
         "content_direction": "row",
         "vertical_on_mobile": false,
-        "horizontal_alignment": "flex-start",
+        "horizontal_alignment": "center",
         "vertical_alignment": "center",
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
