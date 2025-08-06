@@ -1988,20 +1988,6 @@
     "section_9GenfW": {
       "type": "section",
       "blocks": {
-        "spacer_bzXawc": {
-          "type": "spacer",
-          "name": "t:names.spacer",
-          "settings": {
-            "size": "pixel",
-            "percent_size": 100,
-            "pixel_size": 20,
-            "custom_mobile_size": false,
-            "size_mobile": "percent",
-            "percent_size_mobile": 100,
-            "pixel_size_mobile": 120
-          },
-          "blocks": {}
-        },
         "text_JrMB8M": {
           "type": "text",
           "name": "t:names.text",
@@ -2068,28 +2054,12 @@
             "custom_width_mobile": 100
           },
           "blocks": {}
-        },
-        "spacer_JfLxVm": {
-          "type": "spacer",
-          "name": "t:names.spacer",
-          "settings": {
-            "size": "pixel",
-            "percent_size": 100,
-            "pixel_size": 20,
-            "custom_mobile_size": false,
-            "size_mobile": "percent",
-            "percent_size_mobile": 100,
-            "pixel_size_mobile": 120
-          },
-          "blocks": {}
         }
       },
       "block_order": [
-        "spacer_bzXawc",
         "text_JrMB8M",
         "text_kifLmr",
-        "button_kz7mfj",
-        "spacer_JfLxVm"
+        "button_kz7mfj"
       ],
       "name": "Quiz Banner",
       "settings": {
@@ -2126,7 +2096,7 @@
       "settings": {
         "content_direction": "row",
         "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
+        "horizontal_alignment": "center",
         "vertical_alignment": "center",
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
@@ -2134,7 +2104,7 @@
         "gap": 12,
         "section_width": "page-width",
         "section_height": "custom",
-        "section_height_custom": 10,
+        "section_height_custom": 3,
         "color_scheme": "",
         "background_media": "none",
         "video_position": "cover",
