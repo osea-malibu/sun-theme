@@ -368,6 +368,32 @@
     "17545095484f1da970": {
       "type": "_blocks",
       "blocks": {
+        "text_3F8tjB": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<h2>Compare Products</h2>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground-heading)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "ai_gen_block_c1437fd_KAeFzd": {
           "type": "ai_gen_block_c1437fd",
           "settings": {
@@ -482,6 +508,7 @@
         }
       },
       "block_order": [
+        "text_3F8tjB",
         "ai_gen_block_c1437fd_KAeFzd"
       ],
       "name": "Compare Products Section",
