@@ -390,7 +390,7 @@
           {% assign image_key = 'column_' | append: col | append: '_image' %}
           {% assign product_name_key = 'column_' | append: col | append: '_product_name' %}
           <div class="ai-comparison-table__carousel-slide-{{ ai_gen_id }}">
-            {% if block.settings.show_header_mobile %}
+            {% if block.settings.show_carousel_header %}
               <div class="ai-comparison-table__carousel-header-{{ ai_gen_id }}">
                 {% if block.settings.header_orientation == 'column' %}
                   Column {{ col }}
@@ -600,6 +600,12 @@
       "type": "checkbox",
       "id": "show_header_mobile",
       "label": "Show header on mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_carousel_header",
+      "label": "Show carousel header",
       "default": true
     },
     {
