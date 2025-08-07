@@ -1,41 +1,68 @@
 {% doc %}
-  @prompt
-    full with text with read more link that show more text
-
+  Expandable Text Block
+  
+  This block creates an interactive text component that displays a preview of content
+  with a "Read more" link that expands to show the full text when clicked.
+  
+  Features:
+  - Preview and full text content with smooth transitions
+  - Customizable "Read more" and "Read less" button text
+  - Responsive design with mobile-optimized sizing
+  - Accessible with proper ARIA attributes and keyboard navigation
+  - Customizable styling (colors, fonts, spacing, border radius)
+  - Focus states for better accessibility
+  - Rich text support for both preview and full content
+  
+  Usage:
+  - Add this block to any section that supports blocks
+  - Configure heading, preview text, and full text content
+  - Customize button text for "Read more" and "Read less" actions
+  - Style the component through the theme editor
+  - Use rich text editor for formatted content
+  
+  Dependencies:
+  - Requires block.id for unique CSS class generation
+  - Custom JavaScript for expand/collapse functionality
+  - CSS transitions for smooth animations
+  - Custom web component for interactive behavior
+  
+  Author: Mirabelle Doiron
+  Version: 1.0
+  Last Updated: 2025-08-07
 {% enddoc %}
-{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign block_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
-  .ai-expandable-text-{{ ai_gen_id }} {
+  .expandable-text-{{ block_id }} {
     background-color: {{ block.settings.background_color }};
     padding: {{ block.settings.padding }}px;
     border-radius: {{ block.settings.border_radius }}px;
     max-width: 100%;
   }
 
-  .ai-expandable-text__heading-{{ ai_gen_id }} {
+  .expandable-text__heading-{{ block_id }} {
     color: {{ block.settings.heading_color }};
     font-size: {{ block.settings.heading_size }}px;
     margin: 0 0 16px 0;
     font-weight:600;
   }
 
-  .ai-expandable-text__content-{{ ai_gen_id }} {
+  .expandable-text__content-{{ block_id }} {
     color: {{ block.settings.text_color }};
     font-size: {{ block.settings.text_size }}px;
     line-height: 1.6;
     margin: 0;
   }
 
-  .ai-expandable-text__preview-{{ ai_gen_id }} {
+  .expandable-text__preview-{{ block_id }} {
     display: block;
   }
 
-  .ai-expandable-text__full-{{ ai_gen_id }} {
+  .expandable-text__full-{{ block_id }} {
     display: none;
   }
 
-  .ai-expandable-text__toggle-{{ ai_gen_id }} {
+  .expandable-text__toggle-{{ block_id }} {
     background: none;
     border: none;
     color: {{ block.settings.link_color }};
@@ -47,66 +74,66 @@
     display: inline-block;
   }
 
-  .ai-expandable-text__toggle-{{ ai_gen_id }}:hover {
+  .expandable-text__toggle-{{ block_id }}:hover {
     color: {{ block.settings.link_hover_color }};
   }
 
-  .ai-expandable-text__toggle-{{ ai_gen_id }}:focus {
+  .expandable-text__toggle-{{ block_id }}:focus {
     outline: 2px solid {{ block.settings.link_color }};
     outline-offset: 2px;
   }
 
-  .ai-expandable-text-{{ ai_gen_id }}.expanded .ai-expandable-text__preview-{{ ai_gen_id }} {
+  .expandable-text-{{ block_id }}.expanded .expandable-text__preview-{{ block_id }} {
     display: none;
   }
 
-  .ai-expandable-text-{{ ai_gen_id }}.expanded .ai-expandable-text__full-{{ ai_gen_id }} {
+  .expandable-text-{{ block_id }}.expanded .expandable-text__full-{{ block_id }} {
     display: block;
   }
 
   @media screen and (max-width: 749px) {
-    .ai-expandable-text__heading-{{ ai_gen_id }} {
+    .expandable-text__heading-{{ block_id }} {
       font-size: {{ block.settings.heading_size | times: 0.8 }}px;
     }
 
-    .ai-expandable-text-{{ ai_gen_id }} {
+    .expandable-text-{{ block_id }} {
       padding: {{ block.settings.padding | times: 0.7 }}px;
     }
   }
 {% endstyle %}
 
-<expandable-text-{{ ai_gen_id }}
-  class="ai-expandable-text-{{ ai_gen_id }}"
+<expandable-text-{{ block_id }}
+  class="expandable-text-{{ block_id }}"
   {{ block.shopify_attributes }}
 >
   {% if block.settings.heading != blank %}
-    <h2 class="ai-expandable-text__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
-  {% endif %}<div class="ai-expandable-text__content-{{ ai_gen_id }}"><div class="ai-expandable-text__preview-{{ ai_gen_id }}">
+    <h2 class="expandable-text__heading-{{ block_id }}">{{ block.settings.heading }}</h2>
+  {% endif %}<div class="expandable-text__content-{{ block_id }}"><div class="expandable-text__preview-{{ block_id }}">
       {{ block.settings.preview_text }}
     </div>
 
-    <div class="ai-expandable-text__full-{{ ai_gen_id }}">
+    <div class="expandable-text__full-{{ block_id }}">
       {{ block.settings.full_text }}
     </div>
   </div><button
-    class="ai-expandable-text__toggle-{{ ai_gen_id }}"
+    class="expandable-text__toggle-{{ block_id }}"
     aria-expanded="false">
-    <span class="ai-expandable-text__read-more-{{ ai_gen_id }}">{{ block.settings.read_more_text }}</span>
-    <span class="ai-expandable-text__read-less-{{ ai_gen_id }}" style="display: none;">{{ block.settings.read_less_text }}</span>
+    <span class="expandable-text__read-more-{{ block_id }}">{{ block.settings.read_more_text }}</span>
+    <span class="expandable-text__read-less-{{ block_id }}" style="display: none;">{{ block.settings.read_less_text }}</span>
   </button>
-</expandable-text-{{ ai_gen_id }}>
+</expandable-text-{{ block_id }}>
 
 <script>
   (function() {
-    class ExpandableText{{ ai_gen_id }} extends HTMLElement {
+    class ExpandableText{{ block_id }} extends HTMLElement {
       constructor() {
         super();
       }
 
       connectedCallback() {
-        this.toggleButton = this.querySelector('.ai-expandable-text__toggle-{{ ai_gen_id }}');
-        this.readMoreText = this.querySelector('.ai-expandable-text__read-more-{{ ai_gen_id }}');
-        this.readLessText = this.querySelector('.ai-expandable-text__read-less-{{ ai_gen_id }}');
+        this.toggleButton = this.querySelector('.expandable-text__toggle-{{ block_id }}');
+        this.readMoreText = this.querySelector('.expandable-text__read-more-{{ block_id }}');
+        this.readLessText = this.querySelector('.expandable-text__read-less-{{ block_id }}');
         this.isExpanded = false;
 
         this.toggleButton.addEventListener('click', () => {
@@ -131,7 +158,7 @@
       }
     }
 
-    customElements.define('expandable-text-{{ ai_gen_id }}', ExpandableText{{ ai_gen_id }});
+    customElements.define('expandable-text-{{ block_id }}', ExpandableText{{ block_id }});
   })();
 </script>
 
@@ -252,7 +279,6 @@
     {
       "name": "Expandable Text"
     }
-  ],
-  "tag": null
+  ]
 }
 {% endschema %}
