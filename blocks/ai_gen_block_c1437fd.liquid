@@ -390,7 +390,7 @@
           {% assign image_key = 'column_' | append: col | append: '_image' %}
           {% assign product_name_key = 'column_' | append: col | append: '_product_name' %}
           <div class="ai-comparison-table__carousel-slide-{{ ai_gen_id }}">
-            {% if block.settings.show_carousel_header %}
+            {% if block.settings.show_column_headers_mobile %}
               <div class="ai-comparison-table__carousel-header-{{ ai_gen_id }}">
                 {% if block.settings.header_orientation == 'column' %}
                   Column {{ col }}
@@ -401,7 +401,7 @@
             {% endif %}
             {% if block.settings.show_images %}
               <div class="ai-comparison-table__carousel-item-{{ ai_gen_id }}">
-                {% if block.settings.header_orientation == 'column' %}
+                {% if block.settings.header_orientation == 'column' and block.settings.show_row_headers_mobile %}
                   <div class="ai-comparison-table__carousel-label-{{ ai_gen_id }}">
                     {{ block.settings.image_header_label }}
                   </div>
@@ -437,7 +437,7 @@
               {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
               {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
               <div class="ai-comparison-table__carousel-item-{{ ai_gen_id }}">
-                {% if block.settings.header_orientation == 'column' and block.settings.show_header_mobile %}
+                {% if block.settings.header_orientation == 'column' and block.settings.show_row_headers_mobile %}
                   <div class="ai-comparison-table__carousel-label-{{ ai_gen_id }}">
                     {{ block.settings[row_header_key] }}
                   </div>
@@ -598,14 +598,14 @@
     },
     {
       "type": "checkbox",
-      "id": "show_header_mobile",
-      "label": "Show header on mobile",
+      "id": "show_column_headers_mobile",
+      "label": "Show column headers on mobile",
       "default": true
     },
     {
       "type": "checkbox",
-      "id": "show_carousel_header",
-      "label": "Show carousel header",
+      "id": "show_row_headers_mobile",
+      "label": "Show row headers on mobile",
       "default": true
     },
     {
