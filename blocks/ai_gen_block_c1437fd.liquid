@@ -1,25 +1,25 @@
 {% doc %}
 
 {% enddoc %}
-{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign block_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
-  .ai-comparison-table-{{ ai_gen_id }} {
+  .comparison-table-{{ block_id }} {
     width: 100%;
     overflow: hidden;
     margin: {{ block.settings.block_margin_top }}px 0{{ block.settings.block_margin_bottom }}px;
     padding: {{ block.settings.block_padding_top }}px 0 {{ block.settings.block_padding_bottom }}px;
   }
 
-  .ai-comparison-table__desktop-{{ ai_gen_id }} {
+  .comparison-table__desktop-{{ block_id }} {
     display: block;
   }
 
-  .ai-comparison-table__mobile-{{ ai_gen_id }} {
+  .comparison-table__mobile-{{ block_id }} {
     display: none;
   }
 
-  .ai-comparison-table__table-{{ ai_gen_id }} {
+  .comparison-table__table-{{ block_id }} {
     width: 100%;
     border-collapse: collapse;
     background-color: {{ block.settings.background_color }};
@@ -27,27 +27,27 @@
     overflow: hidden;
   }
 
-  .ai-comparison-table__cell-{{ ai_gen_id }} {
+  .comparison-table__cell-{{ block_id }} {
     padding: {{ block.settings.cell_padding }}px;
     border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
     text-align: center;
     vertical-align: middle;
   }
 
-  .ai-comparison-table__header-cell-{{ ai_gen_id }} {
+  .comparison-table__header-cell-{{ block_id }} {
     background-color: {{ block.settings.header_background_color }};
     color: {{ block.settings.header_text_color }};
     font-weight: 600;
     font-size: {{ block.settings.header_font_size }}px;
   }
 
-  .ai-comparison-table__body-cell-{{ ai_gen_id }} {
+  .comparison-table__body-cell-{{ block_id }} {
     background-color: {{ block.settings.cell_background_color }};
     color: {{ block.settings.cell_text_color }};
     font-size: {{ block.settings.cell_font_size }}px;
   }
 
-  .ai-comparison-table__image-cell-{{ ai_gen_id }} {
+  .comparison-table__image-cell-{{ block_id }} {
     background-color: {{ block.settings.cell_background_color }};
     padding: {{ block.settings.cell_padding }}px;
     border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
@@ -55,14 +55,14 @@
     vertical-align: middle;
   }
 
-  .ai-comparison-table__image-container-{{ ai_gen_id }} {
+  .comparison-table__image-container-{{ block_id }} {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
   }
 
-  .ai-comparison-table__image-{{ ai_gen_id }} {
+  .comparison-table__image-{{ block_id }} {
     width: 100%;
     height: {{ block.settings.image_height }}px;
     {% if block.settings.image_fit == 'cover' %}
@@ -75,7 +75,7 @@
     border-radius: {{ block.settings.image_border_radius }}px;
   }
 
-  .ai-comparison-table__image-placeholder-{{ ai_gen_id }} {
+  .comparison-table__image-placeholder-{{ block_id }} {
     width: 100%;
     height: {{ block.settings.image_height }}px;
     background-color: #f4f4f4;
@@ -85,38 +85,38 @@
     border-radius: {{ block.settings.image_border_radius }}px;
   }
 
-  .ai-comparison-table__image-placeholder-{{ ai_gen_id }} svg {
+  .comparison-table__image-placeholder-{{ block_id }} svg {
     width: 60%;
     height: 60%;
     opacity: 0.5;
   }
 
-  .ai-comparison-table__product-name-{{ ai_gen_id }} {
+  .comparison-table__product-name-{{ block_id }} {
     font-size: {{ block.settings.product_name_font_size }}px;
     font-weight: 600;
     color: {{ block.settings.product_name_color }};
     margin: 0;
   }
 
-  .ai-comparison-table__list-{{ ai_gen_id }} {
+  .comparison-table__list-{{ block_id }} {
     margin: 0;
     padding: 0;
     list-style: none;
     text-align: left;
   }
 
-  .ai-comparison-table__list-item-{{ ai_gen_id }} {
+  .comparison-table__list-item-{{ block_id }} {
     position: relative;
     padding-left: 20px;
     margin-bottom: 8px;
     line-height: 1.4;
   }
 
-  .ai-comparison-table__list-item-{{ ai_gen_id }}:last-child {
+  .comparison-table__list-item-{{ block_id }}:last-child {
     margin-bottom: 0;
   }
 
-  .ai-comparison-table__list-item-{{ ai_gen_id }}:before {
+  .comparison-table__list-item-{{ block_id }}:before {
     content: "•";
     color: {{ block.settings.list_bullet_color }};
     font-size: 1.2em;
@@ -125,17 +125,17 @@
     top: 0;
   }
 
-  .ai-comparison-table__carousel-{{ ai_gen_id }} {
+  .comparison-table__carousel-{{ block_id }} {
     position: relative;
     overflow: hidden;
   }
 
-  .ai-comparison-table__carousel-track-{{ ai_gen_id }} {
+  .comparison-table__carousel-track-{{ block_id }} {
     display: flex;
     transition: transform 0.3s ease;
   }
 
-  .ai-comparison-table__carousel-slide-{{ ai_gen_id }} {
+  .comparison-table__carousel-slide-{{ block_id }} {
     flex: 0 0 100%;
     padding: 20px;
     background-color: {{ block.settings.background_color }};
@@ -144,19 +144,19 @@
     margin-right: 16px;
   }
 
-  .ai-comparison-table__carousel-slide-{{ ai_gen_id }}:last-child {
+  .comparison-table__carousel-slide-{{ block_id }}:last-child {
     margin-right: 0;
   }
 
-  .ai-comparison-table__carousel-item-{{ ai_gen_id }} {
+  .comparison-table__carousel-item-{{ block_id }} {
     margin-bottom: 16px;
   }
 
-  .ai-comparison-table__carousel-item-{{ ai_gen_id }}:last-child {
+  .comparison-table__carousel-item-{{ block_id }}:last-child {
     margin-bottom: 0;
   }
 
-  .ai-comparison-table__carousel-header-{{ ai_gen_id }} {
+  .comparison-table__carousel-header-{{ block_id }} {
     background-color: {{ block.settings.header_background_color }};
     color: {{ block.settings.header_text_color }};
     padding: 12px;
@@ -166,19 +166,19 @@
     margin-bottom: 16px;
   }
 
-  .ai-comparison-table__carousel-label-{{ ai_gen_id }} {
+  .comparison-table__carousel-label-{{ block_id }} {
     font-weight: 600;
     color: {{ block.settings.header_text_color }};
     margin-bottom: 8px;
     font-size: {{ block.settings.cell_font_size }}px;
   }
 
-  .ai-comparison-table__carousel-value-{{ ai_gen_id }} {
+  .comparison-table__carousel-value-{{ block_id }} {
     color: {{ block.settings.cell_text_color }};
     font-size: {{ block.settings.cell_font_size }}px;
   }
 
-  .ai-comparison-table__carousel-controls-{{ ai_gen_id }} {
+  .comparison-table__carousel-controls-{{ block_id }} {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -186,7 +186,7 @@
     margin-top: 20px;
   }
 
-  .ai-comparison-table__carousel-button-{{ ai_gen_id }} {
+  .comparison-table__carousel-button-{{ block_id }} {
     background-color: {{ block.settings.button_color }};
     color: {{ block.settings.button_text_color }};
     border: none;
@@ -200,21 +200,21 @@
     transition: background-color 0.3s ease;
   }
 
-  .ai-comparison-table__carousel-button-{{ ai_gen_id }}:hover {
+  .comparison-table__carousel-button-{{ block_id }}:hover {
     background-color: {{ block.settings.button_hover_color }};
   }
 
-  .ai-comparison-table__carousel-button-{{ ai_gen_id }}:disabled {
+  .comparison-table__carousel-button-{{ block_id }}:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
-  .ai-comparison-table__carousel-dots-{{ ai_gen_id }} {
+  .comparison-table__carousel-dots-{{ block_id }} {
     display: flex;
     gap: 8px;
   }
 
-  .ai-comparison-table__carousel-dot-{{ ai_gen_id }} {
+  .comparison-table__carousel-dot-{{ block_id }} {
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -223,35 +223,35 @@
     transition: background-color 0.3s ease;
   }
 
-  .ai-comparison-table__carousel-dot-{{ ai_gen_id }}.active {
+  .comparison-table__carousel-dot-{{ block_id }}.active {
     background-color: {{ block.settings.button_color }};
   }
 
   @media screen and (max-width: 768px) {
-    .ai-comparison-table__desktop-{{ ai_gen_id }} {
+    .comparison-table__desktop-{{ block_id }} {
       display: none;
     }
 
-    .ai-comparison-table__mobile-{{ ai_gen_id }} {
+    .comparison-table__mobile-{{ block_id }} {
       display: block;
     }
   }
 {% endstyle %}
 
-<comparison-table-{{ ai_gen_id }} class="ai-comparison-table-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
-  <div class="ai-comparison-table__desktop-{{ ai_gen_id }}">
-    <table class="ai-comparison-table__table-{{ ai_gen_id }}">
+<comparison-table-{{ block_id }} class="comparison-table-{{ block_id }}" {{ block.shopify_attributes }}>
+  <div class="comparison-table__desktop-{{ block_id }}">
+    <table class="comparison-table__table-{{ block_id }}">
       {% if block.settings.header_orientation == 'column' %}
         {% if block.settings.show_column_headers_desktop %}
           <tr>
             {% if block.settings.show_row_headers_desktop %}
-              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+              <td class="comparison-table__cell-{{ block_id }} comparison-table__header-cell-{{ block_id }}">
                 {{ block.settings.image_header_label }}
               </td>
             {% endif %}
             {% for col in (1..5) %}
               {% assign header_key = 'column_' | append: col | append: '_header' %}
-              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+              <td class="comparison-table__cell-{{ block_id }} comparison-table__header-cell-{{ block_id }}">
                 {{ block.settings[header_key] }}
               </td>
             {% endfor %}
@@ -260,31 +260,31 @@
         {% if block.settings.show_images %}
           <tr>
             {% if block.settings.show_row_headers_desktop %}
-              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+              <td class="comparison-table__cell-{{ block_id }} comparison-table__header-cell-{{ block_id }}">
                 {{ block.settings.image_header_label }}
               </td>
             {% endif %}
             {% for i in (1..5) %}
               {% assign image_key = 'column_' | append: i | append: '_image' %}
               {% assign product_name_key = 'column_' | append: i | append: '_product_name' %}
-              <td class="ai-comparison-table__image-cell-{{ ai_gen_id }}">
-                <div class="ai-comparison-table__image-container-{{ ai_gen_id }}">
+              <td class="comparison-table__image-cell-{{ block_id }}">
+                <div class="comparison-table__image-container-{{ block_id }}">
                   {% if block.settings[image_key] %}
                     <img
                       src="{{ block.settings[image_key] | image_url: width: 400 }}"
                       alt="{{ block.settings[image_key].alt | escape }}"
-                      class="ai-comparison-table__image-{{ ai_gen_id }}"
+                      class="comparison-table__image-{{ block_id }}"
                       loading="lazy"
                       width="400"
                       height="{{ block.settings.image_height }}"
                     >
                   {% else %}
-                    <div class="ai-comparison-table__image-placeholder-{{ ai_gen_id }}">
+                    <div class="comparison-table__image-placeholder-{{ block_id }}">
                       {{'image' | placeholder_svg_tag }}
                     </div>
                   {% endif %}
                   {% if block.settings[product_name_key] != blank %}
-                    <p class="ai-comparison-table__product-name-{{ ai_gen_id }}">
+                    <p class="comparison-table__product-name-{{ block_id }}">
                       {{ block.settings[product_name_key] }}
                     </p>
                   {% endif %}
@@ -297,7 +297,7 @@
           <tr>
             {% if block.settings.show_row_headers_desktop %}
               {% assign header_key = 'row_' | append: row | append: '_header' %}
-              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+              <td class="comparison-table__cell-{{ block_id }} comparison-table__header-cell-{{ block_id }}">
                 {{ block.settings[header_key] }}
               </td>
             {% endif %}
@@ -305,15 +305,15 @@
               {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
               {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
               {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
-              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__body-cell-{{ ai_gen_id }}">
+              <td class="comparison-table__cell-{{ block_id }} comparison-table__body-cell-{{ block_id }}">
                 {% if block.settings[cell_type_key] == 'list' %}
                   {% assign list_items = block.settings[cell_list_key] | newline_to_br | strip_newlines | split: '<br />' %}
                   {% if list_items.size > 0 %}
-                    <ul class="ai-comparison-table__list-{{ ai_gen_id }}">
+                    <ul class="comparison-table__list-{{ block_id }}">
                       {% for item in list_items %}
                         {% assign trimmed_item = item | strip %}
                         {% if trimmed_item != blank %}
-                          <li class="ai-comparison-table__list-item-{{ ai_gen_id }}">{{ trimmed_item }}</li>
+                          <li class="comparison-table__list-item-{{ block_id }}">{{ trimmed_item }}</li>
                         {% endif %}
                       {% endfor %}
                     </ul>
@@ -331,24 +331,24 @@
             {% for i in (1..5) %}
               {% assign image_key = 'column_' | append: i | append: '_image' %}
               {% assign product_name_key = 'column_' | append: i | append: '_product_name' %}
-              <td class="ai-comparison-table__image-cell-{{ ai_gen_id }}">
-                <div class="ai-comparison-table__image-container-{{ ai_gen_id }}">
+              <td class="comparison-table__image-cell-{{ block_id }}">
+                <div class="comparison-table__image-container-{{ block_id }}">
                   {% if block.settings[image_key] %}
                     <img
                       src="{{ block.settings[image_key] | image_url: width: 400 }}"
                       alt="{{ block.settings[image_key].alt | escape }}"
-                      class="ai-comparison-table__image-{{ ai_gen_id }}"
+                      class="comparison-table__image-{{ block_id }}"
                       loading="lazy"
                       width="400"
                       height="{{ block.settings.image_height }}"
                     >
                   {% else %}
-                    <div class="ai-comparison-table__image-placeholder-{{ ai_gen_id }}">
+                    <div class="comparison-table__image-placeholder-{{ block_id }}">
                       {{ 'image' | placeholder_svg_tag }}
                     </div>
                   {% endif %}
                   {% if block.settings[product_name_key] != blank %}
-                    <p class="ai-comparison-table__product-name-{{ ai_gen_id }}">
+                    <p class="comparison-table__product-name-{{ block_id }}">
                       {{ block.settings[product_name_key] }}
                     </p>
                   {% endif %}
@@ -361,7 +361,7 @@
           <tr>
             {% for col in (1..5) %}
               {% assign header_key = 'column_' | append: col | append: '_header' %}
-              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+              <td class="comparison-table__cell-{{ block_id }} comparison-table__header-cell-{{ block_id }}">
                 {{ block.settings[header_key] }}
               </td>
             {% endfor %}
@@ -373,15 +373,15 @@
               {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
               {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
               {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
-              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__body-cell-{{ ai_gen_id }}">
+              <td class="comparison-table__cell-{{ block_id }} comparison-table__body-cell-{{ block_id }}">
                 {% if block.settings[cell_type_key] == 'list' %}
                   {% assign list_items = block.settings[cell_list_key] | newline_to_br | strip_newlines | split: '<br />' %}
                   {% if list_items.size > 0 %}
-                    <ul class="ai-comparison-table__list-{{ ai_gen_id }}">
+                    <ul class="comparison-table__list-{{ block_id }}">
                       {% for item in list_items %}
                         {% assign trimmed_item = item | strip %}
                         {% if trimmed_item != blank %}
-                          <li class="ai-comparison-table__list-item-{{ ai_gen_id }}">{{ trimmed_item }}</li>
+                          <li class="comparison-table__list-item-{{ block_id }}">{{ trimmed_item }}</li>
                         {% endif %}
                       {% endfor %}
                     </ul>
@@ -397,16 +397,16 @@
     </table>
   </div>
 
-  <div class="ai-comparison-table__mobile-{{ ai_gen_id }}">
-    <div class="ai-comparison-table__carousel-{{ ai_gen_id }}">
-      <div class="ai-comparison-table__carousel-track-{{ ai_gen_id }}">
+  <div class="comparison-table__mobile-{{ block_id }}">
+    <div class="comparison-table__carousel-{{ block_id }}">
+      <div class="comparison-table__carousel-track-{{ block_id }}">
         {% for col in (1..5) %}
           {% assign header_key = 'column_' | append: col | append: '_header' %}
           {% assign image_key = 'column_' | append: col | append: '_image' %}
           {% assign product_name_key = 'column_' | append: col | append: '_product_name' %}
-          <div class="ai-comparison-table__carousel-slide-{{ ai_gen_id }}">
+          <div class="comparison-table__carousel-slide-{{ block_id }}">
             {% if block.settings.show_column_headers_mobile %}
-              <div class="ai-comparison-table__carousel-header-{{ ai_gen_id }}">
+              <div class="comparison-table__carousel-header-{{ block_id }}">
                 {% if block.settings.header_orientation == 'column' %}
                   Column {{ col }}
                 {% else %}
@@ -415,30 +415,30 @@
               </div>
             {% endif %}
             {% if block.settings.show_images %}
-              <div class="ai-comparison-table__carousel-item-{{ ai_gen_id }}">
+              <div class="comparison-table__carousel-item-{{ block_id }}">
                 {% if block.settings.header_orientation == 'column' and block.settings.show_row_headers_mobile %}
-                  <div class="ai-comparison-table__carousel-label-{{ ai_gen_id }}">
+                  <div class="comparison-table__carousel-label-{{ block_id }}">
                     {{ block.settings.image_header_label }}
                   </div>
                 {% endif %}
-                <div class="ai-comparison-table__carousel-value-{{ ai_gen_id }}">
-                  <div class="ai-comparison-table__image-container-{{ ai_gen_id }}">
+                <div class="comparison-table__carousel-value-{{ block_id }}">
+                  <div class="comparison-table__image-container-{{ block_id }}">
                     {% if block.settings[image_key] %}
                       <img
                         src="{{ block.settings[image_key] | image_url: width: 400 }}"
                         alt="{{ block.settings[image_key].alt | escape }}"
-                        class="ai-comparison-table__image-{{ ai_gen_id }}"
+                        class="comparison-table__image-{{ block_id }}"
                         loading="lazy"
                         width="400"
                         height="{{ block.settings.image_height }}"
                       >
                     {% else %}
-                      <div class="ai-comparison-table__image-placeholder-{{ ai_gen_id }}">
+                      <div class="comparison-table__image-placeholder-{{ block_id }}">
                         {{ 'image' | placeholder_svg_tag }}
                       </div>
                     {% endif %}
                     {% if block.settings[product_name_key] != blank %}
-                      <p class="ai-comparison-table__product-name-{{ ai_gen_id }}">
+                      <p class="comparison-table__product-name-{{ block_id }}">
                         {{ block.settings[product_name_key] }}
                       </p>
                     {% endif %}
@@ -451,21 +451,21 @@
               {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
               {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
               {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
-              <div class="ai-comparison-table__carousel-item-{{ ai_gen_id }}">
+              <div class="comparison-table__carousel-item-{{ block_id }}">
                 {% if block.settings.header_orientation == 'column' and block.settings.show_row_headers_mobile %}
-                  <div class="ai-comparison-table__carousel-label-{{ ai_gen_id }}">
+                  <div class="comparison-table__carousel-label-{{ block_id }}">
                     {{ block.settings[row_header_key] }}
                   </div>
                 {% endif %}
-                <div class="ai-comparison-table__carousel-value-{{ ai_gen_id }}">
+                <div class="comparison-table__carousel-value-{{ block_id }}">
                   {% if block.settings[cell_type_key] == 'list' %}
                     {% assign list_items = block.settings[cell_list_key] | newline_to_br | strip_newlines | split: '<br />' %}
                     {% if list_items.size > 0 %}
-                      <ul class="ai-comparison-table__list-{{ ai_gen_id }}">
+                      <ul class="comparison-table__list-{{ block_id }}">
                         {% for item in list_items %}
                           {% assign trimmed_item = item | strip %}
                           {% if trimmed_item != blank %}
-                            <li class="ai-comparison-table__list-item-{{ ai_gen_id }}">{{ trimmed_item }}</li>
+                            <li class="comparison-table__list-item-{{ block_id }}">{{ trimmed_item }}</li>
                           {% endif %}
                         {% endfor %}
                       </ul>
@@ -480,9 +480,9 @@
         {% endfor %}
       </div>
       
-      <div class="ai-comparison-table__carousel-controls-{{ ai_gen_id }}">
+      <div class="comparison-table__carousel-controls-{{ block_id }}">
         <button
-          class="ai-comparison-table__carousel-button-{{ ai_gen_id }}"
+          class="comparison-table__carousel-button-{{ block_id }}"
           data-direction="prev"
           aria-label="Previous item"
         >
@@ -491,10 +491,10 @@
           </svg>
         </button>
         
-        <div class="ai-comparison-table__carousel-dots-{{ ai_gen_id }}">
+        <div class="comparison-table__carousel-dots-{{ block_id }}">
           {% for i in (1..5) %}
             <button
-              class="ai-comparison-table__carousel-dot-{{ ai_gen_id }} {% if forloop.first %}active{% endif %}"
+              class="comparison-table__carousel-dot-{{ block_id }} {% if forloop.first %}active{% endif %}"
               data-slide="{{ forloop.index0 }}"
               aria-label="Go to slide {{ forloop.index }}"
             ></button>
@@ -502,7 +502,7 @@
         </div>
         
         <button
-          class="ai-comparison-table__carousel-button-{{ ai_gen_id }}"
+          class="comparison-table__carousel-button-{{ block_id }}"
           data-direction="next"
           aria-label="Next item"
         >
@@ -513,11 +513,11 @@
       </div>
     </div>
   </div>
-</comparison-table-{{ ai_gen_id }}>
+</comparison-table-{{ block_id }}>
 
 <script>
   (function() {
-    class ComparisonTable{{ ai_gen_id }} extends HTMLElement {
+    class ComparisonTable{{ block_id }} extends HTMLElement {
       constructor() {
         super();
         this.currentSlide = 0;
@@ -525,10 +525,10 @@
       }
 
       connectedCallback() {
-        this.track = this.querySelector('.ai-comparison-table__carousel-track-{{ ai_gen_id }}');
+        this.track = this.querySelector('.comparison-table__carousel-track-{{ block_id }}');
         this.prevButton = this.querySelector('[data-direction="prev"]');
         this.nextButton = this.querySelector('[data-direction="next"]');
-        this.dots = this.querySelectorAll('.ai-comparison-table__carousel-dot-{{ ai_gen_id }}');
+        this.dots = this.querySelectorAll('.comparison-table__carousel-dot-{{ block_id }}');
         
         this.setupEventListeners();
         this.updateCarousel();
@@ -571,7 +571,7 @@
       }
     }
 
-    customElements.define('comparison-table-{{ ai_gen_id }}', ComparisonTable{{ ai_gen_id }});
+    customElements.define('comparison-table-{{ block_id }}', ComparisonTable{{ block_id }});
   })();
 </script>
 
