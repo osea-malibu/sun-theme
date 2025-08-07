@@ -38,25 +38,25 @@
   Version: 1.0
   Last Updated: 2025-08-07
 {% enddoc %}
-{% assign block_id = block.id | replace: '_', '' | downcase %}
+{% assign comparison_table_block_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
-  .comparison-table-{{ block_id }} {
+  .comparison-table-{{ comparison_table_block_id }} {
     width: 100%;
     overflow: hidden;
     margin: {{ block.settings.block_margin_top }}px 0{{ block.settings.block_margin_bottom }}px;
     padding: {{ block.settings.block_padding_top }}px 0 {{ block.settings.block_padding_bottom }}px;
   }
 
-  .comparison-table__desktop-{{ block_id }} {
+  .comparison-table__desktop-{{ comparison_table_block_id }} {
     display: block;
   }
 
-  .comparison-table__mobile-{{ block_id }} {
+  .comparison-table__mobile-{{ comparison_table_block_id }} {
     display: none;
   }
 
-  .comparison-table__table-{{ block_id }} {
+  .comparison-table__table-{{ comparison_table_block_id }} {
     width: 100%;
     border-collapse: collapse;
     background-color: {{ block.settings.background_color }};
@@ -64,27 +64,27 @@
     overflow: hidden;
   }
 
-  .comparison-table__cell-{{ block_id }} {
+  .comparison-table__cell-{{ comparison_table_block_id }} {
     padding: {{ block.settings.cell_padding }}px;
     border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
     text-align: center;
     vertical-align: middle;
   }
 
-  .comparison-table__header-cell-{{ block_id }} {
+  .comparison-table__header-cell-{{ comparison_table_block_id }} {
     background-color: {{ block.settings.header_background_color }};
     color: {{ block.settings.header_text_color }};
     font-weight: 600;
     font-size: {{ block.settings.header_font_size }}px;
   }
 
-  .comparison-table__body-cell-{{ block_id }} {
+  .comparison-table__body-cell-{{ comparison_table_block_id }} {
     background-color: {{ block.settings.cell_background_color }};
     color: {{ block.settings.cell_text_color }};
     font-size: {{ block.settings.cell_font_size }}px;
   }
 
-  .comparison-table__image-cell-{{ block_id }} {
+  .comparison-table__image-cell-{{ comparison_table_block_id }} {
     background-color: {{ block.settings.cell_background_color }};
     padding: {{ block.settings.cell_padding }}px;
     border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
@@ -92,14 +92,14 @@
     vertical-align: middle;
   }
 
-  .comparison-table__image-container-{{ block_id }} {
+  .comparison-table__image-container-{{ comparison_table_block_id }} {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
   }
 
-  .comparison-table__image-{{ block_id }} {
+  .comparison-table__image-{{ comparison_table_block_id }} {
     width: 100%;
     height: {{ block.settings.image_height }}px;
     {% if block.settings.image_fit == 'cover' %}
@@ -112,7 +112,7 @@
     border-radius: {{ block.settings.image_border_radius }}px;
   }
 
-  .comparison-table__image-placeholder-{{ block_id }} {
+  .comparison-table__image-placeholder-{{ comparison_table_block_id }} {
     width: 100%;
     height: {{ block.settings.image_height }}px;
     background-color: #f4f4f4;
@@ -122,38 +122,38 @@
     border-radius: {{ block.settings.image_border_radius }}px;
   }
 
-  .comparison-table__image-placeholder-{{ block_id }} svg {
+  .comparison-table__image-placeholder-{{ comparison_table_block_id }} svg {
     width: 60%;
     height: 60%;
     opacity: 0.5;
   }
 
-  .comparison-table__product-name-{{ block_id }} {
+  .comparison-table__product-name-{{ comparison_table_block_id }} {
     font-size: {{ block.settings.product_name_font_size }}px;
     font-weight: 600;
     color: {{ block.settings.product_name_color }};
     margin: 0;
   }
 
-  .comparison-table__list-{{ block_id }} {
+  .comparison-table__list-{{ comparison_table_block_id }} {
     margin: 0;
     padding: 0;
     list-style: none;
     text-align: left;
   }
 
-  .comparison-table__list-item-{{ block_id }} {
+  .comparison-table__list-item-{{ comparison_table_block_id }} {
     position: relative;
     padding-left: 20px;
     margin-bottom: 8px;
     line-height: 1.4;
   }
 
-  .comparison-table__list-item-{{ block_id }}:last-child {
+  .comparison-table__list-item-{{ comparison_table_block_id }}:last-child {
     margin-bottom: 0;
   }
 
-  .comparison-table__list-item-{{ block_id }}:before {
+  .comparison-table__list-item-{{ comparison_table_block_id }}:before {
     content: "•";
     color: {{ block.settings.list_bullet_color }};
     font-size: 1.2em;
@@ -162,17 +162,17 @@
     top: 0;
   }
 
-  .comparison-table__carousel-{{ block_id }} {
+  .comparison-table__carousel-{{ comparison_table_block_id }} {
     position: relative;
     overflow: hidden;
   }
 
-  .comparison-table__carousel-track-{{ block_id }} {
+  .comparison-table__carousel-track-{{ comparison_table_block_id }} {
     display: flex;
     transition: transform 0.3s ease;
   }
 
-  .comparison-table__carousel-slide-{{ block_id }} {
+  .comparison-table__carousel-slide-{{ comparison_table_block_id }} {
     flex: 0 0 100%;
     padding: 20px;
     background-color: {{ block.settings.background_color }};
@@ -181,19 +181,19 @@
     margin-right: 16px;
   }
 
-  .comparison-table__carousel-slide-{{ block_id }}:last-child {
+  .comparison-table__carousel-slide-{{ comparison_table_block_id }}:last-child {
     margin-right: 0;
   }
 
-  .comparison-table__carousel-item-{{ block_id }} {
+  .comparison-table__carousel-item-{{ comparison_table_block_id }} {
     margin-bottom: 16px;
   }
 
-  .comparison-table__carousel-item-{{ block_id }}:last-child {
+  .comparison-table__carousel-item-{{ comparison_table_block_id }}:last-child {
     margin-bottom: 0;
   }
 
-  .comparison-table__carousel-header-{{ block_id }} {
+  .comparison-table__carousel-header-{{ comparison_table_block_id }} {
     background-color: {{ block.settings.header_background_color }};
     color: {{ block.settings.header_text_color }};
     padding: 12px;
@@ -203,19 +203,19 @@
     margin-bottom: 16px;
   }
 
-  .comparison-table__carousel-label-{{ block_id }} {
+  .comparison-table__carousel-label-{{ comparison_table_block_id }} {
     font-weight: 600;
     color: {{ block.settings.header_text_color }};
     margin-bottom: 8px;
     font-size: {{ block.settings.cell_font_size }}px;
   }
 
-  .comparison-table__carousel-value-{{ block_id }} {
+  .comparison-table__carousel-value-{{ comparison_table_block_id }} {
     color: {{ block.settings.cell_text_color }};
     font-size: {{ block.settings.cell_font_size }}px;
   }
 
-  .comparison-table__carousel-controls-{{ block_id }} {
+  .comparison-table__carousel-controls-{{ comparison_table_block_id }} {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -223,7 +223,7 @@
     margin-top: 20px;
   }
 
-  .comparison-table__carousel-button-{{ block_id }} {
+  .comparison-table__carousel-button-{{ comparison_table_block_id }} {
     background-color: {{ block.settings.button_color }};
     color: {{ block.settings.button_text_color }};
     border: none;
@@ -237,21 +237,21 @@
     transition: background-color 0.3s ease;
   }
 
-  .comparison-table__carousel-button-{{ block_id }}:hover {
+  .comparison-table__carousel-button-{{ comparison_table_block_id }}:hover {
     background-color: {{ block.settings.button_hover_color }};
   }
 
-  .comparison-table__carousel-button-{{ block_id }}:disabled {
+  .comparison-table__carousel-button-{{ comparison_table_block_id }}:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
-  .comparison-table__carousel-dots-{{ block_id }} {
+  .comparison-table__carousel-dots-{{ comparison_table_block_id }} {
     display: flex;
     gap: 8px;
   }
 
-  .comparison-table__carousel-dot-{{ block_id }} {
+  .comparison-table__carousel-dot-{{ comparison_table_block_id }} {
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -260,35 +260,35 @@
     transition: background-color 0.3s ease;
   }
 
-  .comparison-table__carousel-dot-{{ block_id }}.active {
+  .comparison-table__carousel-dot-{{ comparison_table_block_id }}.active {
     background-color: {{ block.settings.button_color }};
   }
 
   @media screen and (max-width: 768px) {
-    .comparison-table__desktop-{{ block_id }} {
+    .comparison-table__desktop-{{ comparison_table_block_id }} {
       display: none;
     }
 
-    .comparison-table__mobile-{{ block_id }} {
+    .comparison-table__mobile-{{ comparison_table_block_id }} {
       display: block;
     }
   }
 {% endstyle %}
 
-<comparison-table-{{ block_id }} class="comparison-table-{{ block_id }}" {{ block.shopify_attributes }}>
-  <div class="comparison-table__desktop-{{ block_id }}">
-    <table class="comparison-table__table-{{ block_id }}">
+<comparison-table-{{ comparison_table_block_id }} class="comparison-table-{{ comparison_table_block_id }}" {{ block.shopify_attributes }}>
+  <div class="comparison-table__desktop-{{ comparison_table_block_id }}">
+    <table class="comparison-table__table-{{ comparison_table_block_id }}">
       {% if block.settings.header_orientation == 'column' %}
         {% if block.settings.show_column_headers_desktop %}
           <tr>
             {% if block.settings.show_row_headers_desktop %}
-              <td class="comparison-table__cell-{{ block_id }} comparison-table__header-cell-{{ block_id }}">
+              <td class="comparison-table__cell-{{ comparison_table_block_id }} comparison-table__header-cell-{{ comparison_table_block_id }}">
                 {{ block.settings.image_header_label }}
               </td>
             {% endif %}
             {% for col in (1..5) %}
               {% assign header_key = 'column_' | append: col | append: '_header' %}
-              <td class="comparison-table__cell-{{ block_id }} comparison-table__header-cell-{{ block_id }}">
+              <td class="comparison-table__cell-{{ comparison_table_block_id }} comparison-table__header-cell-{{ comparison_table_block_id }}">
                 {{ block.settings[header_key] }}
               </td>
             {% endfor %}
@@ -297,31 +297,31 @@
         {% if block.settings.show_images %}
           <tr>
             {% if block.settings.show_row_headers_desktop %}
-              <td class="comparison-table__cell-{{ block_id }} comparison-table__header-cell-{{ block_id }}">
+              <td class="comparison-table__cell-{{ comparison_table_block_id }} comparison-table__header-cell-{{ comparison_table_block_id }}">
                 {{ block.settings.image_header_label }}
               </td>
             {% endif %}
             {% for i in (1..5) %}
               {% assign image_key = 'column_' | append: i | append: '_image' %}
               {% assign product_name_key = 'column_' | append: i | append: '_product_name' %}
-              <td class="comparison-table__image-cell-{{ block_id }}">
-                <div class="comparison-table__image-container-{{ block_id }}">
+              <td class="comparison-table__image-cell-{{ comparison_table_block_id }}">
+                <div class="comparison-table__image-container-{{ comparison_table_block_id }}">
                   {% if block.settings[image_key] %}
                     <img
                       src="{{ block.settings[image_key] | image_url: width: 400 }}"
                       alt="{{ block.settings[image_key].alt | escape }}"
-                      class="comparison-table__image-{{ block_id }}"
+                      class="comparison-table__image-{{ comparison_table_block_id }}"
                       loading="lazy"
                       width="400"
                       height="{{ block.settings.image_height }}"
                     >
                   {% else %}
-                    <div class="comparison-table__image-placeholder-{{ block_id }}">
+                    <div class="comparison-table__image-placeholder-{{ comparison_table_block_id }}">
                       {{'image' | placeholder_svg_tag }}
                     </div>
                   {% endif %}
                   {% if block.settings[product_name_key] != blank %}
-                    <p class="comparison-table__product-name-{{ block_id }}">
+                    <p class="comparison-table__product-name-{{ comparison_table_block_id }}">
                       {{ block.settings[product_name_key] }}
                     </p>
                   {% endif %}
@@ -334,7 +334,7 @@
           <tr>
             {% if block.settings.show_row_headers_desktop %}
               {% assign header_key = 'row_' | append: row | append: '_header' %}
-              <td class="comparison-table__cell-{{ block_id }} comparison-table__header-cell-{{ block_id }}">
+              <td class="comparison-table__cell-{{ comparison_table_block_id }} comparison-table__header-cell-{{ comparison_table_block_id }}">
                 {{ block.settings[header_key] }}
               </td>
             {% endif %}
@@ -342,15 +342,15 @@
               {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
               {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
               {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
-              <td class="comparison-table__cell-{{ block_id }} comparison-table__body-cell-{{ block_id }}">
+              <td class="comparison-table__cell-{{ comparison_table_block_id }} comparison-table__body-cell-{{ comparison_table_block_id }}">
                 {% if block.settings[cell_type_key] == 'list' %}
                   {% assign list_items = block.settings[cell_list_key] | newline_to_br | strip_newlines | split: '<br />' %}
                   {% if list_items.size > 0 %}
-                    <ul class="comparison-table__list-{{ block_id }}">
+                    <ul class="comparison-table__list-{{ comparison_table_block_id }}">
                       {% for item in list_items %}
                         {% assign trimmed_item = item | strip %}
                         {% if trimmed_item != blank %}
-                          <li class="comparison-table__list-item-{{ block_id }}">{{ trimmed_item }}</li>
+                          <li class="comparison-table__list-item-{{ comparison_table_block_id }}">{{ trimmed_item }}</li>
                         {% endif %}
                       {% endfor %}
                     </ul>
@@ -368,24 +368,24 @@
             {% for i in (1..5) %}
               {% assign image_key = 'column_' | append: i | append: '_image' %}
               {% assign product_name_key = 'column_' | append: i | append: '_product_name' %}
-              <td class="comparison-table__image-cell-{{ block_id }}">
-                <div class="comparison-table__image-container-{{ block_id }}">
+              <td class="comparison-table__image-cell-{{ comparison_table_block_id }}">
+                <div class="comparison-table__image-container-{{ comparison_table_block_id }}">
                   {% if block.settings[image_key] %}
                     <img
                       src="{{ block.settings[image_key] | image_url: width: 400 }}"
                       alt="{{ block.settings[image_key].alt | escape }}"
-                      class="comparison-table__image-{{ block_id }}"
+                      class="comparison-table__image-{{ comparison_table_block_id }}"
                       loading="lazy"
                       width="400"
                       height="{{ block.settings.image_height }}"
                     >
                   {% else %}
-                    <div class="comparison-table__image-placeholder-{{ block_id }}">
+                    <div class="comparison-table__image-placeholder-{{ comparison_table_block_id }}">
                       {{ 'image' | placeholder_svg_tag }}
                     </div>
                   {% endif %}
                   {% if block.settings[product_name_key] != blank %}
-                    <p class="comparison-table__product-name-{{ block_id }}">
+                    <p class="comparison-table__product-name-{{ comparison_table_block_id }}">
                       {{ block.settings[product_name_key] }}
                     </p>
                   {% endif %}
@@ -398,7 +398,7 @@
           <tr>
             {% for col in (1..5) %}
               {% assign header_key = 'column_' | append: col | append: '_header' %}
-              <td class="comparison-table__cell-{{ block_id }} comparison-table__header-cell-{{ block_id }}">
+              <td class="comparison-table__cell-{{ comparison_table_block_id }} comparison-table__header-cell-{{ comparison_table_block_id }}">
                 {{ block.settings[header_key] }}
               </td>
             {% endfor %}
@@ -410,15 +410,15 @@
               {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
               {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
               {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
-              <td class="comparison-table__cell-{{ block_id }} comparison-table__body-cell-{{ block_id }}">
+              <td class="comparison-table__cell-{{ comparison_table_block_id }} comparison-table__body-cell-{{ comparison_table_block_id }}">
                 {% if block.settings[cell_type_key] == 'list' %}
                   {% assign list_items = block.settings[cell_list_key] | newline_to_br | strip_newlines | split: '<br />' %}
                   {% if list_items.size > 0 %}
-                    <ul class="comparison-table__list-{{ block_id }}">
+                    <ul class="comparison-table__list-{{ comparison_table_block_id }}">
                       {% for item in list_items %}
                         {% assign trimmed_item = item | strip %}
                         {% if trimmed_item != blank %}
-                          <li class="comparison-table__list-item-{{ block_id }}">{{ trimmed_item }}</li>
+                          <li class="comparison-table__list-item-{{ comparison_table_block_id }}">{{ trimmed_item }}</li>
                         {% endif %}
                       {% endfor %}
                     </ul>
@@ -434,16 +434,16 @@
     </table>
   </div>
 
-  <div class="comparison-table__mobile-{{ block_id }}">
-    <div class="comparison-table__carousel-{{ block_id }}">
-      <div class="comparison-table__carousel-track-{{ block_id }}">
+  <div class="comparison-table__mobile-{{ comparison_table_block_id }}">
+    <div class="comparison-table__carousel-{{ comparison_table_block_id }}">
+      <div class="comparison-table__carousel-track-{{ comparison_table_block_id }}">
         {% for col in (1..5) %}
           {% assign header_key = 'column_' | append: col | append: '_header' %}
           {% assign image_key = 'column_' | append: col | append: '_image' %}
           {% assign product_name_key = 'column_' | append: col | append: '_product_name' %}
-          <div class="comparison-table__carousel-slide-{{ block_id }}">
+          <div class="comparison-table__carousel-slide-{{ comparison_table_block_id }}">
             {% if block.settings.show_column_headers_mobile %}
-              <div class="comparison-table__carousel-header-{{ block_id }}">
+              <div class="comparison-table__carousel-header-{{ comparison_table_block_id }}">
                 {% if block.settings.header_orientation == 'column' %}
                   Column {{ col }}
                 {% else %}
@@ -452,30 +452,30 @@
               </div>
             {% endif %}
             {% if block.settings.show_images %}
-              <div class="comparison-table__carousel-item-{{ block_id }}">
+              <div class="comparison-table__carousel-item-{{ comparison_table_block_id }}">
                 {% if block.settings.header_orientation == 'column' and block.settings.show_row_headers_mobile %}
-                  <div class="comparison-table__carousel-label-{{ block_id }}">
+                  <div class="comparison-table__carousel-label-{{ comparison_table_block_id }}">
                     {{ block.settings.image_header_label }}
                   </div>
                 {% endif %}
-                <div class="comparison-table__carousel-value-{{ block_id }}">
-                  <div class="comparison-table__image-container-{{ block_id }}">
+                <div class="comparison-table__carousel-value-{{ comparison_table_block_id }}">
+                  <div class="comparison-table__image-container-{{ comparison_table_block_id }}">
                     {% if block.settings[image_key] %}
                       <img
                         src="{{ block.settings[image_key] | image_url: width: 400 }}"
                         alt="{{ block.settings[image_key].alt | escape }}"
-                        class="comparison-table__image-{{ block_id }}"
+                        class="comparison-table__image-{{ comparison_table_block_id }}"
                         loading="lazy"
                         width="400"
                         height="{{ block.settings.image_height }}"
                       >
                     {% else %}
-                      <div class="comparison-table__image-placeholder-{{ block_id }}">
+                      <div class="comparison-table__image-placeholder-{{ comparison_table_block_id }}">
                         {{ 'image' | placeholder_svg_tag }}
                       </div>
                     {% endif %}
                     {% if block.settings[product_name_key] != blank %}
-                      <p class="comparison-table__product-name-{{ block_id }}">
+                      <p class="comparison-table__product-name-{{ comparison_table_block_id }}">
                         {{ block.settings[product_name_key] }}
                       </p>
                     {% endif %}
@@ -488,21 +488,21 @@
               {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
               {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
               {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
-              <div class="comparison-table__carousel-item-{{ block_id }}">
+              <div class="comparison-table__carousel-item-{{ comparison_table_block_id }}">
                 {% if block.settings.header_orientation == 'column' and block.settings.show_row_headers_mobile %}
-                  <div class="comparison-table__carousel-label-{{ block_id }}">
+                  <div class="comparison-table__carousel-label-{{ comparison_table_block_id }}">
                     {{ block.settings[row_header_key] }}
                   </div>
                 {% endif %}
-                <div class="comparison-table__carousel-value-{{ block_id }}">
+                <div class="comparison-table__carousel-value-{{ comparison_table_block_id }}">
                   {% if block.settings[cell_type_key] == 'list' %}
                     {% assign list_items = block.settings[cell_list_key] | newline_to_br | strip_newlines | split: '<br />' %}
                     {% if list_items.size > 0 %}
-                      <ul class="comparison-table__list-{{ block_id }}">
+                      <ul class="comparison-table__list-{{ comparison_table_block_id }}">
                         {% for item in list_items %}
                           {% assign trimmed_item = item | strip %}
                           {% if trimmed_item != blank %}
-                            <li class="comparison-table__list-item-{{ block_id }}">{{ trimmed_item }}</li>
+                            <li class="comparison-table__list-item-{{ comparison_table_block_id }}">{{ trimmed_item }}</li>
                           {% endif %}
                         {% endfor %}
                       </ul>
@@ -517,9 +517,9 @@
         {% endfor %}
       </div>
       
-      <div class="comparison-table__carousel-controls-{{ block_id }}">
+      <div class="comparison-table__carousel-controls-{{ comparison_table_block_id }}">
         <button
-          class="comparison-table__carousel-button-{{ block_id }}"
+          class="comparison-table__carousel-button-{{ comparison_table_block_id }}"
           data-direction="prev"
           aria-label="Previous item"
         >
@@ -528,10 +528,10 @@
           </svg>
         </button>
         
-        <div class="comparison-table__carousel-dots-{{ block_id }}">
+        <div class="comparison-table__carousel-dots-{{ comparison_table_block_id }}">
           {% for i in (1..5) %}
             <button
-              class="comparison-table__carousel-dot-{{ block_id }} {% if forloop.first %}active{% endif %}"
+              class="comparison-table__carousel-dot-{{ comparison_table_block_id }} {% if forloop.first %}active{% endif %}"
               data-slide="{{ forloop.index0 }}"
               aria-label="Go to slide {{ forloop.index }}"
             ></button>
@@ -539,7 +539,7 @@
         </div>
         
         <button
-          class="comparison-table__carousel-button-{{ block_id }}"
+          class="comparison-table__carousel-button-{{ comparison_table_block_id }}"
           data-direction="next"
           aria-label="Next item"
         >
@@ -550,11 +550,11 @@
       </div>
     </div>
   </div>
-</comparison-table-{{ block_id }}>
+</comparison-table-{{ comparison_table_block_id }}>
 
 <script>
   (function() {
-    class ComparisonTable{{ block_id }} extends HTMLElement {
+    class ComparisonTable{{ comparison_table_block_id }} extends HTMLElement {
       constructor() {
         super();
         this.currentSlide = 0;
@@ -562,10 +562,10 @@
       }
 
       connectedCallback() {
-        this.track = this.querySelector('.comparison-table__carousel-track-{{ block_id }}');
+        this.track = this.querySelector('.comparison-table__carousel-track-{{ comparison_table_block_id }}');
         this.prevButton = this.querySelector('[data-direction="prev"]');
         this.nextButton = this.querySelector('[data-direction="next"]');
-        this.dots = this.querySelectorAll('.comparison-table__carousel-dot-{{ block_id }}');
+        this.dots = this.querySelectorAll('.comparison-table__carousel-dot-{{ comparison_table_block_id }}');
         
         this.setupEventListeners();
         this.updateCarousel();
@@ -608,7 +608,7 @@
       }
     }
 
-    customElements.define('comparison-table-{{ block_id }}', ComparisonTable{{ block_id }});
+    customElements.define('comparison-table-{{ comparison_table_block_id }}', ComparisonTable{{ comparison_table_block_id }});
   })();
 </script>
 
