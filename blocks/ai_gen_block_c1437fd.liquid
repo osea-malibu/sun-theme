@@ -244,9 +244,11 @@
       {% if block.settings.header_orientation == 'column' %}
         {% if block.settings.show_images %}
           <tr>
-            <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
-              {{ block.settings.image_header_label }}
-            </td>
+            {% if block.settings.show_header_desktop %}
+              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+                {{ block.settings.image_header_label }}
+              </td>
+            {% endif %}
             {% for i in (1..5) %}
               {% assign image_key = 'column_' | append: i | append: '_image' %}
               {% assign product_name_key = 'column_' | append: i | append: '_product_name' %}
@@ -258,6 +260,8 @@
                       alt="{{ block.settings[image_key].alt | escape }}"
                       class="ai-comparison-table__image-{{ ai_gen_id }}"
                       loading="lazy"
+                      width="400"
+                      height="{{ block.settings.image_height }}"
                     >
                   {% else %}
                     <div class="ai-comparison-table__image-placeholder-{{ ai_gen_id }}">
@@ -276,10 +280,12 @@
         {% endif %}
         {% for row in (1..4) %}
           <tr>
-            {% assign header_key = 'row_' | append: row | append: '_header' %}
-            <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
-              {{ block.settings[header_key] }}
-            </td>
+            {% if block.settings.show_header_desktop %}
+              {% assign header_key = 'row_' | append: row | append: '_header' %}
+              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+                {{ block.settings[header_key] }}
+              </td>
+            {% endif %}
             {% for col in (1..5) %}
               {% assign cell_key = 'row_' | append: row | append: '_col_' | append: col %}
               {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
@@ -318,6 +324,8 @@
                       alt="{{ block.settings[image_key].alt | escape }}"
                       class="ai-comparison-table__image-{{ ai_gen_id }}"
                       loading="lazy"
+                      width="400"
+                      height="{{ block.settings.image_height }}"
                     >
                   {% else %}
                     <div class="ai-comparison-table__image-placeholder-{{ ai_gen_id }}">
@@ -334,14 +342,16 @@
             {% endfor %}
           </tr>
         {% endif %}
-        <tr>
-          {% for col in (1..5) %}
-            {% assign header_key = 'column_' | append: col | append: '_header' %}
-            <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
-              {{ block.settings[header_key] }}
-            </td>
-          {% endfor %}
-        </tr>
+        {% if block.settings.show_header_desktop %}
+          <tr>
+            {% for col in (1..5) %}
+              {% assign header_key = 'column_' | append: col | append: '_header' %}
+              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+                {{ block.settings[header_key] }}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endif %}
         {% for row in (1..4) %}
           <tr>
             {% for col in (1..5) %}
@@ -380,13 +390,15 @@
           {% assign image_key = 'column_' | append: col | append: '_image' %}
           {% assign product_name_key = 'column_' | append: col | append: '_product_name' %}
           <div class="ai-comparison-table__carousel-slide-{{ ai_gen_id }}">
-            <div class="ai-comparison-table__carousel-header-{{ ai_gen_id }}">
-              {% if block.settings.header_orientation == 'column' %}
-                Column {{ col }}
-              {% else %}
-                {{ block.settings[header_key] }}
-              {% endif %}
-            </div>
+            {% if block.settings.show_header_mobile %}
+              <div class="ai-comparison-table__carousel-header-{{ ai_gen_id }}">
+                {% if block.settings.header_orientation == 'column' %}
+                  Column {{ col }}
+                {% else %}
+                  {{ block.settings[header_key] }}
+                {% endif %}
+              </div>
+            {% endif %}
             {% if block.settings.show_images %}
               <div class="ai-comparison-table__carousel-item-{{ ai_gen_id }}">
                 {% if block.settings.header_orientation == 'column' %}
@@ -402,6 +414,8 @@
                         alt="{{ block.settings[image_key].alt | escape }}"
                         class="ai-comparison-table__image-{{ ai_gen_id }}"
                         loading="lazy"
+                        width="400"
+                        height="{{ block.settings.image_height }}"
                       >
                     {% else %}
                       <div class="ai-comparison-table__image-placeholder-{{ ai_gen_id }}">
@@ -423,7 +437,7 @@
               {% assign cell_type_key = 'row_' | append: row | append: '_col_' | append: col | append: '_type' %}
               {% assign cell_list_key = 'row_' | append: row | append: '_col_' | append: col | append: '_list' %}
               <div class="ai-comparison-table__carousel-item-{{ ai_gen_id }}">
-                {% if block.settings.header_orientation == 'column' %}
+                {% if block.settings.header_orientation == 'column' and block.settings.show_header_mobile %}
                   <div class="ai-comparison-table__carousel-label-{{ ai_gen_id }}">
                     {{ block.settings[row_header_key] }}
                   </div>
@@ -574,6 +588,18 @@
       "type": "checkbox",
       "id": "show_images",
       "label": "Show images",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header_desktop",
+      "label": "Show header on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header_mobile",
+      "label": "Show header on mobile",
       "default": true
     },
     {
