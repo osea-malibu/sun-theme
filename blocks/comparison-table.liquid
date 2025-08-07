@@ -1,5 +1,42 @@
 {% doc %}
-
+  Comparison Table Block
+  
+  This block creates a responsive comparison table that displays product features, 
+  specifications, or any tabular data in an organized format.
+  
+  Features:
+  - Responsive design: Desktop table view, mobile carousel navigation
+  - Mobile carousel with dot navigation and prev/next buttons
+  - Header orientation options: Row headers or Column headers
+  - Granular header visibility controls (desktop column/row, mobile column/row)
+  - Image support with product names and customizable image settings
+  - Content types: Text and bulleted lists with custom bullet colors
+  - Comprehensive styling options (colors, fonts, spacing, borders, border radius)
+  - Interactive mobile carousel with smooth transitions and touch-friendly controls
+  - 5-column, 4-row table structure with customizable content
+  - Image fit options: cover, contain, or fill
+  - Customizable spacing (margins, padding, cell padding)
+  - Button styling with hover states for carousel navigation
+  
+  Usage:
+  - Add this block to any section that supports blocks
+  - Configure header orientation (row or column headers)
+  - Set up column headers, row headers, and cell content
+  - Add images and product names for each column
+  - Control header visibility independently for desktop and mobile
+  - Customize all styling through the theme editor
+  - Choose between text or list content for each cell
+  
+  Dependencies:
+  - Requires block.id for unique CSS class generation
+  - Uses Shopify's image_picker for product images
+  - Custom JavaScript for mobile carousel functionality
+  - CSS Grid/Flexbox for responsive layout
+  - Custom web component for carousel interactions
+  
+  Author: Mirabelle Doiron
+  Version: 1.0
+  Last Updated: 2025-08-07
 {% enddoc %}
 {% assign block_id = block.id | replace: '_', '' | downcase %}
 
