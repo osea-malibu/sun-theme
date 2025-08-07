@@ -30,110 +30,124 @@
   Version: 1.0
   Last Updated: 2025-08-07
 {% enddoc %}
-{% assign block_id = block.id | replace: '_', '' | downcase %}
+{% assign expandable_text_block_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
-  .expandable-text-{{ block_id }} {
+  .expandable-text-{{ expandable_text_block_id }} {
     background-color: {{ block.settings.background_color }};
     padding: {{ block.settings.padding }}px;
     border-radius: {{ block.settings.border_radius }}px;
     max-width: 100%;
   }
 
-  .expandable-text__heading-{{ block_id }} {
+  .expandable-text__heading-{{ expandable_text_block_id }} {
     color: {{ block.settings.heading_color }};
     font-size: {{ block.settings.heading_size }}px;
     margin: 0 0 16px 0;
     font-weight:600;
   }
 
-  .expandable-text__content-{{ block_id }} {
+  .expandable-text__content-{{ expandable_text_block_id }} {
     color: {{ block.settings.text_color }};
     font-size: {{ block.settings.text_size }}px;
     line-height: 1.6;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
-  .expandable-text__preview-{{ block_id }} {
+  .expandable-text__preview-{{ expandable_text_block_id }} {
     display: block;
   }
 
-  .expandable-text__full-{{ block_id }} {
+  .expandable-text__full-{{ expandable_text_block_id }} {
     display: none;
   }
 
-  .expandable-text__toggle-{{ block_id }} {
+  .expandable-text__toggle-{{ expandable_text_block_id }} {
     background: none;
     border: none;
     color: {{ block.settings.link_color }};
     font-size: {{ block.settings.text_size }}px;
     text-decoration: underline;
     cursor: pointer;
-    padding: 0;
-    margin-top: 8px;
+    padding: 8px 0;
+    margin: 0;
     display: inline-block;
+    align-self: flex-start;
+    transition: color 0.2s ease;
   }
 
-  .expandable-text__toggle-{{ block_id }}:hover {
+  .expandable-text__toggle-{{ expandable_text_block_id }}:hover {
     color: {{ block.settings.link_hover_color }};
   }
 
-  .expandable-text__toggle-{{ block_id }}:focus {
+  .expandable-text__toggle-{{ expandable_text_block_id }}:focus {
     outline: 2px solid {{ block.settings.link_color }};
     outline-offset: 2px;
   }
 
-  .expandable-text-{{ block_id }}.expanded .expandable-text__preview-{{ block_id }} {
+  .expandable-text-{{ expandable_text_block_id }}.expanded .expandable-text__preview-{{ expandable_text_block_id }} {
     display: none;
   }
 
-  .expandable-text-{{ block_id }}.expanded .expandable-text__full-{{ block_id }} {
+  .expandable-text-{{ expandable_text_block_id }}.expanded .expandable-text__full-{{ expandable_text_block_id }} {
     display: block;
   }
 
   @media screen and (max-width: 749px) {
-    .expandable-text__heading-{{ block_id }} {
+    .expandable-text__heading-{{ expandable_text_block_id }} {
       font-size: {{ block.settings.heading_size | times: 0.8 }}px;
     }
 
-    .expandable-text-{{ block_id }} {
+    .expandable-text-{{ expandable_text_block_id }} {
       padding: {{ block.settings.padding | times: 0.7 }}px;
+    }
+
+    .expandable-text__content-{{ expandable_text_block_id }} {
+      gap: 8px;
+    }
+
+    .expandable-text__toggle-{{ expandable_text_block_id }} {
+      padding: 6px 0;
+      font-size: {{ block.settings.text_size | times: 0.9 }}px;
     }
   }
 {% endstyle %}
 
-<expandable-text-{{ block_id }}
-  class="expandable-text-{{ block_id }}"
+<expandable-text-{{ expandable_text_block_id }}
+  class="expandable-text-{{ expandable_text_block_id }}"
   {{ block.shopify_attributes }}
 >
   {% if block.settings.heading != blank %}
-    <h2 class="expandable-text__heading-{{ block_id }}">{{ block.settings.heading }}</h2>
-  {% endif %}<div class="expandable-text__content-{{ block_id }}"><div class="expandable-text__preview-{{ block_id }}">
+    <h2 class="expandable-text__heading-{{ expandable_text_block_id }}">{{ block.settings.heading }}</h2>
+  {% endif %}<div class="expandable-text__content-{{ expandable_text_block_id }}"><div class="expandable-text__preview-{{ expandable_text_block_id }}">
       {{ block.settings.preview_text }}
     </div>
 
-    <div class="expandable-text__full-{{ block_id }}">
+    <div class="expandable-text__full-{{ expandable_text_block_id }}">
       {{ block.settings.full_text }}
     </div>
   </div><button
-    class="expandable-text__toggle-{{ block_id }}"
+    class="expandable-text__toggle-{{ expandable_text_block_id }}"
     aria-expanded="false">
-    <span class="expandable-text__read-more-{{ block_id }}">{{ block.settings.read_more_text }}</span>
-    <span class="expandable-text__read-less-{{ block_id }}" style="display: none;">{{ block.settings.read_less_text }}</span>
+    <span class="expandable-text__read-more-{{ expandable_text_block_id }}">{{ block.settings.read_more_text }}</span>
+    <span class="expandable-text__read-less-{{ expandable_text_block_id }}" style="display: none;">{{ block.settings.read_less_text }}</span>
   </button>
-</expandable-text-{{ block_id }}>
+</expandable-text-{{ expandable_text_block_id }}>
 
 <script>
   (function() {
-    class ExpandableText{{ block_id }} extends HTMLElement {
+    class ExpandableText{{ expandable_text_block_id }} extends HTMLElement {
       constructor() {
         super();
       }
 
       connectedCallback() {
-        this.toggleButton = this.querySelector('.expandable-text__toggle-{{ block_id }}');
-        this.readMoreText = this.querySelector('.expandable-text__read-more-{{ block_id }}');
-        this.readLessText = this.querySelector('.expandable-text__read-less-{{ block_id }}');
+        this.toggleButton = this.querySelector('.expandable-text__toggle-{{ expandable_text_block_id }}');
+        this.readMoreText = this.querySelector('.expandable-text__read-more-{{ expandable_text_block_id }}');
+        this.readLessText = this.querySelector('.expandable-text__read-less-{{ expandable_text_block_id }}');
         this.isExpanded = false;
 
         this.toggleButton.addEventListener('click', () => {
@@ -158,7 +172,7 @@
       }
     }
 
-    customElements.define('expandable-text-{{ block_id }}', ExpandableText{{ block_id }});
+    customElements.define('expandable-text-{{ expandable_text_block_id }}', ExpandableText{{ expandable_text_block_id }});
   })();
 </script>
 
