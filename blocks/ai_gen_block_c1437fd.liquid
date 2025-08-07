@@ -242,6 +242,21 @@
   <div class="ai-comparison-table__desktop-{{ ai_gen_id }}">
     <table class="ai-comparison-table__table-{{ ai_gen_id }}">
       {% if block.settings.header_orientation == 'column' %}
+        {% if block.settings.show_column_headers_desktop %}
+          <tr>
+            {% if block.settings.show_row_headers_desktop %}
+              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+                {{ block.settings.image_header_label }}
+              </td>
+            {% endif %}
+            {% for col in (1..5) %}
+              {% assign header_key = 'column_' | append: col | append: '_header' %}
+              <td class="ai-comparison-table__cell-{{ ai_gen_id }} ai-comparison-table__header-cell-{{ ai_gen_id }}">
+                {{ block.settings[header_key] }}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endif %}
         {% if block.settings.show_images %}
           <tr>
             {% if block.settings.show_row_headers_desktop %}
