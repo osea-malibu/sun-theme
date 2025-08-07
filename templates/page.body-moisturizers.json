@@ -399,6 +399,8 @@
           "settings": {
             "header_orientation": "column",
             "show_images": true,
+            "show_header_desktop": true,
+            "show_header_mobile": true,
             "image_header_label": "Product",
             "block_margin_top": 0,
             "block_margin_bottom": 0,
@@ -424,7 +426,7 @@
             "image_height": 150,
             "image_border_radius": 4,
             "image_fit": "contain",
-            "column_1_header": "header",
+            "column_1_header": "",
             "column_2_header": "",
             "column_3_header": "",
             "column_4_header": "",
