@@ -399,6 +399,8 @@
           "settings": {
             "header_orientation": "column",
             "show_images": true,
+            "show_column_headers_desktop": false,
+            "show_row_headers_desktop": true,
             "show_column_headers_mobile": false,
             "show_row_headers_mobile": true,
             "image_header_label": "Product",
