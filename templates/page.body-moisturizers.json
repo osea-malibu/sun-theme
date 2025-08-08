@@ -449,7 +449,7 @@
             "column_3_product_name": "Undaria Algae™ Body Oil",
             "column_4_product_name": "Product D",
             "column_5_product_name": "Product E",
-            "enable_image_links": false,
+            "enable_image_links": true,
             "column_1_link_url": "https://oseamalibu.com/products/hyaluronic-body-serum",
             "column_2_link_url": "",
             "column_3_link_url": "",
