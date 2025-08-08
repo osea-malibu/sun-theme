@@ -1325,6 +1325,91 @@
         "padding-block-end": 24,
         "gap_between_elements": 24
       }
+    },
+    "section_if8TKV": {
+      "type": "section",
+      "blocks": {
+        "ai_gen_block_b393979_HKztkD": {
+          "type": "ai_gen_block_b393979",
+          "name": "Email and phone signup",
+          "settings": {
+            "heading": "<p>Stay connected with us</p>",
+            "subtext": "<p>Get the latest updates and exclusive offers</p>",
+            "email_tab_label": "Email signup",
+            "phone_tab_label": "SMS signup",
+            "email_label": "Email address",
+            "email_placeholder": "Enter your email",
+            "email_button_text": "Subscribe",
+            "phone_label": "Phone number",
+            "phone_placeholder": "Enter your phone number",
+            "phone_button_text": "Subscribe",
+            "success_message": "Thank you for subscribing!",
+            "error_message": "Please check your information and try again.",
+            "text_alignment": "center",
+            "max_width": 500,
+            "padding": 40,
+            "background_color": "#ffffff",
+            "text_color": "#1d4d41",
+            "button_color": "#1d4d41",
+            "button_text_color": "#ffffff",
+            "button_hover_color": "#0b2e25",
+            "tab_active_bg": "#1d4d41",
+            "tab_active_text": "#ffffff",
+            "tab_inactive_bg": "#f5f7f8",
+            "tab_inactive_text": "#1d4d41",
+            "tab_hover_bg": "#e5edeb",
+            "tab_border_color": "#bacbc6",
+            "input_background": "#ffffff",
+            "input_text_color": "#1d4d41",
+            "input_border_color": "#bacbc6",
+            "input_focus_border": "#1d4d41",
+            "success_bg": "#d4edda",
+            "success_text": "#155724",
+            "success_border": "#c3e6cb",
+            "error_bg": "#f8d7da",
+            "error_text": "#721c24",
+            "error_border": "#f5c6cb",
+            "heading_size": 28,
+            "text_size": 16,
+            "border_radius": 8,
+            "tab_border_radius": 6,
+            "input_border_radius": 4,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_b393979_HKztkD"
+      ],
+      "name": "t:names.custom_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "small",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
@@ -1337,6 +1422,7 @@
     "section_cttb4q",
     "section_Nhf6eh",
     "section_4448FY",
-    "marquee_MpdK4b"
+    "marquee_MpdK4b",
+    "section_if8TKV"
   ]
 }
