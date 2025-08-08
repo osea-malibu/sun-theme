@@ -307,14 +307,28 @@
               <td class="comparison-table__image-cell-{{ comparison_table_block_id }}">
                 <div class="comparison-table__image-container-{{ comparison_table_block_id }}">
                   {% if block.settings[image_key] %}
-                    <img
-                      src="{{ block.settings[image_key] | image_url: width: 400 }}"
-                      alt="{{ block.settings[image_key].alt | escape }}"
-                      class="comparison-table__image-{{ comparison_table_block_id }}"
-                      loading="lazy"
-                      width="400"
-                      height="{{ block.settings.image_height }}"
-                    >
+                     {% assign link_key = 'column_' | append: i | append: '_link_url' %}
+                     {% if block.settings.enable_image_links and block.settings[link_key] != blank %}
+                       <a href="{{ block.settings[link_key] }}">
+                         <img
+                           src="{{ block.settings[image_key] | image_url: width: 400 }}"
+                           alt="{{ block.settings[image_key].alt | escape }}"
+                           class="comparison-table__image-{{ comparison_table_block_id }}"
+                           loading="lazy"
+                           width="400"
+                           height="{{ block.settings.image_height }}"
+                         >
+                       </a>
+                     {% else %}
+                       <img
+                         src="{{ block.settings[image_key] | image_url: width: 400 }}"
+                         alt="{{ block.settings[image_key].alt | escape }}"
+                         class="comparison-table__image-{{ comparison_table_block_id }}"
+                         loading="lazy"
+                         width="400"
+                         height="{{ block.settings.image_height }}"
+                       >
+                     {% endif %}
                   {% else %}
                     <div class="comparison-table__image-placeholder-{{ comparison_table_block_id }}">
                       {{'image' | placeholder_svg_tag }}
@@ -371,6 +385,19 @@
               <td class="comparison-table__image-cell-{{ comparison_table_block_id }}">
                 <div class="comparison-table__image-container-{{ comparison_table_block_id }}">
                   {% if block.settings[image_key] %}
+                  {% assign link_key = 'column_' | append: i | append: '_link_url' %}
+                  {% if block.settings.enable_image_links and block.settings[link_key] != blank %}
+                    <a href="{{ block.settings[link_key] }}">
+                      <img
+                        src="{{ block.settings[image_key] | image_url: width: 400 }}"
+                        alt="{{ block.settings[image_key].alt | escape }}"
+                        class="comparison-table__image-{{ comparison_table_block_id }}"
+                        loading="lazy"
+                        width="400"
+                        height="{{ block.settings.image_height }}"
+                      >
+                    </a>
+                  {% else %}
                     <img
                       src="{{ block.settings[image_key] | image_url: width: 400 }}"
                       alt="{{ block.settings[image_key].alt | escape }}"
@@ -379,6 +406,7 @@
                       width="400"
                       height="{{ block.settings.image_height }}"
                     >
+                  {% endif %}
                   {% else %}
                     <div class="comparison-table__image-placeholder-{{ comparison_table_block_id }}">
                       {{ 'image' | placeholder_svg_tag }}
@@ -461,14 +489,28 @@
                 <div class="comparison-table__carousel-value-{{ comparison_table_block_id }}">
                   <div class="comparison-table__image-container-{{ comparison_table_block_id }}">
                     {% if block.settings[image_key] %}
-                      <img
-                        src="{{ block.settings[image_key] | image_url: width: 400 }}"
-                        alt="{{ block.settings[image_key].alt | escape }}"
-                        class="comparison-table__image-{{ comparison_table_block_id }}"
-                        loading="lazy"
-                        width="400"
-                        height="{{ block.settings.image_height }}"
-                      >
+                      {% assign link_key = 'column_' | append: col | append: '_link_url' %}
+                      {% if block.settings.enable_image_links and block.settings[link_key] != blank %}
+                        <a href="{{ block.settings[link_key] }}">
+                          <img
+                            src="{{ block.settings[image_key] | image_url: width: 400 }}"
+                            alt="{{ block.settings[image_key].alt | escape }}"
+                            class="comparison-table__image-{{ comparison_table_block_id }}"
+                            loading="lazy"
+                            width="400"
+                            height="{{ block.settings.image_height }}"
+                          >
+                        </a>
+                      {% else %}
+                        <img
+                          src="{{ block.settings[image_key] | image_url: width: 400 }}"
+                          alt="{{ block.settings[image_key].alt | escape }}"
+                          class="comparison-table__image-{{ comparison_table_block_id }}"
+                          loading="lazy"
+                          width="400"
+                          height="{{ block.settings.image_height }}"
+                        >
+                      {% endif %}
                     {% else %}
                       <div class="comparison-table__image-placeholder-{{ comparison_table_block_id }}">
                         {{ 'image' | placeholder_svg_tag }}
@@ -1070,6 +1112,41 @@
       "id": "column_5_product_name",
       "label": "Column 5 product name",
       "default": "Product E"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_links",
+      "label": "Make images clickable",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Image links"
+    },
+    {
+      "type": "url",
+      "id": "column_1_link_url",
+      "label": "Column 1 link URL"
+    },
+    {
+      "type": "url",
+      "id": "column_2_link_url",
+      "label": "Column 2 link URL"
+    },
+    {
+      "type": "url",
+      "id": "column_3_link_url",
+      "label": "Column 3 link URL"
+    },
+    {
+      "type": "url",
+      "id": "column_4_link_url",
+      "label": "Column 4 link URL"
+    },
+    {
+      "type": "url",
+      "id": "column_5_link_url",
+      "label": "Column 5 link URL"
     },
     {
       "type": "header",
