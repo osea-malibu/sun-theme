@@ -1,6 +1,855 @@
+{% doc %}
+  @prompt
+    Create a custom sign up form. 
+    Including email address and mobile number. 
+    Button colors can be changed, chosen from the theme setting / brand colors. 
+    
+    Validation for email 
+    sign up
+    can be vertical or horizontal, the mobile number MUST allowed for all countries, add a country dropdown for the mobile number sign up, add a second Button and Button label, two line
+    email sign up with button
+    mobile sign up with button
+    
+    they are both different sign up
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-dual-signup-{{ ai_gen_id }} {
+    padding: {{ block.settings.form_padding }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    max-width: 100%;
+  }
+
+  .ai-dual-signup__content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .ai-dual-signup__heading-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    margin: 0 0 16px 0;
+    font-size: {{ block.settings.heading_size }}px;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-dual-signup__subtext-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    margin-bottom: 20px;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-dual-signup__form-section-{{ ai_gen_id }} {
+    padding: 20px;
+    border: 2px solid {{ block.settings.section_border_color }};
+    border-radius: {{ block.settings.section_border_radius }}px;
+    background-color: {{ block.settings.section_background_color }};
+  }
+
+  .ai-dual-signup__section-title-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    margin: 0 0 12px 0;
+    font-size: {{ block.settings.section_title_size }}px;
+    font-weight: 600;
+  }
+
+  .ai-dual-signup__section-description-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: 14px;
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+
+  .ai-dual-signup__form-row-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .ai-dual-signup__input-{{ ai_gen_id }} {
+    flex-grow: 1;
+    padding: 12px 16px;
+    border: 2px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-size: 16px;
+    background-color: {{ block.settings.input_background_color }};
+    color: {{ block.settings.input_text_color }};
+    transition: border-color 0.3s ease;
+  }
+
+  .ai-dual-signup__phone-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    gap: 8px;
+    flex-grow: 1;
+  }
+
+  .ai-dual-signup__country-select-{{ ai_gen_id }} {
+    width: 120px;
+    padding: 12px 8px;
+    border: 2px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-size: 16px;
+    background-color: {{ block.settings.input_background_color }};
+    color: {{ block.settings.input_text_color }};
+    transition: border-color 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .ai-dual-signup__phone-input-{{ ai_gen_id }} {
+    flex-grow: 1;
+    padding: 12px 16px;
+    border: 2px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-size: 16px;
+    background-color: {{ block.settings.input_background_color }};
+    color: {{ block.settings.input_text_color }};
+    transition: border-color 0.3s ease;
+  }
+
+  .ai-dual-signup__input-{{ ai_gen_id }}:focus,
+  .ai-dual-signup__country-select-{{ ai_gen_id }}:focus,
+  .ai-dual-signup__phone-input-{{ ai_gen_id }}:focus {
+    outline: none;
+    border-color: {{ block.settings.input_focus_color }};
+  }
+
+  .ai-dual-signup__input-{{ ai_gen_id }}.error,
+  .ai-dual-signup__country-select-{{ ai_gen_id }}.error,
+  .ai-dual-signup__phone-input-{{ ai_gen_id }}.error {
+    border-color: {{ block.settings.error_color }};
+  }
+
+  .ai-dual-signup__button-{{ ai_gen_id }} {
+    padding: 14px 28px;
+    background-color: rgb({{ block.settings.button_color_scheme.settings.primary_button_background.red }}, {{ block.settings.button_color_scheme.settings.primary_button_background.green }}, {{ block.settings.button_color_scheme.settings.primary_button_background.blue }});
+    color: rgb({{ block.settings.button_color_scheme.settings.primary_button_text.red }}, {{ block.settings.button_color_scheme.settings.primary_button_text.green }}, {{ block.settings.button_color_scheme.settings.primary_button_text.blue }});
+    border: 2px solid rgb({{ block.settings.button_color_scheme.settings.primary_button_border.red }}, {{ block.settings.button_color_scheme.settings.primary_button_border.green }}, {{ block.settings.button_color_scheme.settings.primary_button_border.blue }});
+    border-radius: {{ block.settings.button_border_radius }}px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .ai-dual-signup__button-{{ ai_gen_id }}:hover {
+    background-color: rgb({{ block.settings.button_color_scheme.settings.primary_button_hover_background.red }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_background.green }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_background.blue }});
+    color: rgb({{ block.settings.button_color_scheme.settings.primary_button_hover_text.red }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_text.green }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_text.blue }});
+    border-color: rgb({{ block.settings.button_color_scheme.settings.primary_button_hover_border.red }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_border.green }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_border.blue }});
+  }
+
+  .ai-dual-signup__error-message-{{ ai_gen_id }} {
+    color: {{ block.settings.error_color }};
+    font-size: 14px;
+    margin-top: 8px;
+    display: none;
+  }
+
+  .ai-dual-signup__error-message-{{ ai_gen_id }}.show {
+    display: block;
+  }
+
+  .ai-dual-signup__success-message-{{ ai_gen_id }} {
+    color: {{ block.settings.success_color }};
+    font-size: 16px;
+    text-align: center;
+    padding: 16px;
+    background-color: rgba({{ block.settings.success_color | color_extract: 'red' }}, {{ block.settings.success_color | color_extract: 'green' }}, {{ block.settings.success_color | color_extract: 'blue' }}, 0.1);
+    border-radius: {{ block.settings.border_radius }}px;
+    margin-top: 12px;
+    display: none;
+  }
+
+  .ai-dual-signup__success-message-{{ ai_gen_id }}.show {
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-dual-signup__form-row-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ai-dual-signup__button-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-dual-signup__phone-wrapper-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ai-dual-signup__country-select-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<dual-signup-forms-{{ ai_gen_id }}
+  class="ai-dual-signup-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if block.settings.heading != blank -%}
+    <h2 class="ai-dual-signup__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+  {%- endif -%}
+
+  {%- if block.settings.subtext != blank -%}
+    <div class="ai-dual-signup__subtext-{{ ai_gen_id }}">{{ block.settings.subtext }}</div>
+  {%- endif -%}
+
+  <div class="ai-dual-signup__content-{{ ai_gen_id }}">
+    <div class="ai-dual-signup__form-section-{{ ai_gen_id }}">
+      <h3 class="ai-dual-signup__section-title-{{ ai_gen_id }}">{{ block.settings.email_section_title }}</h3>
+      {%- if block.settings.email_section_description != blank -%}
+        <div class="ai-dual-signup__section-description-{{ ai_gen_id }}">{{ block.settings.email_section_description }}</div>
+      {%- endif -%}
+      
+      {%- form 'contact', id: 'email-form-' | append: ai_gen_id -%}
+        <input type="hidden" name="contact[tags]" value="email-newsletter">
+        
+        <div class="ai-dual-signup__form-row-{{ ai_gen_id }}">
+          <input
+            type="email"
+            id="email-{{ ai_gen_id }}"
+            name="contact[email]"
+            class="ai-dual-signup__input-{{ ai_gen_id }}"
+            value="{{ form.email }}"
+            aria-required="true"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            placeholder="{{ block.settings.email_placeholder }}"
+            required
+          >
+          <button
+            type="submit"
+            class="ai-dual-signup__button-{{ ai_gen_id }}">
+            {{ block.settings.email_button_label }}
+          </button>
+        </div>
+        
+        <div class="ai-dual-signup__error-message-{{ ai_gen_id }}" id="email-error-{{ ai_gen_id }}">
+          Please enter a valid email address
+        </div>
+        
+        {%- if form.errors -%}
+          <div class="ai-dual-signup__error-message-{{ ai_gen_id }} show">
+            {%- for field in form.errors -%}
+              {{ form.errors.messages[field] }}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        
+        {%- if form.posted_successfully? -%}
+          <div class="ai-dual-signup__success-message-{{ ai_gen_id }} show">
+            {{ block.settings.email_success_message }}
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    <div class="ai-dual-signup__form-section-{{ ai_gen_id }}">
+      <h3 class="ai-dual-signup__section-title-{{ ai_gen_id }}">{{ block.settings.mobile_section_title }}</h3>
+      {%- if block.settings.mobile_section_description != blank -%}
+        <div class="ai-dual-signup__section-description-{{ ai_gen_id }}">{{ block.settings.mobile_section_description }}</div>
+      {%- endif -%}
+      
+      {%- form 'contact', id: 'mobile-form-' | append: ai_gen_id -%}
+        <input type="hidden" name="contact[tags]" value="mobile-newsletter">
+        
+        <div class="ai-dual-signup__form-row-{{ ai_gen_id }}">
+          <div class="ai-dual-signup__phone-wrapper-{{ ai_gen_id }}">
+            <select
+              id="country-{{ ai_gen_id }}"
+              name="contact[country_code]"
+              class="ai-dual-signup__country-select-{{ ai_gen_id }}">
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+1">🇨🇦 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+39">🇮🇹 +39</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+31">🇳🇱 +31</option>
+              <option value="+32">🇧🇪 +32</option>
+              <option value="+41">🇨🇭 +41</option>
+              <option value="+43">🇦🇹 +43</option>
+              <option value="+45">🇩🇰 +45</option>
+              <option value="+46">🇸🇪 +46</option>
+              <option value="+47">🇳🇴 +47</option>
+              <option value="+358">🇫🇮 +358</option>
+              <option value="+353">🇮🇪 +353</option>
+              <option value="+351">🇵🇹 +351</option>
+              <option value="+30">🇬🇷 +30</option>
+              <option value="+48">🇵🇱 +48</option>
+              <option value="+420">🇨🇿 +420</option>
+              <option value="+421">🇸🇰 +421</option>
+              <option value="+36">🇭🇺 +36</option>
+              <option value="+385">🇭🇷 +385</option>
+              <option value="+386">🇸🇮 +386</option>
+              <option value="+372">🇪🇪 +372</option>
+              <option value="+371">🇱🇻 +371</option>
+              <option value="+370">🇱🇹 +370</option>
+              <option value="+7">🇷🇺 +7</option>
+              <option value="+380">🇺🇦 +380</option>
+              <option value="+375">🇧🇾 +375</option>
+              <option value="+374">🇦🇲 +374</option>
+              <option value="+995">🇬🇪 +995</option>
+              <option value="+994">🇦🇿 +994</option>
+              <option value="+7">🇰🇿 +7</option>
+              <option value="+996">🇰🇬 +996</option>
+              <option value="+992">🇹🇯 +992</option>
+              <option value="+993">🇹🇲 +993</option>
+              <option value="+998">🇺🇿 +998</option>
+              <option value="+81">🇯🇵 +81</option>
+              <option value="+82">🇰🇷 +82</option>
+              <option value="+86">🇨🇳 +86</option>
+              <option value="+852">🇭🇰 +852</option>
+              <option value="+853">🇲🇴 +853</option>
+              <option value="+886">🇹🇼 +886</option>
+              <option value="+65">🇸🇬 +65</option>
+              <option value="+60">🇲🇾 +60</option>
+              <option value="+66">🇹🇭 +66</option>
+              <option value="+84">🇻🇳 +84</option>
+              <option value="+63">🇵🇭 +63</option>
+              <option value="+62">🇮🇩 +62</option>
+              <option value="+855">🇰🇭 +855</option>
+              <option value="+856">🇱🇦 +856</option>
+              <option value="+95">🇲🇲 +95</option>
+              <option value="+880">🇧🇩 +880</option>
+              <option value="+977">🇳🇵 +977</option>
+              <option value="+975">🇧🇹 +975</option>
+              <option value="+94">🇱🇰 +94</option>
+              <option value="+960">🇲🇻 +960</option>
+              <option value="+91">🇮🇳 +91</option>
+              <option value="+92">🇵🇰 +92</option>
+              <option value="+93">🇦🇫 +93</option>
+              <option value="+98">🇮🇷 +98</option>
+              <option value="+964">🇮🇶 +964</option>
+              <option value="+965">🇰🇼 +965</option>
+              <option value="+966">🇸🇦 +966</option>
+              <option value="+973">🇧🇭 +973</option>
+              <option value="+974">🇶🇦 +974</option>
+              <option value="+971">🇦🇪 +971</option>
+              <option value="+968">🇴🇲 +968</option>
+              <option value="+967">🇾🇪 +967</option>
+              <option value="+962">🇯🇴 +962</option>
+              <option value="+961">🇱🇧 +961</option>
+              <option value="+963">🇸🇾 +963</option>
+              <option value="+972">🇮🇱 +972</option>
+              <option value="+970">🇵🇸 +970</option>
+              <option value="+90">🇹🇷 +90</option>
+              <option value="+357">🇨🇾 +357</option>
+              <option value="+20">🇪🇬 +20</option>
+              <option value="+218">🇱🇾 +218</option>
+              <option value="+216">🇹🇳 +216</option>
+              <option value="+213">🇩🇿 +213</option>
+              <option value="+212">🇲🇦 +212</option>
+              <option value="+249">🇸🇩 +249</option>
+              <option value="+251">🇪🇹 +251</option>
+              <option value="+254">🇰🇪 +254</option>
+              <option value="+255">🇹🇿 +255</option>
+              <option value="+256">🇺🇬 +256</option>
+              <option value="+250">🇷🇼 +250</option>
+              <option value="+257">🇧🇮 +257</option>
+              <option value="+243">🇨🇩 +243</option>
+              <option value="+242">🇨🇬 +242</option>
+              <option value="+236">🇨🇫 +236</option>
+              <option value="+235">🇹🇩 +235</option>
+              <option value="+237">🇨🇲 +237</option>
+              <option value="+234">🇳🇬 +234</option>
+              <option value="+233">🇬🇭 +233</option>
+              <option value="+225">🇨🇮 +225</option>
+              <option value="+226">🇧🇫 +226</option>
+              <option value="+223">🇲🇱 +223</option>
+              <option value="+221">🇸🇳 +221</option>
+              <option value="+220">🇬🇲 +220</option>
+              <option value="+224">🇬🇳 +224</option>
+              <option value="+245">🇬🇼 +245</option>
+              <option value="+238">🇨🇻 +238</option>
+              <option value="+232">🇸🇱 +232</option>
+              <option value="+231">🇱🇷 +231</option>
+              <option value="+27">🇿🇦 +27</option>
+              <option value="+264">🇳🇦 +264</option>
+              <option value="+267">🇧🇼 +267</option>
+              <option value="+268">🇸🇿 +268</option>
+              <option value="+266">🇱🇸 +266</option>
+              <option value="+258">🇲🇿 +258</option>
+              <option value="+260">🇿🇲 +260</option>
+              <option value="+263">🇿🇼 +263</option>
+              <option value="+265">🇲🇼 +265</option>
+              <option value="+261">🇲🇬 +261</option>
+              <option value="+230">🇲🇺 +230</option>
+              <option value="+248">🇸🇨 +248</option>
+              <option value="+269">🇰🇲 +269</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+64">🇳🇿 +64</option>
+              <option value="+679">🇫🇯 +679</option>
+              <option value="+685">🇼🇸 +685</option>
+              <option value="+676">🇹🇴 +676</option>
+              <option value="+678">🇻🇺 +678</option>
+              <option value="+686">🇰🇮 +686</option>
+              <option value="+687">🇳🇨 +687</option>
+              <option value="+689">🇵🇫 +689</option>
+              <option value="+684">🇦🇸 +684</option>
+              <option value="+670">🇹🇱 +670</option>
+              <option value="+675">🇵🇬 +675</option>
+              <option value="+677">🇸🇧 +677</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+502">🇬🇹 +502</option>
+              <option value="+503">🇸🇻 +503</option>
+              <option value="+504">🇭🇳 +504</option>
+              <option value="+505">🇳🇮 +505</option>
+              <option value="+506">🇨🇷 +506</option>
+              <option value="+507">🇵🇦 +507</option>
+              <option value="+508">🇵🇲 +508</option>
+              <option value="+509">🇭🇹 +509</option>
+              <option value="+590">🇬🇵 +590</option>
+              <option value="+591">🇧🇴 +591</option>
+              <option value="+592">🇬🇾 +592</option>
+              <option value="+593">🇪🇨 +593</option>
+              <option value="+594">🇬🇫 +594</option>
+              <option value="+595">🇵🇾 +595</option>
+              <option value="+596">🇲🇶 +596</option>
+              <option value="+597">🇸🇷 +597</option>
+              <option value="+598">🇺🇾 +598</option>
+              <option value="+55">🇧🇷 +55</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+56">🇨🇱 +56</option>
+              <option value="+57">🇨🇴 +57</option>
+              <option value="+58">🇻🇪 +58</option>
+              <option value="+51">🇵🇪 +51</option>
+            </select>
+            <input
+              type="tel"
+              id="phone-{{ ai_gen_id }}"
+              name="contact[phone]"
+              class="ai-dual-signup__phone-input-{{ ai_gen_id }}"
+              autocomplete="tel"
+              placeholder="{{ block.settings.mobile_placeholder }}"
+              required
+            >
+          </div>
+          <button
+            type="submit"
+            class="ai-dual-signup__button-{{ ai_gen_id }}">
+            {{ block.settings.mobile_button_label }}
+          </button>
+        </div>
+        
+        <div class="ai-dual-signup__error-message-{{ ai_gen_id }}" id="phone-error-{{ ai_gen_id }}">
+          Please enter a valid mobile number
+        </div>
+        
+        {%- if form.errors -%}
+          <div class="ai-dual-signup__error-message-{{ ai_gen_id }} show">
+            {%- for field in form.errors -%}
+              {{ form.errors.messages[field] }}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        
+        {%- if form.posted_successfully? -%}
+          <div class="ai-dual-signup__success-message-{{ ai_gen_id }} show">
+            {{ block.settings.mobile_success_message }}
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</dual-signup-forms-{{ ai_gen_id }}>
+
+<script>
+(function() {
+  class DualSignupForms{{ ai_gen_id }} extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.emailForm = this.querySelector('#email-form-{{ ai_gen_id }}');
+      this.mobileForm = this.querySelector('#mobile-form-{{ ai_gen_id }}');
+      this.emailInput = this.querySelector('#email-{{ ai_gen_id }}');
+      this.phoneInput = this.querySelector('#phone-{{ ai_gen_id }}');
+      this.countrySelect = this.querySelector('#country-{{ ai_gen_id }}');
+      this.emailError = this.querySelector('#email-error-{{ ai_gen_id }}');
+      this.phoneError = this.querySelector('#phone-error-{{ ai_gen_id }}');
+
+      this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+      this.emailInput.addEventListener('blur', () => this.validateEmail());
+      this.emailInput.addEventListener('input', () => this.clearEmailError());
+      this.phoneInput.addEventListener('blur', () => this.validatePhone());
+      this.phoneInput.addEventListener('input', () => this.clearPhoneError());
+
+      this.emailForm.addEventListener('submit', (e) => this.handleEmailSubmit(e));
+      this.mobileForm.addEventListener('submit', (e) => this.handleMobileSubmit(e));
+    }
+
+    validateEmail() {
+      const email = this.emailInput.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (email && !emailRegex.test(email)) {
+        this.showEmailError();
+        return false;
+      }
+      
+      this.clearEmailError();
+      return true;
+    }
+
+    validatePhone() {
+      const phone = this.phoneInput.value.trim();
+      
+      if (phone) {
+        const cleanPhone = phone.replace(/[\s\-\(\)\.]/g, '');
+        const phoneRegex = /^[0-9]{7,15}$/;
+        
+        if (!phoneRegex.test(cleanPhone)) {
+          this.showPhoneError();
+          return false;
+        }
+      }
+      
+      this.clearPhoneError();
+      return true;
+    }
+
+    showEmailError() {
+      this.emailInput.classList.add('error');
+      this.emailError.classList.add('show');
+    }
+
+    clearEmailError() {
+      this.emailInput.classList.remove('error');
+      this.emailError.classList.remove('show');
+    }
+
+    showPhoneError() {
+      this.phoneInput.classList.add('error');
+      this.phoneError.classList.add('show');
+    }
+
+    clearPhoneError() {
+      this.phoneInput.classList.remove('error');
+      this.phoneError.classList.remove('show');
+    }
+
+    handleEmailSubmit(e) {
+      const isEmailValid = this.validateEmail();
+      
+      if (!isEmailValid) {
+        e.preventDefault();
+        return false;
+      }
+      
+      return true;
+    }
+
+    handleMobileSubmit(e) {
+      const isPhoneValid = this.validatePhone();
+      
+      if (!isPhoneValid) {
+        e.preventDefault();
+        return false;
+      }
+      
+      const countryCode = this.countrySelect.value;
+      const phoneNumber = this.phoneInput.value.trim();
+      
+      if (phoneNumber) {
+        const fullPhoneNumber = countryCode + phoneNumber;
+        this.phoneInput.value = fullPhoneNumber;
+      }
+      
+      return true;
+    }
+  }
+
+  customElements.define('dual-signup-forms-{{ ai_gen_id }}', DualSignupForms{{ ai_gen_id }});
+})();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Dual signup forms",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "General content"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "<p>Stay connected with us</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Choose how you'd like to receive updates from us.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Email signup section"
+    },
+    {
+      "type": "text",
+      "id": "email_section_title",
+      "label": "Section title",
+      "default": "Email Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "email_section_description",
+      "label": "Section description",
+      "default": "Get the latest news and offers delivered to your inbox"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "email_button_label",
+      "label": "Email button label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "email_success_message",
+      "label": "Email success message",
+      "default": "Thank you for subscribing to our email newsletter!"
+    },
+    {
+      "type": "header",
+      "content": "Mobile signup section"
+    },
+    {
+      "type": "text",
+      "id": "mobile_section_title",
+      "label": "Section title",
+      "default": "SMS Updates"
+    },
+    {
+      "type": "text",
+      "id": "mobile_section_description",
+      "label": "Section description",
+      "default": "Receive instant notifications and exclusive mobile-only deals"
+    },
+    {
+      "type": "text",
+      "id": "mobile_placeholder",
+      "label": "Mobile placeholder",
+      "default": "123 456 7890"
+    },
+    {
+      "type": "text",
+      "id": "mobile_button_label",
+      "label": "Mobile button label",
+      "default": "Sign Up"
+    },
+    {
+      "type": "text",
+      "id": "mobile_success_message",
+      "label": "Mobile success message",
+      "default": "Thank you for signing up for SMS updates!"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "section_border_color",
+      "label": "Section border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color_scheme",
+      "id": "button_color_scheme",
+      "label": "Button color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "input_background_color",
+      "label": "Input background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "input_focus_color",
+      "label": "Input focus color",
+      "default": "#007acc"
+    },
+    {
+      "type": "color",
+      "id": "error_color",
+      "label": "Error color",
+      "default": "#d82c0d"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "Success color",
+      "default": "#008060"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "form_padding",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Form padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Form border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "section_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Section border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Input border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Main heading size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Section title size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dual signup forms"
+    }
+  ]
+}
 {% endschema %}
