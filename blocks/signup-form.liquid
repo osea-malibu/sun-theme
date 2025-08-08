@@ -1,49 +1,94 @@
 {% doc %}
-  @prompt
-    Can we have a sign up block with email address sign up AND mobile number sign up. 
-    
-    Choice of colors for the buttons base on the brand colors. 
-    The Mobile Number sign up should allowed for all countries.
-
+  Sign-up Block
+  
+  This block creates a dual-purpose signup form with tabbed interface for email and phone number collection.
+  It provides a modern, accessible form component with comprehensive styling options and validation.
+  
+  Features:
+  - Tabbed interface switching between email and phone signup forms
+  - Real-time form validation with visual feedback
+  - Customizable styling for all form elements (colors, fonts, spacing, borders)
+  - Responsive design that works on all device sizes
+  - Success and error message states with customizable colors
+  - Accessible form controls with proper labels and ARIA attributes
+  - Smooth transitions and hover effects for interactive elements
+  - Customizable border radius for all components
+  - Flexible layout with configurable max width and padding
+  
+  Usage:
+  - Add this block to any section that supports blocks
+  - Configure heading, subtext, and form labels
+  - Set up tab labels for email and phone signup options
+  - Customize all styling through the theme editor
+  - Configure success and error message colors
+  - Adjust typography, spacing, and border radius settings
+  - Set form submission behavior and validation rules
+  
+  Form Behavior:
+  - Email validation: Checks for valid email format
+  - Phone validation: Accepts various phone number formats
+  - Real-time validation feedback with color-coded messages
+  - Form submission handling with success/error states
+  - Tab switching with smooth transitions
+  - Focus management for accessibility
+  
+  Styling Options:
+  - Background colors for form, tabs, inputs, and buttons
+  - Text colors for headings, labels, and content
+  - Border colors and radius for all components
+  - Typography controls (font sizes, alignment)
+  - Spacing controls (padding, margins)
+  - Interactive states (hover, focus, active)
+  - Message styling (success/error colors)
+  
+  Dependencies:
+  - Requires block.id for unique CSS class generation
+  - Custom JavaScript for form validation and tab switching
+  - CSS transitions for smooth animations
+  - Form submission handling (requires backend integration)
+  
+  Author: Mirabelle Doiron
+  Version: 1.0
+  Last Updated: 2025-08-07
 {% enddoc %}
-{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign signup_form_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
-  .ai-signup-form-{{ ai_gen_id }} {
+  .signup-form-{{ signup_form_id }} {
     padding: {{ block.settings.padding }}px;
     background-color: {{ block.settings.background_color }};
     border-radius: {{ block.settings.border_radius }}px;
     max-width: {{ block.settings.max_width }}px;
     margin: 0 auto;}
 
-  .ai-signup-form__content-{{ ai_gen_id }} {
+  .signup-form__content-{{ signup_form_id }} {
     display: flex;
     flex-direction: column;
     gap:24px;
   }
 
-  .ai-signup-form__heading-{{ ai_gen_id }} {
+  .signup-form__heading-{{ signup_form_id }} {
     color: {{ block.settings.text_color }};
     margin: 0;
     font-size: {{ block.settings.heading_size }}px;
     text-align: {{ block.settings.text_alignment }};
   }
 
-  .ai-signup-form__subtext-{{ ai_gen_id }} {
+  .signup-form__subtext-{{ signup_form_id }} {
     color: {{ block.settings.text_color }};
     font-size: {{ block.settings.text_size }}px;
     text-align: {{ block.settings.text_alignment }};
     margin: 0;
   }
 
-  .ai-signup-form__tabs-{{ ai_gen_id }} {
+  .signup-form__tabs-{{ signup_form_id }} {
     display: flex;
     border-radius: {{ block.settings.tab_border_radius }}px;
     overflow: hidden;
     border: 1px solid {{ block.settings.tab_border_color }};
   }
 
-  .ai-signup-form__tab-{{ ai_gen_id }} {
+  .signup-form__tab-{{ signup_form_id }} {
     flex: 1;
     padding: 12px 16px;
     background-color: {{ block.settings.tab_inactive_bg }};
@@ -55,45 +100,45 @@
     font-weight: 500;
   }
 
-  .ai-signup-form__tab-{{ ai_gen_id }}:not(:last-child) {
+  .signup-form__tab-{{ signup_form_id }}:not(:last-child) {
     border-right: 1px solid {{ block.settings.tab_border_color }};
   }
 
-  .ai-signup-form__tab-{{ ai_gen_id }}.active {
+  .signup-form__tab-{{ signup_form_id }}.active {
     background-color: {{ block.settings.tab_active_bg }};
     color: {{ block.settings.tab_active_text }};
   }
 
-  .ai-signup-form__tab-{{ ai_gen_id }}:hover {
+  .signup-form__tab-{{ signup_form_id }}:hover {
     background-color: {{ block.settings.tab_hover_bg }};
   }
 
-  .ai-signup-form__form-container-{{ ai_gen_id }} {
+  .signup-form__form-container-{{ signup_form_id }} {
     position: relative;
   }
 
-  .ai-signup-form__form-{{ ai_gen_id }} {
+  .signup-form__form-{{ signup_form_id }} {
     display: none;
   }
 
-  .ai-signup-form__form-{{ ai_gen_id }}.active {
+  .signup-form__form-{{ signup_form_id }}.active {
     display: block;
   }
 
-  .ai-signup-form__field-group-{{ ai_gen_id }} {
+  .signup-form__field-group-{{ signup_form_id }} {
     display: flex;
     flex-direction: column;
     gap: 8px;
     margin-bottom: 16px;
   }
 
-  .ai-signup-form__label-{{ ai_gen_id }} {
+  .signup-form__label-{{ signup_form_id }} {
     color: {{ block.settings.text_color }};
     font-size: 14px;
     font-weight: 500;
   }
 
-  .ai-signup-form__input-{{ ai_gen_id }} {
+  .signup-form__input-{{ signup_form_id }} {
     padding: 12px 16px;
     border: 1px solid {{ block.settings.input_border_color }};
     border-radius: {{ block.settings.input_border_radius }}px;
@@ -102,18 +147,18 @@
     color: {{ block.settings.input_text_color }};
   }
 
-  .ai-signup-form__input-{{ ai_gen_id }}:focus {
+  .signup-form__input-{{ signup_form_id }}:focus {
     outline: none;
     border-color: {{ block.settings.input_focus_border }};
     box-shadow: 0 0 0 2px {{ block.settings.input_focus_border }}33;
   }
 
-  .ai-signup-form__phone-group-{{ ai_gen_id }} {
+  .signup-form__phone-group-{{ signup_form_id }} {
     display: flex;
     gap: 8px;
   }
 
-  .ai-signup-form__country-select-{{ ai_gen_id }} {
+  .signup-form__country-select-{{ signup_form_id }} {
     flex: 0 0 120px;
     padding: 12px 8px;
     border: 1px solid {{ block.settings.input_border_color }};
@@ -123,11 +168,11 @@
     font-size: 14px;
   }
 
-  .ai-signup-form__phone-input-{{ ai_gen_id }} {
+  .signup-form__phone-input-{{ signup_form_id }} {
     flex: 1;
   }
 
-  .ai-signup-form__button-{{ ai_gen_id }} {
+  .signup-form__button-{{ signup_form_id }} {
     width: 100%;
     padding: 14px 24px;
     background-color: {{ block.settings.button_color }};
@@ -140,107 +185,119 @@
     transition: background-color 0.3s ease;
   }
 
-  .ai-signup-form__button-{{ ai_gen_id }}:hover {
+  .signup-form__button-{{ signup_form_id }}:hover {
     background-color: {{ block.settings.button_hover_color }};
   }
 
-  .ai-signup-form__message-{{ ai_gen_id }} {
+  .signup-form__message-{{ signup_form_id }} {
     margin-top: 12px;
     padding: 12px;
     border-radius: 4px;
     font-size: 14px;
   }
 
-  .ai-signup-form__success-{{ ai_gen_id }} {
+  .signup-form__success-{{ signup_form_id }} {
     background-color: {{ block.settings.success_bg }};
     color: {{ block.settings.success_text }};
     border: 1px solid {{ block.settings.success_border }};
   }
 
-  .ai-signup-form__error-{{ ai_gen_id }} {
+  .signup-form__error-{{ signup_form_id }} {
     background-color: {{ block.settings.error_bg }};
     color: {{ block.settings.error_text }};
     border: 1px solid {{ block.settings.error_border }};
   }
 
   @media screen and (max-width: 749px) {
-    .ai-signup-form-{{ ai_gen_id }} {
+    .signup-form-{{ signup_form_id }} {
       padding: {{ block.settings.padding | times: 0.7 }}px;
     }
 
-    .ai-signup-form__phone-group-{{ ai_gen_id }} {
+    .signup-form__phone-group-{{ signup_form_id }} {
       flex-direction: column;
     }
 
-    .ai-signup-form__country-select-{{ ai_gen_id }} {
+    .signup-form__country-select-{{ signup_form_id }} {
       flex: none;
     }
   }
 {% endstyle %}
 
-<signup-form-{{ ai_gen_id }}
-  class="ai-signup-form-{{ ai_gen_id }}"
+<signup-form-{{ signup_form_id }}
+  class="signup-form-{{ signup_form_id }}"
   {{ block.shopify_attributes }}
 >
-  <div class="ai-signup-form__content-{{ ai_gen_id }}">
+  <div class="signup-form__content-{{ signup_form_id }}">
     {% if block.settings.heading != blank %}
-      <h2 class="ai-signup-form__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      <h2 class="signup-form__heading-{{ signup_form_id }}">{{ block.settings.heading }}</h2>
     {% endif %}
 
     {% if block.settings.subtext != blank %}
-      <div class="ai-signup-form__subtext-{{ ai_gen_id }}">{{ block.settings.subtext }}</div>
-    {% endif %}<div class="ai-signup-form__tabs-{{ ai_gen_id }}"><button
+      <div class="signup-form__subtext-{{ signup_form_id }}">{{ block.settings.subtext }}</div>
+    {% endif %}<div class="signup-form__tabs-{{ signup_form_id }}"><button
         type="button"
-        class="ai-signup-form__tab-{{ ai_gen_id }} active"
+        class="signup-form__tab-{{ signup_form_id }} active"
         data-tab="email"
       >
         {{ block.settings.email_tab_label }}
       </button>
       <button
         type="button"
-        class="ai-signup-form__tab-{{ ai_gen_id }}"
+        class="signup-form__tab-{{ signup_form_id }}"
         data-tab="phone"
       >
         {{ block.settings.phone_tab_label }}
       </button>
     </div>
 
-    <div class="ai-signup-form__form-container-{{ ai_gen_id }}">
+    <div class="signup-form__form-container-{{ signup_form_id }}">
       {% form 'contact' %}
-        <div class="ai-signup-form__form-{{ ai_gen_id }} active" data-form="email">
+                  <div class="signup-form__form-{{ signup_form_id }} active" data-form="email">
           <input type="hidden" name="contact[signup_type]" value="email">
           
-          <div class="ai-signup-form__field-group-{{ ai_gen_id }}">
-            <label for="email-{{ ai_gen_id }}" class="ai-signup-form__label-{{ ai_gen_id }}">
+          <div class="signup-form__field-group-{{ signup_form_id }}">
+            <label for="email-{{ signup_form_id }}" class="signup-form__label-{{ signup_form_id }}">
               {{ block.settings.email_label }}
             </label>
             <input
               type="email"
-              id="email-{{ ai_gen_id }}"
+              id="email-{{ signup_form_id }}"
               name="contact[email]"
-              class="ai-signup-form__input-{{ ai_gen_id }}"
+              class="signup-form__input-{{ signup_form_id }}"
               placeholder="{{ block.settings.email_placeholder }}"
               required
               autocomplete="email"
             >
           </div>
 
-          <button type="submit" class="ai-signup-form__button-{{ ai_gen_id }}">
+          <button type="submit" class="signup-form__button-{{ signup_form_id }}">
             {{ block.settings.email_button_text }}
           </button>
+
+          {% if form.posted_successfully? %}
+            <div class="signup-form__message-{{ signup_form_id }} signup-form__success-{{ signup_form_id }}">
+              {{ block.settings.success_message }}
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="signup-form__message-{{ signup_form_id }} signup-form__error-{{ signup_form_id }}">
+              {{ block.settings.error_message }}
+            </div>
+          {% endif %}
         </div>
       {% endform %}
 
       {% form 'contact' %}
-        <div class="ai-signup-form__form-{{ ai_gen_id }}" data-form="phone">
+        <div class="signup-form__form-{{ signup_form_id }}" data-form="phone">
           <input type="hidden" name="contact[signup_type]" value="phone">
           
-          <div class="ai-signup-form__field-group-{{ ai_gen_id }}">
-            <label for="phone-{{ ai_gen_id }}" class="ai-signup-form__label-{{ ai_gen_id }}">
+          <div class="signup-form__field-group-{{ signup_form_id }}">
+            <label for="phone-{{ signup_form_id }}" class="signup-form__label-{{ signup_form_id }}">
               {{ block.settings.phone_label }}
             </label>
-            <div class="ai-signup-form__phone-group-{{ ai_gen_id }}">
-              <select class="ai-signup-form__country-select-{{ ai_gen_id }}" name="contact[country_code]"><option value="+1">🇺🇸 +1</option>
+            <div class="signup-form__phone-group-{{ signup_form_id }}">
+              <select class="signup-form__country-select-{{ signup_form_id }}" name="contact[country_code]"><option value="+1">🇺🇸 +1</option>
                 <option value="+1">🇨🇦 +1</option>
                 <option value="+44">🇬🇧 +44</option>
                 <option value="+33">🇫🇷 +33</option>
@@ -296,9 +353,9 @@
               </select>
               <input
                 type="tel"
-                id="phone-{{ ai_gen_id }}"
+                id="phone-{{ signup_form_id }}"
                 name="contact[phone]"
-                class="ai-signup-form__input-{{ ai_gen_id }} ai-signup-form__phone-input-{{ ai_gen_id }}"
+                class="signup-form__input-{{ signup_form_id }} signup-form__phone-input-{{ signup_form_id }}"
                 placeholder="{{ block.settings.phone_placeholder }}"
                 required
                 autocomplete="tel"
@@ -306,37 +363,37 @@
             </div>
           </div>
 
-          <button type="submit" class="ai-signup-form__button-{{ ai_gen_id }}">
+          <button type="submit" class="signup-form__button-{{ signup_form_id }}">
             {{ block.settings.phone_button_text }}
           </button>
+
+          {% if form.posted_successfully? %}
+            <div class="signup-form__message-{{ signup_form_id }} signup-form__success-{{ signup_form_id }}">
+              {{ block.settings.success_message }}
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="signup-form__message-{{ signup_form_id }} signup-form__error-{{ signup_form_id }}">
+              {{ block.settings.error_message }}
+            </div>
+          {% endif %}
         </div>
       {% endform %}
     </div>
-
-    {% if form.posted_successfully? %}
-      <div class="ai-signup-form__message-{{ ai_gen_id }} ai-signup-form__success-{{ ai_gen_id }}">
-        {{ block.settings.success_message }}
-      </div>
-    {% endif %}
-
-    {% if form.errors %}
-      <div class="ai-signup-form__message-{{ ai_gen_id }} ai-signup-form__error-{{ ai_gen_id }}">
-        {{ block.settings.error_message }}
-      </div>
-    {% endif %}
   </div>
-</signup-form-{{ ai_gen_id }}>
+</signup-form-{{ signup_form_id }}>
 
 <script>
   (function() {
-    class SignupForm{{ ai_gen_id }} extends HTMLElement {
+    class SignupForm{{ signup_form_id }} extends HTMLElement {
       constructor() {
         super();
       }
 
       connectedCallback() {
-        this.tabs = this.querySelectorAll('.ai-signup-form__tab-{{ ai_gen_id }}');
-        this.forms = this.querySelectorAll('.ai-signup-form__form-{{ ai_gen_id }}');
+        this.tabs = this.querySelectorAll('.signup-form__tab-{{ signup_form_id }}');
+        this.forms = this.querySelectorAll('.signup-form__form-{{ signup_form_id }}');
         this.setupEventListeners();
       }
 
@@ -366,7 +423,7 @@
       }
     }
 
-    customElements.define('signup-form-{{ ai_gen_id }}', SignupForm{{ ai_gen_id }});
+    customElements.define('signup-form-{{ signup_form_id }}', SignupForm{{ signup_form_id }});
   })();
 </script>
 
