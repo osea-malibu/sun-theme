@@ -1,6 +1,610 @@
+{% doc %}
+  @prompt
+    Create a custom sign up form. 
+    Including email address and mobile number. 
+    Button colors can be changed, chosen from the theme setting / brand colors. 
+    
+    Validation for email 
+    sign up
+    can be vertical or horizontal, email and phone should both have a separate button
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-signup-form-{{ ai_gen_id }} {
+    padding: {{ block.settings.form_padding }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    max-width: 100%;
+  }
+
+  .ai-signup-form__content-{{ ai_gen_id }} {
+    display: flex;
+    {% if block.settings.layout == 'vertical' %}
+      flex-direction: column;
+      gap: 20px;
+    {% else %}
+      flex-direction: row;
+      gap: 16px;
+      align-items: flex-start;
+    {% endif %}
+  }
+
+  .ai-signup-form__heading-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    margin: 0 0 16px 0;
+    font-size: {{ block.settings.heading_size }}px;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-signup-form__subtext-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    margin-bottom: 20px;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-signup-form__field-group-{{ ai_gen_id }} {
+    {% if block.settings.layout == 'vertical' %}
+      width: 100%;
+    {% else %}
+      flex: 1;
+    {% endif %}
+  }
+
+  .ai-signup-form__field-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    {% if block.settings.layout == 'vertical' %}
+      flex-direction: column;
+      gap: 12px;
+    {% else %}
+      flex-direction: row;
+      gap: 8px;
+      align-items: flex-end;
+    {% endif %}
+  }
+
+  .ai-signup-form__input-wrapper-{{ ai_gen_id }} {
+    flex-grow: 1;
+  }
+
+  .ai-signup-form__label-{{ ai_gen_id }} {
+    display: block;
+    color: {{ block.settings.text_color }};
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .ai-signup-form__input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-size: 16px;
+    background-color: {{ block.settings.input_background_color }};
+    color: {{ block.settings.input_text_color }};
+    transition: border-color 0.3s ease;
+  }
+
+  .ai-signup-form__input-{{ ai_gen_id }}:focus {
+    outline: none;
+    border-color: {{ block.settings.input_focus_color }};
+  }
+
+  .ai-signup-form__input-{{ ai_gen_id }}.error {
+    border-color: {{ block.settings.error_color }};
+  }
+
+  .ai-signup-form__button-{{ ai_gen_id }} {
+    {% if block.settings.layout == 'vertical' %}
+      width: 100%;
+    {% else %}
+      padding: 12px 20px;
+      flex-shrink: 0;
+    {% endif %}
+    padding: 14px 24px;
+    background-color: rgb({{ block.settings.button_color_scheme.settings.primary_button_background.red }}, {{ block.settings.button_color_scheme.settings.primary_button_background.green }}, {{ block.settings.button_color_scheme.settings.primary_button_background.blue }});
+    color: rgb({{ block.settings.button_color_scheme.settings.primary_button_text.red }}, {{ block.settings.button_color_scheme.settings.primary_button_text.green }}, {{ block.settings.button_color_scheme.settings.primary_button_text.blue }});
+    border: 2px solid rgb({{ block.settings.button_color_scheme.settings.primary_button_border.red }}, {{ block.settings.button_color_scheme.settings.primary_button_border.green }}, {{ block.settings.button_color_scheme.settings.primary_button_border.blue }});
+    border-radius: {{ block.settings.button_border_radius }}px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .ai-signup-form__button-{{ ai_gen_id }}:hover {
+    background-color: rgb({{ block.settings.button_color_scheme.settings.primary_button_hover_background.red }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_background.green }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_background.blue }});
+    color: rgb({{ block.settings.button_color_scheme.settings.primary_button_hover_text.red }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_text.green }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_text.blue }});
+    border-color: rgb({{ block.settings.button_color_scheme.settings.primary_button_hover_border.red }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_border.green }}, {{ block.settings.button_color_scheme.settings.primary_button_hover_border.blue }});
+  }
+
+  .ai-signup-form__error-message-{{ ai_gen_id }} {
+    color: {{ block.settings.error_color }};
+    font-size: 14px;
+    margin-top: 6px;
+    display: none;
+  }
+
+  .ai-signup-form__error-message-{{ ai_gen_id }}.show {
+    display: block;
+  }
+
+  .ai-signup-form__success-message-{{ ai_gen_id }} {
+    color: {{ block.settings.success_color }};
+    font-size: 16px;
+    text-align: center;
+    padding: 16px;
+    background-color: rgba({{ block.settings.success_color | color_extract: 'red' }}, {{ block.settings.success_color | color_extract: 'green' }}, {{ block.settings.success_color | color_extract: 'blue' }}, 0.1);
+    border-radius: {{ block.settings.border_radius }}px;
+    margin-top: 16px;
+    display: none;
+  }
+
+  .ai-signup-form__success-message-{{ ai_gen_id }}.show {
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-signup-form__content-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .ai-signup-form__field-group-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-signup-form__field-wrapper-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ai-signup-form__button-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<custom-signup-form-{{ ai_gen_id }}
+  class="ai-signup-form-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if block.settings.heading != blank -%}
+    <h2 class="ai-signup-form__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+  {%- endif -%}
+
+  {%- if block.settings.subtext != blank -%}
+    <div class="ai-signup-form__subtext-{{ ai_gen_id }}">{{ block.settings.subtext }}</div>
+  {%- endif -%}
+
+  <div class="ai-signup-form__content-{{ ai_gen_id }}">
+    <div class="ai-signup-form__field-group-{{ ai_gen_id }}">
+      {%- form 'contact', id: 'email-form-' | append: ai_gen_id -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,email">
+        <div class="ai-signup-form__field-wrapper-{{ ai_gen_id }}">
+          <div class="ai-signup-form__input-wrapper-{{ ai_gen_id }}">
+            <label for="email-{{ ai_gen_id }}" class="ai-signup-form__label-{{ ai_gen_id }}">
+              Email Address *
+            </label>
+            <input
+              type="email"
+              id="email-{{ ai_gen_id }}"
+              name="contact[email]"
+              class="ai-signup-form__input-{{ ai_gen_id }}"
+              value="{{ form.email }}"
+              aria-required="true"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              placeholder="{{ block.settings.email_placeholder }}"
+              required
+            >
+            <div class="ai-signup-form__error-message-{{ ai_gen_id }}" id="email-error-{{ ai_gen_id }}">
+              Please enter a valid email address
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="ai-signup-form__button-{{ ai_gen_id }}"
+            data-form-type="email"
+          >
+            {{ block.settings.email_button_label }}
+          </button>
+        </div>
+        {%- if form.errors -%}
+          <div class="ai-signup-form__error-message-{{ ai_gen_id }} show">
+            {%- for field in form.errors -%}
+              {{ form.errors.messages[field] }}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    <div class="ai-signup-form__field-group-{{ ai_gen_id }}">
+      {%- form 'contact', id: 'phone-form-' | append: ai_gen_id -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,phone">
+        <div class="ai-signup-form__field-wrapper-{{ ai_gen_id }}">
+          <div class="ai-signup-form__input-wrapper-{{ ai_gen_id }}">
+            <label for="phone-{{ ai_gen_id }}" class="ai-signup-form__label-{{ ai_gen_id }}">
+              Mobile Number *
+            </label>
+            <input
+              type="tel"
+              id="phone-{{ ai_gen_id }}"
+              name="contact[phone]"
+              class="ai-signup-form__input-{{ ai_gen_id }}"
+              autocomplete="tel"
+              placeholder="{{ block.settings.phone_placeholder }}"
+              required
+            >
+            <div class="ai-signup-form__error-message-{{ ai_gen_id }}" id="phone-error-{{ ai_gen_id }}">
+              Please enter a valid mobile number
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="ai-signup-form__button-{{ ai_gen_id }}"
+            data-form-type="phone"
+          >
+            {{ block.settings.phone_button_label }}
+          </button>
+        </div>
+        {%- if form.errors -%}
+          <div class="ai-signup-form__error-message-{{ ai_gen_id }} show">
+            {%- for field in form.errors -%}
+              {{ form.errors.messages[field] }}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+
+  <div class="ai-signup-form__success-message-{{ ai_gen_id }}" id="success-message-{{ ai_gen_id }}">
+    {{ block.settings.success_message }}
+  </div>
+</custom-signup-form-{{ ai_gen_id }}>
+
+<script>
+(function() {
+  class CustomSignupForm{{ ai_gen_id }} extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.emailForm = this.querySelector('#email-form-{{ ai_gen_id }}');
+      this.phoneForm = this.querySelector('#phone-form-{{ ai_gen_id }}');
+      this.emailInput = this.querySelector('#email-{{ ai_gen_id }}');
+      this.phoneInput = this.querySelector('#phone-{{ ai_gen_id }}');
+      this.emailError = this.querySelector('#email-error-{{ ai_gen_id }}');
+      this.phoneError = this.querySelector('#phone-error-{{ ai_gen_id }}');
+      this.successMessage = this.querySelector('#success-message-{{ ai_gen_id }}');
+
+      this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+      this.emailInput.addEventListener('blur', () => this.validateEmail());
+      this.emailInput.addEventListener('input', () => this.clearEmailError());
+      
+      this.phoneInput.addEventListener('blur', () => this.validatePhone());
+      this.phoneInput.addEventListener('input', () => this.clearPhoneError());
+
+      this.emailForm.addEventListener('submit', (e) => this.handleEmailSubmit(e));
+      this.phoneForm.addEventListener('submit', (e) => this.handlePhoneSubmit(e));
+    }
+
+    validateEmail() {
+      const email = this.emailInput.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (!email || !emailRegex.test(email)) {
+        this.showEmailError();
+        return false;
+      }
+      
+      this.clearEmailError();
+      return true;
+    }
+
+    validatePhone() {
+      const phone = this.phoneInput.value.trim();
+      
+      if (!phone) {
+        this.showPhoneError();
+        return false;
+      }
+      
+      const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+      const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+      
+      if (!phoneRegex.test(cleanPhone) || cleanPhone.length < 10) {
+        this.showPhoneError();
+        return false;
+      }
+      
+      this.clearPhoneError();
+      return true;
+    }
+
+    showEmailError() {
+      this.emailInput.classList.add('error');
+      this.emailError.classList.add('show');
+    }
+
+    clearEmailError() {
+      this.emailInput.classList.remove('error');
+      this.emailError.classList.remove('show');
+    }
+
+    showPhoneError() {
+      this.phoneInput.classList.add('error');
+      this.phoneError.classList.add('show');
+    }
+
+    clearPhoneError() {
+      this.phoneInput.classList.remove('error');
+      this.phoneError.classList.remove('show');
+    }
+
+    handleEmailSubmit(e) {
+      if (!this.validateEmail()) {
+        e.preventDefault();
+        return false;
+      }
+      
+      this.showSuccessMessage();
+      return true;
+    }
+
+    handlePhoneSubmit(e) {
+      if (!this.validatePhone()) {
+        e.preventDefault();
+        return false;
+      }
+      
+      this.showSuccessMessage();
+      return true;
+    }
+
+    showSuccessMessage() {
+      setTimeout(() => {
+        this.successMessage.classList.add('show');
+        setTimeout(() => {
+          this.successMessage.classList.remove('show');
+        }, 5000);
+      }, 100);
+    }
+  }
+
+  customElements.define('custom-signup-form-{{ ai_gen_id }}', CustomSignupForm{{ ai_gen_id }});
+})();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Custom signup form",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Stay in the loop</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Subscribe to our newsletter for the latest updates and exclusive offers.</p>"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "phone_placeholder",
+      "label": "Phone placeholder",
+      "default": "Enter your mobile number"
+    },
+    {
+      "type": "text",
+      "id": "email_button_label",
+      "label": "Email button label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "phone_button_label",
+      "label": "Phone button label",
+      "default": "Sign Up"
+    },
+    {
+      "type": "richtext",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "<p>Thank you for subscribing! We'll be in touch soon.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Form layout",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        }
+      ],
+      "default": "horizontal"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color_scheme",
+      "id": "button_color_scheme",
+      "label": "Button color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "input_background_color",
+      "label": "Input background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "input_focus_color",
+      "label": "Input focus color",
+      "default": "#007acc"
+    },
+    {
+      "type": "color",
+      "id": "error_color",
+      "label": "Error color",
+      "default": "#d82c0d"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "Success color",
+      "default": "#008060"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "form_padding",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Form padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Form border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Input border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom signup form"
+    }
+  ]
+}
 {% endschema %}
