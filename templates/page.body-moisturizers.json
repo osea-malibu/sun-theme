@@ -1345,7 +1345,7 @@
             "phone_button_text": "Subscribe",
             "success_message": "Thank you for subscribing!",
             "error_message": "Please check your information and try again.",
-            "text_alignment": "center",
+            "text_alignment": "left",
             "max_width": 500,
             "padding": 40,
             "background_color": "#ffffff",
