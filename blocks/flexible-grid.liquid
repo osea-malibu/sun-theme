@@ -1,6 +1,109 @@
 {% doc %}
+# Flexible Grid Layout Block
 
+## Overview
+A versatile grid layout block that creates customizable card-based content displays. Perfect for showcasing features, products, services, or any content that benefits from a structured grid presentation.
 
+## Features
+- **Flexible Layout Options**: 1-4 columns, 2-row layouts
+- **Responsive Design**: Separate mobile and desktop layouts
+- **Content Management**: Up to 8 individual content items
+- **Rich Styling**: Customizable colors, spacing, borders, shadows
+- **Image Support**: Optional images with placeholder fallbacks
+- **Typography Control**: Heading styles and text formatting
+- **Interactive Elements**: Optional call-to-action buttons
+- **Container Options**: Pixel or percentage-based widths
+
+## Usage
+Add this block to any section that supports blocks. Configure the layout, add content to individual items, and customize the styling to match your design requirements.
+
+## Content Structure
+Each grid item can contain:
+- **Image** (optional with placeholder fallback)
+- **Heading** (H1-H6 or body text)
+- **Description text**
+- **Call-to-action button** (optional)
+
+## Layout Options
+
+### Desktop Layouts
+- **1 Column**: Single column layout
+- **2 Columns**: Two-column grid
+- **3 Columns**: Three-column grid (default)
+- **4 Columns**: Four-column grid
+- **2 Rows, 2 Columns**: 2x2 grid layout
+- **2 Rows, 3 Columns**: 2x3 grid layout
+
+### Mobile Layouts
+- **1 Column**: Single column on mobile
+- **2 Columns**: Two-column grid on mobile
+
+## Styling Options
+
+### Container Settings
+- **Width Type**: Pixels (800-1400px) or Percentage (50-100%)
+- **Container Fit**: Full width or fit with padding
+- **Grid Gap**: 10-60px spacing between items
+
+### Section Styling
+- **Background Color**: Section background
+- **Padding**: Top and bottom section padding (0-100px)
+
+### Item Styling
+- **Background Color**: Individual item backgrounds
+- **Padding**: Item internal spacing (0-50px)
+- **Border Radius**: Rounded corners (0-30px)
+- **Border**: Optional border with custom width and color
+- **Shadow**: Optional drop shadow effect
+- **Minimum Height**: Item height control (200-600px)
+- **Content Alignment**: Top, center, or bottom alignment
+- **Text Alignment**: Left, center, or right text alignment
+
+### Image Settings
+- **Placeholder Images**: Show/hide placeholder images for empty slots
+- **Image Height**: 150-400px height control
+- **Border Radius**: Image corner rounding (0-30px)
+
+### Typography
+- **Heading Style**: H1-H6, body, or accent text
+- **Heading Color**: Custom heading color
+- **Text Color**: Custom body text color
+
+### Button Styling
+- **Background Color**: Button background
+- **Text Color**: Button text color
+- **Hover Color**: Button hover state
+- **Border Radius**: Button corner rounding (0-30px)
+
+## Responsive Behavior
+- **Desktop**: Uses selected desktop layout
+- **Tablet (1024px)**: 4-column layouts automatically switch to 2 columns
+- **Mobile (768px)**: Uses selected mobile layout with reduced gaps
+- **Small Mobile (480px)**: Forces single column layout
+
+## Dependencies
+- Uses theme typography settings for font families and sizes
+- Relies on theme color scheme variables
+- Requires Shopify's image handling for responsive images
+
+## Technical Notes
+- Generates unique CSS classes using block ID to prevent conflicts
+- Uses CSS Grid for layout management
+- Implements flexbox for item content alignment
+- Supports lazy loading for images
+- Includes hover effects for interactive elements
+
+## Best Practices
+- Use consistent image heights for visual harmony
+- Consider mobile layout when choosing desktop column count
+- Balance content length across items for uniform appearance
+- Test button links and ensure they're accessible
+- Use placeholder images for consistent layout during content creation
+
+## Author
+Mirabelle Doiron
+Version: 1.0
+Last Updated: 2025-01-27
 {% enddoc %}
 {% assign flexible_grid_block_id = block.id | replace: '_', '' | downcase %}
 
