@@ -1,22 +1,17 @@
 {% doc %}
-  @prompt
-    I would love a section that could be a full width, two columns or three column, we could also make it a 2 rows, 2 columns. All must be responsive. And it must take image, text or other blocks., add 4 columns and add one cell to the 2 rows, 2 columns, could we have the container width px or %
-    
-    could we have a full or fit toggle per row?
-    
-    for the typography, we need to only allowed type theme, please remove the second Container width
+
 
 {% enddoc %}
-{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign flexible_grid_block_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
-  .ai-flexible-grid-{{ ai_gen_id }} {
+  .flexible-grid-{{ flexible_grid_block_id }} {
     width: 100%;
     padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
     background-color: {{ block.settings.background_color }};
   }
 
-  .ai-flexible-grid-container-{{ ai_gen_id }} {
+  .flexible-grid-container-{{ flexible_grid_block_id }} {
     {% if block.settings.container_width_type == 'percentage' %}
       width: {{ block.settings.container_width_percent }}%;
     {% else %}
@@ -28,7 +23,7 @@
     {% endif %}
   }
 
-  .ai-flexible-grid-layout-{{ ai_gen_id }} {
+  .flexible-grid-layout-{{ flexible_grid_block_id }} {
     display: grid;
     gap: {{ block.settings.grid_gap }}px;
     {% case block.settings.layout %}
@@ -49,7 +44,7 @@
     {% endcase %}
   }
 
-  .ai-flexible-grid-item-{{ ai_gen_id }} {
+  .flexible-grid-item-{{ flexible_grid_block_id }} {
     background-color: {{ block.settings.item_background_color }};
     border-radius: {{ block.settings.item_border_radius }}px;
     padding: {{ block.settings.item_padding }}px;
@@ -66,21 +61,21 @@
     min-height: {{ block.settings.min_item_height }}px;
   }
 
-  .ai-flexible-grid-image-{{ ai_gen_id }} {
+  .flexible-grid-image-{{ flexible_grid_block_id }} {
     width: 100%;
     margin-bottom: 16px;
     border-radius: {{ block.settings.image_border_radius }}px;
     overflow: hidden;
   }
 
-  .ai-flexible-grid-image-{{ ai_gen_id }} img {
+  .flexible-grid-image-{{ flexible_grid_block_id }} img {
     width: 100%;
     height: {{ block.settings.image_height }}px;
     object-fit: cover;
     display: block;
   }
 
-  .ai-flexible-grid-image-placeholder-{{ ai_gen_id }} {
+  .flexible-grid-image-placeholder-{{ flexible_grid_block_id }} {
     width: 100%;
     height: {{ block.settings.image_height }}px;
     background-color: #f4f4f4;
@@ -89,13 +84,13 @@
     justify-content: center;
   }
 
-  .ai-flexible-grid-image-placeholder-{{ ai_gen_id }} svg {
+  .flexible-grid-image-placeholder-{{ flexible_grid_block_id }} svg {
     width: 60%;
     height: 60%;
     opacity: 0.3;
   }
 
-  .ai-flexible-grid-heading-{{ ai_gen_id }} {
+  .flexible-grid-heading-{{ flexible_grid_block_id }} {
     color: {{ block.settings.heading_color }};
     margin: 0 0 12px 0;
     line-height: 1.2;
@@ -145,7 +140,7 @@
     {% endcase %}
   }
 
-  .ai-flexible-grid-text-{{ ai_gen_id }} {
+  .flexible-grid-text-{{ flexible_grid_block_id }} {
     color: {{ block.settings.text_color }};
     line-height: 1.5;
     margin: 0 0 16px 0;
@@ -154,7 +149,7 @@
     font-size: {{ settings.type_size_paragraph }}px;
     font-weight: {{ settings.type_body_font.weight }};}
 
-  .ai-flexible-grid-button-{{ ai_gen_id }} {
+  .flexible-grid-button-{{ flexible_grid_block_id }} {
     display: inline-block;
     padding: 12px 24px;
     background-color: {{ block.settings.button_background_color }};
@@ -167,12 +162,12 @@
     font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
   }
 
-  .ai-flexible-grid-button-{{ ai_gen_id }}:hover {
+  .flexible-grid-button-{{ flexible_grid_block_id }}:hover {
     background-color: {{ block.settings.button_hover_color }};
   }
 
   @media screen and (max-width: 1024px) {
-    .ai-flexible-grid-layout-{{ ai_gen_id }} {
+    .flexible-grid-layout-{{ flexible_grid_block_id }} {
       {% if block.settings.layout == 'four_columns' %}
         grid-template-columns: repeat(2, 1fr);
       {% endif %}
@@ -180,7 +175,7 @@
   }
 
   @media screen and (max-width: 768px) {
-    .ai-flexible-grid-layout-{{ ai_gen_id }} {
+    .flexible-grid-layout-{{ flexible_grid_block_id }} {
       {% case block.settings.mobile_layout %}
         {% when '1' %}
           grid-template-columns: 1fr;
@@ -188,26 +183,26 @@
           grid-template-columns: repeat(2, 1fr);{% endcase %}gap: {{ block.settings.grid_gap | times: 0.75 }}px;
     }
 
-    .ai-flexible-grid-container-{{ ai_gen_id }} {
+    .flexible-grid-container-{{ flexible_grid_block_id }} {
       {% if block.settings.container_fit == 'fit' %}
         padding: 0 16px;
       {% endif %}
     }
 
-    .ai-flexible-grid-item-{{ ai_gen_id }} {
+    .flexible-grid-item-{{ flexible_grid_block_id }} {
       padding: {{ block.settings.item_padding | times: 0.75 }}px;
     }
   }
 
   @media screen and (max-width: 480px) {
-    .ai-flexible-grid-layout-{{ ai_gen_id }} {
+    .flexible-grid-layout-{{ flexible_grid_block_id }} {
       grid-template-columns: 1fr;
     }
   }
 {% endstyle %}
 
-<div class="ai-flexible-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
-  <div class="ai-flexible-grid-container-{{ ai_gen_id }}"><div class="ai-flexible-grid-layout-{{ ai_gen_id }}">{% for i in (1..8) %}
+<div class="flexible-grid-{{ flexible_grid_block_id }}" {{ block.shopify_attributes }}>
+  <div class="flexible-grid-container-{{ flexible_grid_block_id }}"><div class="flexible-grid-layout-{{ flexible_grid_block_id }}">{% for i in (1..8) %}
         {% liquid
           assign item_enabled_key = 'item_' | append: i | append: '_enabled'
           assign item_image_key = 'item_' | append: i | append: '_image'
@@ -225,9 +220,9 @@
         %}
 
         {% if item_enabled %}
-          <div class="ai-flexible-grid-item-{{ ai_gen_id }}">
+          <div class="flexible-grid-item-{{ flexible_grid_block_id }}">
             {% if item_image != blank %}
-              <div class="ai-flexible-grid-image-{{ ai_gen_id }}">
+              <div class="flexible-grid-image-{{ flexible_grid_block_id }}">
                 <img
                   src="{{ item_image | image_url: width: 800 }}"
                   alt="{{ item_image.alt | escape }}"
@@ -237,8 +232,8 @@
                 >
               </div>
             {% elsif block.settings.show_placeholder_images %}
-              <div class="ai-flexible-grid-image-{{ ai_gen_id }}">
-                <div class="ai-flexible-grid-image-placeholder-{{ ai_gen_id }}">
+              <div class="flexible-grid-image-{{ flexible_grid_block_id }}">
+                <div class="flexible-grid-image-placeholder-{{ flexible_grid_block_id }}">
                   {{ 'image' | placeholder_svg_tag }}
                 </div>
               </div>
@@ -247,27 +242,27 @@
             {% if item_heading != blank %}
               {% case block.settings.heading_type %}
                 {% when 'h1' %}
-                  <h1 class="ai-flexible-grid-heading-{{ ai_gen_id }}">{{ item_heading }}</h1>
+                  <h1 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h1>
                 {% when 'h2' %}
-                  <h2 class="ai-flexible-grid-heading-{{ ai_gen_id }}">{{ item_heading }}</h2>
+                  <h2 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h2>
                 {% when 'h3' %}
-                  <h3 class="ai-flexible-grid-heading-{{ ai_gen_id }}">{{ item_heading }}</h3>
+                  <h3 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h3>
                 {% when 'h4' %}
-                  <h4 class="ai-flexible-grid-heading-{{ ai_gen_id }}">{{ item_heading }}</h4>
+                  <h4 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h4>
                 {% when 'h5' %}
-                  <h5 class="ai-flexible-grid-heading-{{ ai_gen_id }}">{{ item_heading }}</h5>
+                  <h5 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h5>
                 {% when 'h6' %}
-                  <h6 class="ai-flexible-grid-heading-{{ ai_gen_id }}">{{ item_heading }}</h6>
+                  <h6 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h6>
                 {% else %}
-                  <div class="ai-flexible-grid-heading-{{ ai_gen_id }}">{{ item_heading }}</div>{% endcase %}
+                  <div class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</div>{% endcase %}
             {% endif %}
 
             {% if item_text != blank %}
-              <div class="ai-flexible-grid-text-{{ ai_gen_id }}">{{ item_text }}</div>
+              <div class="flexible-grid-text-{{ flexible_grid_block_id }}">{{ item_text }}</div>
             {% endif %}
 
             {% if item_button_text != blank and item_button_link != blank %}
-              <a href="{{ item_button_link }}" class="ai-flexible-grid-button-{{ ai_gen_id }}">
+              <a href="{{ item_button_link }}" class="flexible-grid-button-{{ flexible_grid_block_id }}">
                 {{ item_button_text }}
               </a>
             {% endif %}
