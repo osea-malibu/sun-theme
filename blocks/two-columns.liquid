@@ -261,12 +261,6 @@
       "content": "Layout"
     },
     {
-      "type": "checkbox",
-      "id": "show_layout",
-      "label": "Show layout settings",
-      "default": true
-    },
-    {
       "type": "select",
       "id": "width",
       "label": "Width",
@@ -280,22 +274,19 @@
           "label": "Fill"
         }
       ],
-      "default": "fit",
-      "visible_if": "{{ block.settings.show_layout == true }}"
+      "default": "fit"
     },
     {
       "type": "checkbox",
       "id": "inherit_color_scheme",
       "label": "t:settings.inherit_color_scheme",
-      "default": true,
-      "visible_if": "{{ block.settings.show_layout == true }}"
+      "default": true
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:settings.color_scheme",
-      "default": "scheme-1",
-      "visible_if": "{{ block.settings.show_layout == true and block.settings.inherit_color_scheme == false }}"
+      "default": "scheme-1"
     },
     {
       "type": "range",
@@ -305,8 +296,7 @@
       "step": 4,
       "unit": "px",
       "label": "Column gap",
-      "default": 40,
-      "visible_if": "{{ block.settings.show_layout == true }}"
+      "default": 40
     },
     {
       "type": "range",
@@ -316,8 +306,7 @@
       "step": 4,
       "unit": "px",
       "label": "Column gap mobile",
-      "default": 24,
-      "visible_if": "{{ block.settings.show_layout == true }}"
+      "default": 24
     },
     {
       "type": "select",
@@ -333,18 +322,11 @@
           "label": "Text first"
         }
       ],
-      "default": "text_first",
-      "visible_if": "{{ block.settings.show_layout == true }}"
+      "default": "text_first"
     },
     {
       "type": "header",
       "content": "Image settings"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_image_settings",
-      "label": "Show image settings",
-      "default": true
     },
     {
       "type": "select",
@@ -360,8 +342,7 @@
           "label": "Fixed height"
         }
       ],
-      "default": "aspect_ratio",
-      "visible_if": "{{ block.settings.show_image_settings == true }}"
+      "default": "aspect_ratio"
     },
     {
       "type": "select",
@@ -394,7 +375,7 @@
         }
       ],
       "default": "4/3",
-      "visible_if": "{{ block.settings.show_image_settings == true and block.settings.image_height_type == 'aspect_ratio' }}"
+      "visible_if": "{{ block.settings.image_height_type == 'aspect_ratio' }}"
     },
     {
       "type": "range",
@@ -405,7 +386,7 @@
       "unit": "px",
       "label": "Fixed height desktop",
       "default": 400,
-      "visible_if": "{{ block.settings.show_image_settings == true and block.settings.image_height_type == 'fixed' }}"
+      "visible_if": "{{ block.settings.image_height_type == 'fixed' }}"
     },
     {
       "type": "range",
@@ -416,7 +397,7 @@
       "unit": "px",
       "label": "Fixed height mobile",
       "default": 300,
-      "visible_if": "{{ block.settings.show_image_settings == true and block.settings.image_height_type == 'fixed' }}"
+      "visible_if": "{{ block.settings.image_height_type == 'fixed' }}"
     },
     {
       "type": "select",
@@ -432,8 +413,7 @@
           "label": "Contain"
         }
       ],
-      "default": "cover",
-      "visible_if": "{{ block.settings.show_image_settings == true }}"
+      "default": "cover"
     },
     {
       "type": "range",
@@ -443,18 +423,11 @@
       "step": 2,
       "unit": "px",
       "label": "Image border radius",
-      "default": 8,
-      "visible_if": "{{ block.settings.show_image_settings == true }}"
+      "default": 8
     },
     {
       "type": "header",
       "content": "Row padding desktop"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_row_padding_desktop",
-      "label": "Show row padding (desktop)",
-      "default": false
     },
     {
       "type": "range",
@@ -464,8 +437,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 40,
-      "visible_if": "{{ block.settings.show_row_padding_desktop == true }}"
+      "default": 40
     },
     {
       "type": "range",
@@ -475,8 +447,7 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 40,
-      "visible_if": "{{ block.settings.show_row_padding_desktop == true }}"
+      "default": 40
     },
     {
       "type": "range",
@@ -486,8 +457,7 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 20,
-      "visible_if": "{{ block.settings.show_row_padding_desktop == true }}"
+      "default": 20
     },
     {
       "type": "range",
@@ -497,18 +467,11 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 20,
-      "visible_if": "{{ block.settings.show_row_padding_desktop == true }}"
+      "default": 20
     },
     {
       "type": "header",
       "content": "Row padding mobile"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_row_padding_mobile",
-      "label": "Show row padding (mobile)",
-      "default": false
     },
     {
       "type": "range",
@@ -518,8 +481,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 24,
-      "visible_if": "{{ block.settings.show_row_padding_mobile == true }}"
+      "default": 24
     },
     {
       "type": "range",
@@ -529,8 +491,7 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 24,
-      "visible_if": "{{ block.settings.show_row_padding_mobile == true }}"
+      "default": 24
     },
     {
       "type": "range",
@@ -540,8 +501,7 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 16,
-      "visible_if": "{{ block.settings.show_row_padding_mobile == true }}"
+      "default": 16
     },
     {
       "type": "range",
@@ -551,43 +511,32 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 16,
-      "visible_if": "{{ block.settings.show_row_padding_mobile == true }}"
+      "default": 16
     },
     {
       "type": "header",
       "content": "Left column content"
     },
     {
-      "type": "checkbox",
-      "id": "show_left_content",
-      "label": "Show left column content",
-      "default": true
-    },
-    {
       "type": "image_picker",
       "id": "left_column_image",
-      "label": "Image",
-      "visible_if": "{{ block.settings.show_left_content == true }}"
+      "label": "Image"
     },
     {
       "type": "checkbox",
       "id": "left_column_show_placeholder",
       "label": "Show placeholder when no image",
-      "default": false,
-      "visible_if": "{{ block.settings.show_left_content == true }}"
+      "default": false
     },
     {
       "type": "text",
       "id": "left_column_heading",
-      "label": "Heading",
-      "visible_if": "{{ block.settings.show_left_content == true }}"
+      "label": "Heading"
     },
     {
       "type": "richtext",
       "id": "left_column_text",
-      "label": "Text",
-      "visible_if": "{{ block.settings.show_left_content == true }}"
+      "label": "Text"
     },
     {
       "type": "select",
@@ -607,8 +556,7 @@
           "label": "Bottom"
         }
       ],
-      "default": "flex-start",
-      "visible_if": "{{ block.settings.show_left_content == true }}"
+      "default": "flex-start"
     },
     {
       "type": "select",
@@ -628,8 +576,7 @@
           "label": "Right"
         }
       ],
-      "default": "left",
-      "visible_if": "{{ block.settings.show_left_content == true }}"
+      "default": "left"
     },
     {
       "type": "select",
@@ -649,18 +596,11 @@
           "label": "Right"
         }
       ],
-      "default": "left",
-      "visible_if": "{{ block.settings.show_left_content == true }}"
+      "default": "left"
     },
     {
       "type": "header",
       "content": "Left column padding desktop"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_left_padding_desktop",
-      "label": "Show left column padding (desktop)",
-      "default": false
     },
     {
       "type": "range",
@@ -670,8 +610,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_left_padding_desktop == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -681,8 +620,7 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_left_padding_desktop == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -692,8 +630,7 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_left_padding_desktop == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -703,18 +640,11 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_left_padding_desktop == true }}"
+      "default": 0
     },
     {
       "type": "header",
       "content": "Left column padding mobile"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_left_padding_mobile",
-      "label": "Show left column padding (mobile)",
-      "default": false
     },
     {
       "type": "range",
@@ -724,8 +654,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_left_padding_mobile == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -735,8 +664,7 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_left_padding_mobile == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -746,8 +674,7 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_left_padding_mobile == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -757,43 +684,32 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_left_padding_mobile == true }}"
+      "default": 0
     },
     {
       "type": "header",
       "content": "Right column content"
     },
     {
-      "type": "checkbox",
-      "id": "show_right_content",
-      "label": "Show right column content",
-      "default": true
-    },
-    {
       "type": "image_picker",
       "id": "right_column_image",
-      "label": "Image",
-      "visible_if": "{{ block.settings.show_right_content == true }}"
+      "label": "Image"
     },
     {
       "type": "checkbox",
       "id": "right_column_show_placeholder",
       "label": "Show placeholder when no image",
-      "default": false,
-      "visible_if": "{{ block.settings.show_right_content == true }}"
+      "default": false
     },
     {
       "type": "text",
       "id": "right_column_heading",
-      "label": "Heading",
-      "visible_if": "{{ block.settings.show_right_content == true }}"
+      "label": "Heading"
     },
     {
       "type": "richtext",
       "id": "right_column_text",
-      "label": "Text",
-      "visible_if": "{{ block.settings.show_right_content == true }}"
+      "label": "Text"
     },
     {
       "type": "select",
@@ -813,8 +729,7 @@
           "label": "Bottom"
         }
       ],
-      "default": "flex-start",
-      "visible_if": "{{ block.settings.show_right_content == true }}"
+      "default": "flex-start"
     },
     {
       "type": "select",
@@ -834,8 +749,7 @@
           "label": "Right"
         }
       ],
-      "default": "left",
-      "visible_if": "{{ block.settings.show_right_content == true }}"
+      "default": "left"
     },
     {
       "type": "select",
@@ -855,18 +769,11 @@
           "label": "Right"
         }
       ],
-      "default": "left",
-      "visible_if": "{{ block.settings.show_right_content == true }}"
+      "default": "left"
     },
     {
       "type": "header",
       "content": "Right column padding desktop"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_right_padding_desktop",
-      "label": "Show right column padding (desktop)",
-      "default": false
     },
     {
       "type": "range",
@@ -876,8 +783,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_right_padding_desktop == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -887,8 +793,7 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_right_padding_desktop == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -898,8 +803,7 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_right_padding_desktop == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -909,18 +813,11 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_right_padding_desktop == true }}"
+      "default": 0
     },
     {
       "type": "header",
       "content": "Right column padding mobile"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_right_padding_mobile",
-      "label": "Show right column padding (mobile)",
-      "default": false
     },
     {
       "type": "range",
@@ -930,8 +827,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_right_padding_mobile == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -941,8 +837,7 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_right_padding_mobile == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -952,8 +847,7 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_right_padding_mobile == true }}"
+      "default": 0
     },
     {
       "type": "range",
@@ -963,8 +857,7 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 0,
-      "visible_if": "{{ block.settings.show_right_padding_mobile == true }}"
+      "default": 0
     },
     {
       "type": "header",
