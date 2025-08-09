@@ -9,7 +9,7 @@
   - Customizable "Read more" and "Read less" button text
   - Responsive design with mobile-optimized sizing
   - Accessible with proper ARIA attributes and keyboard navigation
-  - Theme styling: inherits colors and typography; controls for spacing and corner radius
+  - Theme styling: inherits colors and typography; controls for spacing
   - Padding controls: separate top/right/bottom/left for desktop and mobile (px or %)
   - Width control: Fit (page width) or Fill (full width)
   - Focus states for better accessibility
@@ -36,12 +36,12 @@
 
 {% style %}
   .expandable-text-{{ expandable_text_block_id }} {
+    display: block;
     background-color: var(--color-background);
     padding-top: {{ block.settings.padding_top_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     padding-right: {{ block.settings.padding_right_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     padding-bottom: {{ block.settings.padding_bottom_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     padding-left: {{ block.settings.padding_left_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
-    border-radius: {{ block.settings.border_radius }}px;
     margin: 0 auto;
     {% if block.settings.width == 'fit' %}
       max-width: var(--normal-page-width);
@@ -371,16 +371,7 @@
     { "type": "range", "id": "padding_right_mobile", "min": 0, "max": 100, "step": 1, "label": "Right", "default": 16 },
     { "type": "range", "id": "padding_bottom_mobile", "min": 0, "max": 100, "step": 1, "label": "Bottom", "default": 16 },
     { "type": "range", "id": "padding_left_mobile", "min": 0, "max": 100, "step": 1, "label": "Left", "default": 16 },
-    {
-      "type": "range",
-      "id": "border_radius",
-      "min": 0,
-      "max": 24,
-      "step": 2,
-      "unit": "px",
-      "label": "Border radius",
-      "default": 8
-    }
+    
   ],
   "presets": [
     {
