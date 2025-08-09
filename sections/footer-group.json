@@ -14,29 +14,32 @@
     "section_3MxVWd": {
       "type": "section",
       "blocks": {
-        "signup_form_xkEVPy": {
+        "signup_form_T9RLqD": {
           "type": "signup-form",
-          "name": "Signup form",
+          "name": "Signup Form",
           "settings": {
-            "heading": "",
-            "subtext": "",
-            "email_tab_label": "Email Sign up",
-            "phone_tab_label": "Mobile Number Sign up",
+            "heading": "<p>Stay connected with us</p>",
+            "subtext": "<p>Get the latest updates and exclusive offers</p>",
+            "email_tab_label": "Email signup",
+            "phone_tab_label": "SMS signup",
             "email_label": "Email address",
             "email_placeholder": "Enter your email",
-            "email_button_text": "Sign up",
+            "email_button_text": "Subscribe",
             "phone_label": "Phone number",
             "phone_placeholder": "Enter your phone number",
-            "phone_button_text": "Sign up",
+            "phone_button_text": "Subscribe",
             "success_message": "Thank you for subscribing!",
             "error_message": "Please check your information and try again.",
+            "width": "fit",
             "layout": "vertical",
-            "text_alignment": "left",
-            "max_width_type": "px",
-            "max_width_px": 500,
-            "max_width_percent": 80,
-            "padding": 20,
-            "color_scheme": "scheme-2",
+            "text_alignment": "center",
+            "max_width_type": "percent",
+            "max_width_px": 800,
+            "max_width_percent": 100,
+            "padding": 40,
+            "color_scheme": "",
+            "heading_preset": "h3",
+            "text_preset": "rte",
             "border_radius": 8,
             "tab_border_radius": 6,
             "input_border_radius": 4,
@@ -46,7 +49,7 @@
         }
       },
       "block_order": [
-        "signup_form_xkEVPy"
+        "signup_form_T9RLqD"
       ],
       "name": "t:names.custom_section",
       "settings": {
