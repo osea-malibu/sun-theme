@@ -17,6 +17,7 @@
         "signup_form_T9RLqD": {
           "type": "signup-form",
           "name": "Signup Form",
+          "disabled": true,
           "settings": {
             "heading": "<p>Stay connected with us</p>",
             "subtext": "<p>Get the latest updates and exclusive offers</p>",
