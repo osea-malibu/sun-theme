@@ -9,7 +9,7 @@
   - Customizable "Read more" and "Read less" button text
   - Responsive design with mobile-optimized sizing
   - Accessible with proper ARIA attributes and keyboard navigation
-  - Customizable styling (colors, fonts, spacing, border radius)
+  - Theme styling: inherits colors and typography; controls for spacing and corner radius
   - Width control: Fit (page width) or Fill (full width)
   - Focus states for better accessibility
   - Rich text support for both preview and full content
@@ -35,7 +35,7 @@
 
 {% style %}
   .expandable-text-{{ expandable_text_block_id }} {
-    background-color: {{ block.settings.background_color }};
+    background-color: var(--color-background);
     padding: {{ block.settings.padding }}px;
     border-radius: {{ block.settings.border_radius }}px;
     margin: 0 auto;
@@ -47,21 +47,35 @@
   }
 
   .expandable-text__heading-{{ expandable_text_block_id }} {
-    color: {{ block.settings.heading_color }};
-    font-size: {{ block.settings.heading_size }}px;
+    color: var(--font-h2--color);
+    font-family: var(--font-heading--family);
+    font-weight: var(--font-heading--weight);
+    font-size: var(--font-h2--size);
     margin: 0 0 16px 0;
-    font-weight:600;
   }
 
+  .expandable-text__heading-{{ expandable_text_block_id }}.is-h1 { color: var(--font-h1--color); font-size: var(--font-h1--size); }
+  .expandable-text__heading-{{ expandable_text_block_id }}.is-h2 { color: var(--font-h2--color); font-size: var(--font-h2--size); }
+  .expandable-text__heading-{{ expandable_text_block_id }}.is-h3 { color: var(--font-h3--color); font-size: var(--font-h3--size); }
+  .expandable-text__heading-{{ expandable_text_block_id }}.is-h4 { color: var(--font-h4--color); font-size: var(--font-h4--size); }
+  .expandable-text__heading-{{ expandable_text_block_id }}.is-h5 { color: var(--font-h5--color); font-size: var(--font-h5--size); }
+  .expandable-text__heading-{{ expandable_text_block_id }}.is-h6 { color: var(--font-h6--color); font-size: var(--font-h6--size); }
+
   .expandable-text__content-{{ expandable_text_block_id }} {
-    color: {{ block.settings.text_color }};
-    font-size: {{ block.settings.text_size }}px;
+    color: var(--color-foreground);
+    font-family: var(--font-body--family);
+    font-weight: var(--font-body--weight);
+    font-size: var(--font-paragraph--size);
     line-height: 1.6;
     margin: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
+
+  .expandable-text__content-{{ expandable_text_block_id }}.is-h4 { color: var(--font-h4--color); font-family: var(--font-heading--family); font-weight: var(--font-heading--weight); font-size: var(--font-h4--size); }
+  .expandable-text__content-{{ expandable_text_block_id }}.is-h5 { color: var(--font-h5--color); font-family: var(--font-heading--family); font-weight: var(--font-heading--weight); font-size: var(--font-h5--size); }
+  .expandable-text__content-{{ expandable_text_block_id }}.is-h6 { color: var(--font-h6--color); font-family: var(--font-heading--family); font-weight: var(--font-heading--weight); font-size: var(--font-h6--size); }
 
   .expandable-text__preview-{{ expandable_text_block_id }} {
     display: block;
@@ -74,8 +88,8 @@
   .expandable-text__toggle-{{ expandable_text_block_id }} {
     background: none;
     border: none;
-    color: {{ block.settings.link_color }};
-    font-size: {{ block.settings.text_size }}px;
+    color: var(--color-primary);
+    font-size: inherit;
     text-decoration: underline;
     cursor: pointer;
     padding: 8px 0;
@@ -85,14 +99,9 @@
     transition: color 0.2s ease;
   }
 
-  .expandable-text__toggle-{{ expandable_text_block_id }}:hover {
-    color: {{ block.settings.link_hover_color }};
-  }
+  .expandable-text__toggle-{{ expandable_text_block_id }}:hover { color: var(--color-primary-hover); }
 
-  .expandable-text__toggle-{{ expandable_text_block_id }}:focus {
-    outline: 2px solid {{ block.settings.link_color }};
-    outline-offset: 2px;
-  }
+  .expandable-text__toggle-{{ expandable_text_block_id }}:focus { outline: 2px solid currentColor; outline-offset: 2px; }
 
   .expandable-text-{{ expandable_text_block_id }}.expanded .expandable-text__preview-{{ expandable_text_block_id }} {
     display: none;
@@ -103,10 +112,6 @@
   }
 
   @media screen and (max-width: 749px) {
-    .expandable-text__heading-{{ expandable_text_block_id }} {
-      font-size: {{ block.settings.heading_size | times: 0.8 }}px;
-    }
-
     .expandable-text-{{ expandable_text_block_id }} {
       padding: {{ block.settings.padding | times: 0.7 }}px;
     }
@@ -117,7 +122,6 @@
 
     .expandable-text__toggle-{{ expandable_text_block_id }} {
       padding: 6px 0;
-      font-size: {{ block.settings.text_size | times: 0.9 }}px;
     }
   }
 {% endstyle %}
@@ -127,7 +131,22 @@
   {{ block.shopify_attributes }}
 >
   {% if block.settings.heading != blank %}
-    <h2 class="expandable-text__heading-{{ expandable_text_block_id }}">{{ block.settings.heading }}</h2>
+    {% case block.settings.heading_type_preset %}
+      {% when 'h1' %}
+        <h1 class="expandable-text__heading-{{ expandable_text_block_id }} is-h1">{{ block.settings.heading }}</h1>
+      {% when 'h2' %}
+        <h2 class="expandable-text__heading-{{ expandable_text_block_id }} is-h2">{{ block.settings.heading }}</h2>
+      {% when 'h3' %}
+        <h3 class="expandable-text__heading-{{ expandable_text_block_id }} is-h3">{{ block.settings.heading }}</h3>
+      {% when 'h4' %}
+        <h4 class="expandable-text__heading-{{ expandable_text_block_id }} is-h4">{{ block.settings.heading }}</h4>
+      {% when 'h5' %}
+        <h5 class="expandable-text__heading-{{ expandable_text_block_id }} is-h5">{{ block.settings.heading }}</h5>
+      {% when 'h6' %}
+        <h6 class="expandable-text__heading-{{ expandable_text_block_id }} is-h6">{{ block.settings.heading }}</h6>
+      {% else %}
+        <h2 class="expandable-text__heading-{{ expandable_text_block_id }} is-h2">{{ block.settings.heading }}</h2>
+    {% endcase %}
   {% endif %}<div class="expandable-text__content-{{ expandable_text_block_id }}"><div class="expandable-text__preview-{{ expandable_text_block_id }}">
       {{ block.settings.preview_text }}
     </div>
@@ -290,36 +309,7 @@
       ],
       "default": "paragraph"
     },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "default": "#666666"
-    },
-    {
-      "type": "color",
-      "id": "link_color",
-      "label": "Link color",
-      "default": "#000f9f"
-    },
-    {
-      "type": "color",
-      "id": "link_hover_color",
-      "label": "Link hover color",
-      "default": "#000000"
-    },
+    
     {
       "type": "range",
       "id": "heading_size",
