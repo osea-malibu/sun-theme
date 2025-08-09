@@ -14,8 +14,8 @@
   }
 
   .ai-two-columns-inner-{{ ai_gen_id }} {
-    {% if block.settings.container_width == 'page' %}
-      max-width: 1200px;margin: 0 auto;
+    {% if block.settings.width == 'fit' %}
+      max-width: 1200px; margin: 0 auto;
     {% endif %}
   }
 
@@ -66,6 +66,7 @@
     display: block;
     object-fit: {{ block.settings.image_fit }};
     object-position: center center;
+    border-radius: {{ block.settings.image_border_radius }}px;
   }
 
   .ai-two-columns-image-placeholder-{{ ai_gen_id }} {
@@ -235,19 +236,19 @@
     },
     {
       "type": "select",
-      "id": "container_width",
-      "label": "Container width",
+      "id": "width",
+      "label": "Width",
       "options": [
         {
-          "value": "page",
-          "label": "Page width"
+          "value": "fit",
+          "label": "Fit"
         },
         {
-          "value": "full",
-          "label": "Full width"
+          "value": "fill",
+          "label": "Fill"
         }
       ],
-      "default": "page"
+      "default": "fit"
     },
     {
       "type": "color",
