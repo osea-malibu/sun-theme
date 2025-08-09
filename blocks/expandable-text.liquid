@@ -10,6 +10,7 @@
   - Responsive design with mobile-optimized sizing
   - Accessible with proper ARIA attributes and keyboard navigation
   - Customizable styling (colors, fonts, spacing, border radius)
+  - Width control: Fit (page width) or Fill (full width)
   - Focus states for better accessibility
   - Rich text support for both preview and full content
   
@@ -37,7 +38,12 @@
     background-color: {{ block.settings.background_color }};
     padding: {{ block.settings.padding }}px;
     border-radius: {{ block.settings.border_radius }}px;
-    max-width: 100%;
+    margin: 0 auto;
+    {% if block.settings.width == 'fit' %}
+      max-width: var(--normal-page-width);
+    {% else %}
+      max-width: 100%;
+    {% endif %}
   }
 
   .expandable-text__heading-{{ expandable_text_block_id }} {
@@ -217,6 +223,16 @@
     {
       "type": "header",
       "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        { "value": "fit", "label": "Fit" },
+        { "value": "fill", "label": "Fill" }
+      ],
+      "default": "fit"
     },
     {
       "type": "select",
