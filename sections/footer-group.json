@@ -602,7 +602,7 @@
       "type": "_blocks",
       "blocks": {
         "ai_gen_block_8181ee2_CDeEVy": {
-          "type": "ai_gen_block_8181ee2",
+          "type": "two-columns",
           "settings": {
             "width": "fit",
             "background_color": "#e5edeb",
