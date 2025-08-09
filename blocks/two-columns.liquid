@@ -188,7 +188,7 @@
   }
 {% endstyle %}
 
- <div class="two-columns-{{ two_columns_block_id }} spacing-style{% if block.settings.inherit_color_scheme == false %} color-{{ block.settings.color_scheme }}{% endif %}"
+ <div class="two-columns-{{ two_columns_block_id }} spacing-style color-{{ block.settings.color_scheme }}"
    style="{% render 'spacing-padding', settings: block.settings %}"
    {{ block.shopify_attributes }}
  >
@@ -277,15 +277,19 @@
       "default": "fit"
     },
     {
-      "type": "checkbox",
-      "id": "inherit_color_scheme",
-      "label": "t:settings.inherit_color_scheme",
-      "default": true
+      "type": "select",
+      "id": "editor_mode",
+      "label": "Editor mode",
+      "options": [
+        { "value": "basic", "label": "Basic" },
+        { "value": "advanced", "label": "Advanced" }
+      ],
+      "default": "basic"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "t:settings.color_scheme",
+      "label": "Background color scheme",
       "default": "scheme-1"
     },
     {
@@ -437,7 +441,8 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 40
+      "default": 40,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -447,7 +452,8 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 40
+      "default": 40,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -457,7 +463,8 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 20
+      "default": 20,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -467,7 +474,8 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 20
+      "default": 20,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "header",
@@ -481,7 +489,8 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 24
+      "default": 24,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -491,7 +500,8 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 24
+      "default": 24,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -501,7 +511,8 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 16
+      "default": 16,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -511,7 +522,8 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 16
+      "default": 16,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "header",
@@ -610,7 +622,8 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -620,7 +633,8 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -630,7 +644,8 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -640,7 +655,8 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "header",
@@ -654,7 +670,8 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -664,7 +681,8 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -674,7 +692,8 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -684,7 +703,8 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "header",
@@ -783,7 +803,8 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -793,7 +814,8 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -803,7 +825,8 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -813,7 +836,8 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "header",
@@ -827,7 +851,8 @@
       "step": 4,
       "unit": "px",
       "label": "Top",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -837,7 +862,8 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -847,7 +873,8 @@
       "step": 4,
       "unit": "px",
       "label": "Left",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "range",
@@ -857,7 +884,8 @@
       "step": 4,
       "unit": "px",
       "label": "Right",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.editor_mode == 'advanced' }}"
     },
     {
       "type": "header",
