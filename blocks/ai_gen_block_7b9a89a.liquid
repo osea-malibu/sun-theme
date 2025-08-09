@@ -43,7 +43,7 @@
   .ai-content-section__column-{{ ai_gen_id }} {
     display: flex;
     flex-direction: column;
-    gap:16px;
+    gap: {% if block.settings.inner_gap_mode == 'same' %}{{ block.settings.gap }}{% else %}{{ block.settings.inner_gap }}{% endif %}px;
   }
 
   .ai-content-section__heading-{{ ai_gen_id }} {
@@ -427,6 +427,10 @@
         padding: 0 16px;
       {% endif %}
     }
+
+    .ai-content-section__column-{{ ai_gen_id }} {
+      gap: {% if block.settings.inner_gap_mode == 'same' %}{{ block.settings.gap | divided_by: 2 }}{% else %}{{ block.settings.inner_gap | divided_by: 2 }}{% endif %}px;
+    }
   }
 {% endstyle %}
 
@@ -595,6 +599,26 @@
       "step": 4,
       "unit": "px",
       "default": 40
+    },
+    {
+      "type": "select",
+      "id": "inner_gap_mode",
+      "label": "Inner items spacing",
+      "options": [
+        { "value": "same", "label": "Tie to Column gap" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "same"
+    },
+    {
+      "type": "range",
+      "id": "inner_gap",
+      "label": "Custom inner gap",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 16
     },
     {
       "type": "header",
