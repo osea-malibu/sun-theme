@@ -417,7 +417,7 @@
 
 {% schema %}
 {
-  "name": "Email and phone signup",
+  "name": "Signup form",
   "settings": [
     {
       "type": "header",
@@ -597,225 +597,18 @@
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "Appearance"
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      "default": "#ffffff"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Background color scheme",
+      "default": "scheme-1"
     },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "default": "#1d4d41"
-    },
-    {
-      "type": "color",
-      "id": "button_color",
-      "label": "Button color",
-      "default": "#1d4d41"
-    },
-    {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Button text color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "button_hover_color",
-      "label": "Button hover color",
-      "default": "#0b2e25"
-    },
-    {
-      "type": "header",
-      "content": "Tab colors"
-    },
-    {
-      "type": "color",
-      "id": "tab_active_bg",
-      "label": "Active tab background",
-      "default": "#1d4d41"
-    },
-    {
-      "type": "color",
-      "id": "tab_active_text",
-      "label": "Active tab text",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "tab_inactive_bg",
-      "label": "Inactive tab background",
-      "default": "#f5f7f8"
-    },
-    {
-      "type": "color",
-      "id": "tab_inactive_text",
-      "label": "Inactive tab text",
-      "default": "#1d4d41"
-    },
-    {
-      "type": "color",
-      "id": "tab_hover_bg",
-      "label": "Tab hover background",
-      "default": "#e5edeb"
-    },
-    {
-      "type": "color",
-      "id": "tab_border_color",
-      "label": "Tab border color",
-      "default": "#bacbc6"
-    },
-    {
-      "type": "header",
-      "content": "Input colors"
-    },
-    {
-      "type": "color",
-      "id": "input_background",
-      "label": "Input background",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "input_text_color",
-      "label": "Input text color",
-      "default": "#1d4d41"
-    },
-    {
-      "type": "color",
-      "id": "input_border_color",
-      "label": "Input border color",
-      "default": "#bacbc6"
-    },
-    {
-      "type": "color",
-      "id": "input_focus_border",
-      "label": "Input focus border",
-      "default": "#1d4d41"
-    },
-    {
-      "type": "header",
-      "content": "Message colors"
-    },
-    {
-      "type": "color",
-      "id": "success_bg",
-      "label": "Success background",
-      "default": "#d4edda"
-    },
-    {
-      "type": "color",
-      "id": "success_text",
-      "label": "Success text",
-      "default": "#155724"
-    },
-    {
-      "type": "color",
-      "id": "success_border",
-      "label": "Success border",
-      "default": "#c3e6cb"
-    },
-    {
-      "type": "color",
-      "id": "error_bg",
-      "label": "Error background",
-      "default": "#f8d7da"
-    },
-    {
-      "type": "color",
-      "id": "error_text",
-      "label": "Error text",
-      "default": "#721c24"
-    },
-    {
-      "type": "color",
-      "id": "error_border",
-      "label": "Error border",
-      "default": "#f5c6cb"
-    },
+    
     {
       "type": "header",
       "content": "Typography"
-    },
-    {
-      "type": "select",
-      "id": "heading_type_preset",
-      "label": "Heading type preset",
-      "options": [
-        {
-          "value": "h1",
-          "label": "Heading 1"
-        },
-        {
-          "value": "h2",
-          "label": "Heading 2"
-        },
-        {
-          "value": "h3",
-          "label": "Heading 3"
-        },
-        {
-          "value": "h4",
-          "label": "Heading 4"
-        },
-        {
-          "value": "h5",
-          "label": "Heading 5"
-        },
-        {
-          "value": "h6",
-          "label": "Heading 6"
-        }
-      ],
-      "default": "h2"
-    },
-    {
-      "type": "select",
-      "id": "text_type_preset",
-      "label": "Text type preset",
-      "options": [
-        {
-          "value": "paragraph",
-          "label": "Paragraph"
-        },
-        {
-          "value": "h4",
-          "label": "Heading 4"
-        },
-        {
-          "value": "h5",
-          "label": "Heading 5"
-        },
-        {
-          "value": "h6",
-          "label": "Heading 6"
-        }
-      ],
-      "default": "paragraph"
-    },
-    {
-      "type": "range",
-      "id": "heading_size",
-      "min": 16,
-      "max": 48,
-      "step": 2,
-      "unit": "px",
-      "label": "Heading size",
-      "default": 28
-    },
-    {
-      "type": "range",
-      "id": "text_size",
-      "min": 12,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "label": "Text size",
-      "default": 16
     },
     {
       "type": "header",
@@ -864,7 +657,7 @@
   ],
   "presets": [
     {
-      "name": "Email and phone signup"
+      "name": "Signup form"
     }
   ],
   "tag": null
