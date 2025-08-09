@@ -1,10 +1,35 @@
 {% doc %}
+  Two columns block
 
+  Overview
+  - Renders two side-by-side columns that can contain an image and/or text in each column.
+  - Fully controllable spacing for row and columns on desktop and mobile.
+  - Width supports Fit (page width) and Fill (full width).
+  - Image supports Cover and Contain fit modes, with optional fixed height or aspect ratio.
+  - Mobile layout can prioritize Image first or Text first based on actual content presence.
+
+  Key settings
+  - Width (Fit | Fill): Fit constrains inner container to page width, Fill spans full width.
+  - Column gap: separate controls for desktop and mobile.
+  - Mobile layout (Image first | Text first): Reorders columns on mobile by locating which column contains the selected content type.
+  - Image height (Aspect ratio | Fixed): Choose between aspect ratio box or fixed height; mobile has independent fixed height.
+  - Image fit (Cover | Contain): Cover crops to fill; Contain scales to fit within the box.
+  - Image border radius: Applied to both wrapper and image.
+  - Per-column vertical alignment and text alignment for desktop and mobile.
+  - Per-column padding for desktop and mobile; row padding for desktop and mobile.
+
+  Notes
+  - If both columns have both image and text, the mobile reordering leaves authored order unchanged.
+  - Page width is currently 1200px; adapt here if you have a theme variable for container width.
+
+  Author: Mirabelle Doiron
+  Version: 1.0
+  Last Updated: 2025-08-07
 {% enddoc %}
-{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign two_columns_block_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
-  .ai-two-columns-{{ ai_gen_id }} {
+  .two-columns-{{ two_columns_block_id }} {
     width: 100%;
     background-color: {{ block.settings.background_color }};
     padding-top: {{ block.settings.row_padding_top }}px;
@@ -13,34 +38,34 @@
     padding-right: {{ block.settings.row_padding_right }}px;
   }
 
-  .ai-two-columns-inner-{{ ai_gen_id }} {
+  .two-columns-inner-{{ two_columns_block_id }} {
     {% if block.settings.width == 'fit' %}
       max-width: 1200px; margin: 0 auto;
     {% endif %}
   }
 
-  .ai-two-columns-container-{{ ai_gen_id }} {
+  .two-columns-container-{{ two_columns_block_id }} {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: {{ block.settings.column_gap }}px;
     max-width: 100%;
   }
 
-  .ai-two-columns-column-{{ ai_gen_id }} {
+  .two-columns-column-{{ two_columns_block_id }} {
     display: flex;
     flex-direction: column;
     gap:16px;
     box-sizing: border-box;
   }
 
-  .ai-two-columns-column-left-{{ ai_gen_id }} {
+  .two-columns-column-left-{{ two_columns_block_id }} {
     padding-top: {{ block.settings.left_column_padding_top }}px;
     padding-bottom: {{ block.settings.left_column_padding_bottom }}px;
     padding-left: {{ block.settings.left_column_padding_left }}px;
     padding-right: {{ block.settings.left_column_padding_right }}px;justify-content: {{ block.settings.left_column_vertical_alignment }};text-align: {{ block.settings.left_column_text_alignment }};
   }
 
-  .ai-two-columns-column-right-{{ ai_gen_id }} {
+  .two-columns-column-right-{{ two_columns_block_id }} {
     padding-top: {{ block.settings.right_column_padding_top }}px;
     padding-bottom: {{ block.settings.right_column_padding_bottom }}px;
     padding-left: {{ block.settings.right_column_padding_left }}px;
@@ -49,7 +74,7 @@
     text-align: {{ block.settings.right_column_text_alignment }};
   }
 
-  .ai-two-columns-image-wrapper-{{ ai_gen_id }} {
+  .two-columns-image-wrapper-{{ two_columns_block_id }} {
     width: 100%;
     border-radius: {{ block.settings.image_border_radius }}px;
     overflow: hidden;
@@ -60,7 +85,7 @@
     {% endif %}
   }
 
-  .ai-two-columns-image-{{ ai_gen_id }} {
+  .two-columns-image-{{ two_columns_block_id }} {
     width: 100%;
     height: 100%;
     display: block;
@@ -69,7 +94,7 @@
     border-radius: {{ block.settings.image_border_radius }}px;
   }
 
-  .ai-two-columns-image-placeholder-{{ ai_gen_id }} {
+  .two-columns-image-placeholder-{{ two_columns_block_id }} {
     width: 100%;
     height: 100%;
     background-color: #f4f4f4;
@@ -78,48 +103,48 @@
     justify-content: center;
   }
 
-  .ai-two-columns-image-placeholder-{{ ai_gen_id }} svg {
+  .two-columns-image-placeholder-{{ two_columns_block_id }} svg {
     width:100%;
     height: 100%;max-width: 200px;
     max-height: 200px;
   }
 
-  .ai-two-columns-heading-{{ ai_gen_id }} {
+  .two-columns-heading-{{ two_columns_block_id }} {
     color: {{ block.settings.heading_color }};
     margin: 0;
     font-size: {{ block.settings.heading_size }}px;
     line-height: 1.2;}
 
-  .ai-two-columns-text-{{ ai_gen_id }} {
+  .two-columns-text-{{ two_columns_block_id }} {
     color: {{ block.settings.text_color }};
     margin: 0;
     font-size: {{ block.settings.text_size }}px;
     line-height: 1.5;
   }
 
-  .ai-two-columns-text-{{ ai_gen_id }} p {
+  .two-columns-text-{{ two_columns_block_id }} p {
     margin: 0 0 16px 0;
   }
 
-  .ai-two-columns-text-{{ ai_gen_id }} p:last-child {
+  .two-columns-text-{{ two_columns_block_id }} p:last-child {
     margin-bottom: 0;
   }
 
   @media screen and (max-width: 749px) {
-    .ai-two-columns-{{ ai_gen_id }} {
+    .two-columns-{{ two_columns_block_id }} {
       padding-top: {{ block.settings.row_padding_top_mobile }}px;
       padding-bottom: {{ block.settings.row_padding_bottom_mobile }}px;
       padding-left: {{ block.settings.row_padding_left_mobile }}px;
       padding-right: {{ block.settings.row_padding_right_mobile }}px;
     }
 
-    .ai-two-columns-container-{{ ai_gen_id }} {
+    .two-columns-container-{{ two_columns_block_id }} {
       display: flex;
       flex-direction: column;
       gap: {{ block.settings.column_gap_mobile }}px;
     }
 
-    .ai-two-columns-column-left-{{ ai_gen_id }} {
+    .two-columns-column-left-{{ two_columns_block_id }} {
       padding-top: {{ block.settings.left_column_padding_top_mobile }}px;
       padding-bottom: {{ block.settings.left_column_padding_bottom_mobile }}px;
       padding-left: {{ block.settings.left_column_padding_left_mobile }}px;
@@ -127,7 +152,7 @@
       text-align: {{ block.settings.left_column_text_alignment_mobile }};
     }
 
-    .ai-two-columns-column-right-{{ ai_gen_id }} {
+    .two-columns-column-right-{{ two_columns_block_id }} {
       padding-top: {{ block.settings.right_column_padding_top_mobile }}px;
       padding-bottom: {{ block.settings.right_column_padding_bottom_mobile }}px;
       padding-left: {{ block.settings.right_column_padding_left_mobile }}px;
@@ -135,7 +160,7 @@
       text-align: {{ block.settings.right_column_text_alignment_mobile }};
     }
 
-    .ai-two-columns-image-wrapper-{{ ai_gen_id }} {
+    .two-columns-image-wrapper-{{ two_columns_block_id }} {
       {% if block.settings.image_height_type == 'fixed' %}
         height: {{ block.settings.image_height_mobile }}px;
       {% endif %}
@@ -143,9 +168,9 @@
 
     {% if block.settings.mobile_layout == 'image_first' %}
       {% if block.settings.left_column_image %}
-        .ai-two-columns-column-left-{{ ai_gen_id }} { order: -1; }
+        .two-columns-column-left-{{ two_columns_block_id }} { order: -1; }
       {% elsif block.settings.right_column_image %}
-        .ai-two-columns-column-right-{{ ai_gen_id }} { order: -1; }
+        .two-columns-column-right-{{ two_columns_block_id }} { order: -1; }
       {% endif %}
     {% elsif block.settings.mobile_layout == 'text_first' %}
       {% assign left_has_text = false %}
@@ -157,68 +182,68 @@
         {% assign right_has_text = true %}
       {% endif %}
       {% if left_has_text and right_has_text == false %}
-        .ai-two-columns-column-left-{{ ai_gen_id }} { order: -1; }
+        .two-columns-column-left-{{ two_columns_block_id }} { order: -1; }
       {% elsif right_has_text and left_has_text == false %}
-        .ai-two-columns-column-right-{{ ai_gen_id }} { order: -1; }
+        .two-columns-column-right-{{ two_columns_block_id }} { order: -1; }
       {% endif %}
     {% endif %}
   }
 {% endstyle %}
 
-<div class="ai-two-columns-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
-  <div class="ai-two-columns-inner-{{ ai_gen_id }}"><div class="ai-two-columns-container-{{ ai_gen_id }}"><div class="ai-two-columns-column-{{ ai_gen_id }} ai-two-columns-column-left-{{ ai_gen_id }}">
+<div class="two-columns-{{ two_columns_block_id }}" {{ block.shopify_attributes }}>
+  <div class="two-columns-inner-{{ two_columns_block_id }}"><div class="two-columns-container-{{ two_columns_block_id }}"><div class="two-columns-column-{{ two_columns_block_id }} two-columns-column-left-{{ two_columns_block_id }}">
         {% if block.settings.left_column_image %}
-          <div class="ai-two-columns-image-wrapper-{{ ai_gen_id }}"><img src="{{ block.settings.left_column_image | image_url: width: 1200 }}"
+          <div class="two-columns-image-wrapper-{{ two_columns_block_id }}"><img src="{{ block.settings.left_column_image | image_url: width: 1200 }}"
               alt="{{ block.settings.left_column_image.alt | escape }}"
-              class="ai-two-columns-image-{{ ai_gen_id }}"
+              class="two-columns-image-{{ two_columns_block_id }}"
               loading="lazy"
               width="{{ block.settings.left_column_image.width }}"
               height="{{ block.settings.left_column_image.height }}"
             >
           </div>
         {% elsif block.settings.left_column_show_placeholder %}
-          <div class="ai-two-columns-image-wrapper-{{ ai_gen_id }}">
-            <div class="ai-two-columns-image-placeholder-{{ ai_gen_id }}">
+          <div class="two-columns-image-wrapper-{{ two_columns_block_id }}">
+            <div class="two-columns-image-placeholder-{{ two_columns_block_id }}">
               {{ 'image' | placeholder_svg_tag }}
             </div>
           </div>
         {% endif %}
 
         {% if block.settings.left_column_heading != blank %}
-          <h2 class="ai-two-columns-heading-{{ ai_gen_id }}">{{ block.settings.left_column_heading }}</h2>
+          <h2 class="two-columns-heading-{{ two_columns_block_id }}">{{ block.settings.left_column_heading }}</h2>
         {% endif %}
 
         {% if block.settings.left_column_text != blank %}
-          <div class="ai-two-columns-text-{{ ai_gen_id }}">{{ block.settings.left_column_text }}</div>
+          <div class="two-columns-text-{{ two_columns_block_id }}">{{ block.settings.left_column_text }}</div>
         {% endif %}
       </div>
 
-      <div class="ai-two-columns-column-{{ ai_gen_id }} ai-two-columns-column-right-{{ ai_gen_id }}">
+      <div class="two-columns-column-{{ two_columns_block_id }} two-columns-column-right-{{ two_columns_block_id }}">
         {% if block.settings.right_column_image %}
-          <div class="ai-two-columns-image-wrapper-{{ ai_gen_id }}">
+          <div class="two-columns-image-wrapper-{{ two_columns_block_id }}">
             <img
               src="{{ block.settings.right_column_image | image_url: width: 1200 }}"
               alt="{{ block.settings.right_column_image.alt | escape }}"
-              class="ai-two-columns-image-{{ ai_gen_id }}"
+              class="two-columns-image-{{ two_columns_block_id }}"
               loading="lazy"
               width="{{ block.settings.right_column_image.width }}"
               height="{{ block.settings.right_column_image.height }}"
             >
           </div>
         {% elsif block.settings.right_column_show_placeholder %}
-          <div class="ai-two-columns-image-wrapper-{{ ai_gen_id }}">
-            <div class="ai-two-columns-image-placeholder-{{ ai_gen_id }}">
+          <div class="two-columns-image-wrapper-{{ two_columns_block_id }}">
+            <div class="two-columns-image-placeholder-{{ two_columns_block_id }}">
               {{ 'image' | placeholder_svg_tag }}
             </div>
           </div>
         {% endif %}
 
         {% if block.settings.right_column_heading != blank %}
-          <h2 class="ai-two-columns-heading-{{ ai_gen_id }}">{{ block.settings.right_column_heading }}</h2>
+          <h2 class="two-columns-heading-{{ two_columns_block_id }}">{{ block.settings.right_column_heading }}</h2>
         {% endif %}
 
         {% if block.settings.right_column_text != blank %}
-          <div class="ai-two-columns-text-{{ ai_gen_id }}">{{ block.settings.right_column_text }}</div>
+          <div class="two-columns-text-{{ two_columns_block_id }}">{{ block.settings.right_column_text }}</div>
         {% endif %}
       </div>
     </div>
