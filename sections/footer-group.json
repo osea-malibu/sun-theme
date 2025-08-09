@@ -606,11 +606,11 @@
           "settings": {
             "container_width": "page",
             "background_color": "#e5edeb",
-            "column_gap": 40,
+            "column_gap": 0,
             "column_gap_mobile": 24,
             "mobile_layout": "image_first",
             "image_height_type": "aspect_ratio",
-            "image_aspect_ratio": "3/2",
+            "image_aspect_ratio": "1/1",
             "image_height": 360,
             "image_height_mobile": 300,
             "image_fit": "contain",
