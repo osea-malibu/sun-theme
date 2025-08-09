@@ -10,6 +10,7 @@
   - Responsive design with mobile-optimized sizing
   - Accessible with proper ARIA attributes and keyboard navigation
   - Theme styling: inherits colors and typography; controls for spacing and corner radius
+  - Padding controls: separate top/right/bottom/left for desktop and mobile (px or %)
   - Width control: Fit (page width) or Fill (full width)
   - Focus states for better accessibility
   - Rich text support for both preview and full content
@@ -36,13 +37,19 @@
 {% style %}
   .expandable-text-{{ expandable_text_block_id }} {
     background-color: var(--color-background);
-    padding: {{ block.settings.padding }}px;
+    padding-top: {{ block.settings.padding_top_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
+    padding-right: {{ block.settings.padding_right_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
+    padding-bottom: {{ block.settings.padding_bottom_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
+    padding-left: {{ block.settings.padding_left_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     border-radius: {{ block.settings.border_radius }}px;
     margin: 0 auto;
     {% if block.settings.width == 'fit' %}
       max-width: var(--normal-page-width);
     {% else %}
-      max-width: 100%;
+      /* Full-bleed across viewport */
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
     {% endif %}
   }
 
@@ -113,7 +120,10 @@
 
   @media screen and (max-width: 749px) {
     .expandable-text-{{ expandable_text_block_id }} {
-      padding: {{ block.settings.padding | times: 0.7 }}px;
+      padding-top: {{ block.settings.padding_top_mobile }}{% if block.settings.padding_unit_mobile == 'percent' %}%{% else %}px{% endif %};
+      padding-right: {{ block.settings.padding_right_mobile }}{% if block.settings.padding_unit_mobile == 'percent' %}%{% else %}px{% endif %};
+      padding-bottom: {{ block.settings.padding_bottom_mobile }}{% if block.settings.padding_unit_mobile == 'percent' %}%{% else %}px{% endif %};
+      padding-left: {{ block.settings.padding_left_mobile }}{% if block.settings.padding_unit_mobile == 'percent' %}%{% else %}px{% endif %};
     }
 
     .expandable-text__content-{{ expandable_text_block_id }} {
@@ -331,15 +341,41 @@
       "default": 16
     },
     {
-      "type": "range",
-      "id": "padding",
-      "min": 0,
-      "max": 60,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding",
-      "default": 24
+      "type": "header",
+      "content": "Padding (Desktop)"
     },
+    {
+      "type": "select",
+      "id": "padding_unit_desktop",
+      "label": "Unit",
+      "options": [
+        { "value": "px", "label": "Pixels (px)" },
+        { "value": "percent", "label": "Percent (%)" }
+      ],
+      "default": "px"
+    },
+    { "type": "range", "id": "padding_top_desktop", "min": 0, "max": 100, "step": 1, "label": "Top", "default": 24 },
+    { "type": "range", "id": "padding_right_desktop", "min": 0, "max": 100, "step": 1, "label": "Right", "default": 24 },
+    { "type": "range", "id": "padding_bottom_desktop", "min": 0, "max": 100, "step": 1, "label": "Bottom", "default": 24 },
+    { "type": "range", "id": "padding_left_desktop", "min": 0, "max": 100, "step": 1, "label": "Left", "default": 24 },
+    {
+      "type": "header",
+      "content": "Padding (Mobile)"
+    },
+    {
+      "type": "select",
+      "id": "padding_unit_mobile",
+      "label": "Unit",
+      "options": [
+        { "value": "px", "label": "Pixels (px)" },
+        { "value": "percent", "label": "Percent (%)" }
+      ],
+      "default": "px"
+    },
+    { "type": "range", "id": "padding_top_mobile", "min": 0, "max": 100, "step": 1, "label": "Top", "default": 16 },
+    { "type": "range", "id": "padding_right_mobile", "min": 0, "max": 100, "step": 1, "label": "Right", "default": 16 },
+    { "type": "range", "id": "padding_bottom_mobile", "min": 0, "max": 100, "step": 1, "label": "Bottom", "default": 16 },
+    { "type": "range", "id": "padding_left_mobile", "min": 0, "max": 100, "step": 1, "label": "Left", "default": 16 },
     {
       "type": "range",
       "id": "border_radius",
