@@ -217,11 +217,11 @@
 >
   <div class="signup-form__content-{{ signup_form_id }}">
     {% if block.settings.heading != blank %}
-      <h2 class="signup-form__heading-{{ signup_form_id }}">{{ block.settings.heading }}</h2>
+      <h2 class="signup-form__heading-{{ signup_form_id }} text-block {{ block.settings.heading_preset }}">{{ block.settings.heading }}</h2>
     {% endif %}
 
     {% if block.settings.subtext != blank %}
-      <div class="signup-form__subtext-{{ signup_form_id }}">{{ block.settings.subtext }}</div>
+      <div class="signup-form__subtext-{{ signup_form_id }} text-block {{ block.settings.text_preset }}">{{ block.settings.subtext }}</div>
     {% endif %}<div class="signup-form__tabs-{{ signup_form_id }}"><button
         type="button"
         class="signup-form__tab-{{ signup_form_id }} active"
@@ -417,7 +417,7 @@
 
 {% schema %}
 {
-  "name": "Signup form",
+  "name": "Signup Form",
   "settings": [
     {
       "type": "header",
@@ -510,6 +510,16 @@
     {
       "type": "header",
       "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        { "value": "fit", "label": "Fit" },
+        { "value": "fill", "label": "Fill" }
+      ],
+      "default": "fit"
     },
     {
       "type": "select",
@@ -611,6 +621,38 @@
       "content": "Typography"
     },
     {
+      "type": "select",
+      "id": "heading_preset",
+      "label": "Heading",
+      "options": [
+        { "value": "", "label": "Default" },
+        { "value": "paragraph", "label": "Paragraph" },
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ],
+      "default": "h3"
+    },
+    {
+      "type": "select",
+      "id": "text_preset",
+      "label": "Text",
+      "options": [
+        { "value": "rte", "label": "Default" },
+        { "value": "paragraph", "label": "Paragraph" },
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ],
+      "default": "rte"
+    },
+    {
       "type": "header",
       "content": "Border radius"
     },
@@ -657,7 +699,7 @@
   ],
   "presets": [
     {
-      "name": "Signup form"
+      "name": "Signup Form"
     }
   ],
   "tag": null
