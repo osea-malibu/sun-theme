@@ -112,6 +112,25 @@
     margin-bottom: 16px;
   }
 
+  .signup-form__row-{{ signup_form_id }} {
+    display: flex;
+    gap: 12px;
+  }
+
+  {% if block.settings.button_position == 'right' %}
+  .signup-form__row-{{ signup_form_id }} {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+  .signup-form__field-group-{{ signup_form_id }} {
+    flex: 1;
+  }
+  {% else %}
+  .signup-form__row-{{ signup_form_id }} {
+    flex-direction: column;
+  }
+  {% endif %}
+
   .signup-form__label-{{ signup_form_id }} {
     color: var(--color-foreground);
     font-size: 14px;
@@ -200,6 +219,10 @@
       flex-direction: column;
     }
 
+    .signup-form__row-{{ signup_form_id }} {
+      flex-direction: column !important;
+    }
+
     .signup-form__country-select-{{ signup_form_id }} {
       flex: none;
     }
@@ -238,24 +261,26 @@
                   <div class="signup-form__form-{{ signup_form_id }} active" data-form="email">
           <input type="hidden" name="contact[signup_type]" value="email">
           
-          <div class="signup-form__field-group-{{ signup_form_id }}">
-            <label for="email-{{ signup_form_id }}" class="signup-form__label-{{ signup_form_id }}">
-              {{ block.settings.email_label }}
-            </label>
-            <input
-              type="email"
-              id="email-{{ signup_form_id }}"
-              name="contact[email]"
-              class="signup-form__input-{{ signup_form_id }}"
-              placeholder="{{ block.settings.email_placeholder }}"
-              required
-              autocomplete="email"
-            >
-          </div>
+          <div class="signup-form__row-{{ signup_form_id }} signup-form__row--email-{{ signup_form_id }}">
+            <div class="signup-form__field-group-{{ signup_form_id }}">
+              <label for="email-{{ signup_form_id }}" class="signup-form__label-{{ signup_form_id }}">
+                {{ block.settings.email_label }}
+              </label>
+              <input
+                type="email"
+                id="email-{{ signup_form_id }}"
+                name="contact[email]"
+                class="signup-form__input-{{ signup_form_id }}"
+                placeholder="{{ block.settings.email_placeholder }}"
+                required
+                autocomplete="email"
+              >
+            </div>
 
-          <button type="submit" class="signup-form__button-{{ signup_form_id }}">
-            {{ block.settings.email_button_text }}
-          </button>
+            <button type="submit" class="signup-form__button-{{ signup_form_id }}">
+              {{ block.settings.email_button_text }}
+            </button>
+          </div>
 
           {% if form.posted_successfully? %}
             <div class="signup-form__message-{{ signup_form_id }} signup-form__success-{{ signup_form_id }}">
@@ -275,12 +300,13 @@
         <div class="signup-form__form-{{ signup_form_id }}" data-form="phone">
           <input type="hidden" name="contact[signup_type]" value="phone">
           
-          <div class="signup-form__field-group-{{ signup_form_id }}">
-            <label for="phone-{{ signup_form_id }}" class="signup-form__label-{{ signup_form_id }}">
-              {{ block.settings.phone_label }}
-            </label>
-            <div class="signup-form__phone-group-{{ signup_form_id }}">
-              <select class="signup-form__country-select-{{ signup_form_id }}" name="contact[country_code]"><option value="+1">🇺🇸 +1</option>
+          <div class="signup-form__row-{{ signup_form_id }} signup-form__row--phone-{{ signup_form_id }}">
+            <div class="signup-form__field-group-{{ signup_form_id }}">
+              <label for="phone-{{ signup_form_id }}" class="signup-form__label-{{ signup_form_id }}">
+                {{ block.settings.phone_label }}
+              </label>
+              <div class="signup-form__phone-group-{{ signup_form_id }}">
+                <select class="signup-form__country-select-{{ signup_form_id }}" name="contact[country_code]"><option value="+1">🇺🇸 +1</option>
                 <option value="+1">🇨🇦 +1</option>
                 <option value="+44">🇬🇧 +44</option>
                 <option value="+33">🇫🇷 +33</option>
@@ -334,21 +360,22 @@
                 <option value="+371">🇱🇻 +371</option>
                 <option value="+370">🇱🇹 +370</option>
               </select>
-              <input
-                type="tel"
-                id="phone-{{ signup_form_id }}"
-                name="contact[phone]"
-                class="signup-form__input-{{ signup_form_id }} signup-form__phone-input-{{ signup_form_id }}"
-                placeholder="{{ block.settings.phone_placeholder }}"
-                required
-                autocomplete="tel"
-              >
+                <input
+                  type="tel"
+                  id="phone-{{ signup_form_id }}"
+                  name="contact[phone]"
+                  class="signup-form__input-{{ signup_form_id }} signup-form__phone-input-{{ signup_form_id }}"
+                  placeholder="{{ block.settings.phone_placeholder }}"
+                  required
+                  autocomplete="tel"
+                >
+              </div>
             </div>
-          </div>
 
-          <button type="submit" class="signup-form__button-{{ signup_form_id }}">
-            {{ block.settings.phone_button_text }}
-          </button>
+            <button type="submit" class="signup-form__button-{{ signup_form_id }}">
+              {{ block.settings.phone_button_text }}
+            </button>
+          </div>
 
           {% if form.posted_successfully? %}
             <div class="signup-form__message-{{ signup_form_id }} signup-form__success-{{ signup_form_id }}">
@@ -515,6 +542,16 @@
         { "value": "fill", "label": "Fill" }
       ],
       "default": "fit"
+    },
+    {
+      "type": "select",
+      "id": "button_position",
+      "label": "Button position",
+      "options": [
+        { "value": "below", "label": "Below input" },
+        { "value": "right", "label": "Right of input" }
+      ],
+      "default": "below"
     },
     {
       "type": "select",
