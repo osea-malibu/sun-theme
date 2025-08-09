@@ -4,26 +4,28 @@
   Overview
   - Dual-purpose signup form with tabs for Email and Phone.
   - Uses theme typography and theme color scheme only (no custom colors/sizes).
-  - Layout width supports Fit (fixed, centered) or Fill (full width).
+  - Layout width supports Fit (centers to var(--normal-content-width)) or Fill (full width).
   - Accessible labels, keyboard focus, and smooth tab transitions.
 
   Usage
   - Add this block, set content labels and tab titles.
   - Pick Width: Fit or Fill; adjust padding and border radii as desired.
   - Choose a Background color scheme from theme color schemes.
+  - Choose layout: Vertical (shows both forms stacked; tabs hidden) or Horizontal (tabs visible; one form at a time).
 
   Notes
   - All colors derive from the selected theme color scheme
     (foreground, background, primary, border, hover).
   - Typography inherits from the theme; alignment is configurable.
+  - Heading/Text presets apply theme typography classes only.
 
   Dependencies
   - Requires block.id for unique CSS class generation
   - JS for tab switching; form handling by Shopify 'contact' form
 
   Author: Mirabelle Doiron
-  Version: 1.1
-  Last Updated: 2025-08-07
+  Version: 1.2
+  Last Updated: 2025-08-09
 {% enddoc %}
 {% assign signup_form_id = block.id | replace: '_', '' | downcase %}
 
@@ -33,7 +35,7 @@
     background-color: var(--color-background);
     border-radius: {{ block.settings.border_radius }}px;
     {% if block.settings.width == 'fit' %}
-      max-width: 800px;
+      max-width: var(--normal-content-width);
       margin: 0 auto;
     {% else %}
       max-width: 100%;
@@ -109,6 +111,15 @@
   .signup-form__form-{{ signup_form_id }}.active {
     display: block;
   }
+
+  {% if block.settings.layout == 'vertical' %}
+  .signup-form__tabs-{{ signup_form_id }} {
+    display: none;
+  }
+  .signup-form__form-{{ signup_form_id }} {
+    display: block;
+  }
+  {% endif %}
 
   .signup-form__field-group-{{ signup_form_id }} {
     display: flex;
@@ -221,7 +232,7 @@
     {% endif %}
 
     {% if block.settings.subtext != blank %}
-      <div class="signup-form__subtext-{{ signup_form_id }} text-block {{ block.settings.text_preset }}">{{ block.settings.subtext }}</div>
+      <div class="signup-form__subtext-{{ signup_form_id }} text-block {{ block.settings.text_preset_body }}">{{ block.settings.subtext }}</div>
     {% endif %}<div class="signup-form__tabs-{{ signup_form_id }}"><button
         type="button"
         class="signup-form__tab-{{ signup_form_id }} active"
@@ -511,6 +522,7 @@
       "type": "header",
       "content": "Layout"
     },
+    
     {
       "type": "select",
       "id": "width",
@@ -557,44 +569,7 @@
       ],
       "default": "center"
     },
-    {
-      "type": "select",
-      "id": "max_width_type",
-      "label": "Maximum width type",
-      "options": [
-        {
-          "value": "px",
-          "label": "Pixels"
-        },
-        {
-          "value": "percent",
-          "label": "Percentage"
-        }
-      ],
-      "default": "px"
-    },
-    {
-      "type": "range",
-      "id": "max_width_px",
-      "min": 300,
-      "max": 800,
-      "step": 20,
-      "unit": "px",
-      "label": "Maximum width (pixels)",
-      "default": 500,
-      "visible_if": "{{ block.settings.max_width_type == 'px' }}"
-    },
-    {
-      "type": "range",
-      "id": "max_width_percent",
-      "min": 20,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "label": "Maximum width (percentage)",
-      "default": 80,
-      "visible_if": "{{ block.settings.max_width_type == 'percent' }}"
-    },
+    
     {
       "type": "range",
       "id": "padding",
@@ -638,7 +613,7 @@
     },
     {
       "type": "select",
-      "id": "text_preset",
+      "id": "text_preset_body",
       "label": "Text",
       "options": [
         { "value": "rte", "label": "Default" },
