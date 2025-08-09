@@ -1,0 +1,872 @@
+{% doc %}
+  Sign-up Block
+
+  Overview
+  - Dual-purpose signup form with tabs for Email and Phone.
+  - Uses theme typography and theme color scheme only (no custom colors/sizes).
+  - Layout width supports Fit (fixed, centered) or Fill (full width).
+  - Accessible labels, keyboard focus, and smooth tab transitions.
+
+  Usage
+  - Add this block, set content labels and tab titles.
+  - Pick Width: Fit or Fill; adjust padding and border radii as desired.
+  - Choose a Background color scheme from theme color schemes.
+
+  Notes
+  - All colors derive from the selected theme color scheme
+    (foreground, background, primary, border, hover).
+  - Typography inherits from the theme; alignment is configurable.
+
+  Dependencies
+  - Requires block.id for unique CSS class generation
+  - JS for tab switching; form handling by Shopify 'contact' form
+
+  Author: Mirabelle Doiron
+  Version: 1.1
+  Last Updated: 2025-08-07
+{% enddoc %}
+{% assign signup_form_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .signup-form-{{ signup_form_id }} {
+    padding: {{ block.settings.padding }}px;
+    background-color: var(--color-background);
+    border-radius: {{ block.settings.border_radius }}px;
+    {% if block.settings.width == 'fit' %}
+      max-width: 800px;
+      margin: 0 auto;
+    {% else %}
+      max-width: 100%;
+      margin: 0;
+    {% endif %}
+  }
+
+  .signup-form__content-{{ signup_form_id }} {
+    display: flex;
+    {% if block.settings.layout == 'horizontal' %}
+      flex-direction: row;
+      align-items: center;
+      gap: 32px;
+    {% else %}
+      flex-direction: column;
+      gap: 24px;
+    {% endif %}
+  }
+
+  .signup-form__heading-{{ signup_form_id }} {
+    color: var(--color-foreground-heading);
+    margin: 0;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .signup-form__subtext-{{ signup_form_id }} {
+    color: var(--color-foreground);
+    text-align: {{ block.settings.text_alignment }};
+    margin: 0;
+  }
+
+  .signup-form__tabs-{{ signup_form_id }} {
+    display: flex;
+    border-radius: {{ block.settings.tab_border_radius }}px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  .signup-form__tab-{{ signup_form_id }} {
+    flex: 1;
+    padding: 12px 16px;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .signup-form__tab-{{ signup_form_id }}:not(:last-child) {
+    border-right: 1px solid var(--color-border);
+  }
+
+  .signup-form__tab-{{ signup_form_id }}.active {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+  }
+
+  .signup-form__tab-{{ signup_form_id }}:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-background);
+  }
+
+  .signup-form__form-container-{{ signup_form_id }} {
+    position: relative;
+  }
+
+  .signup-form__form-{{ signup_form_id }} {
+    display: none;
+  }
+
+  .signup-form__form-{{ signup_form_id }}.active {
+    display: block;
+  }
+
+  .signup-form__field-group-{{ signup_form_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .signup-form__label-{{ signup_form_id }} {
+    color: var(--color-foreground);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .signup-form__input-{{ signup_form_id }} {
+    padding: 12px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-size: 16px;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  .signup-form__input-{{ signup_form_id }}:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
+  }
+
+  .signup-form__phone-group-{{ signup_form_id }} {
+    display: flex;
+    gap: 8px;
+  }
+
+  .signup-form__country-select-{{ signup_form_id }} {
+    flex: 0 0 120px;
+    padding: 12px 8px;
+    border: 1px solid var(--color-border);
+    border-radius: {{ block.settings.input_border_radius }}px;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-size: 14px;
+  }
+
+  .signup-form__phone-input-{{ signup_form_id }} {
+    flex: 1;
+  }
+
+  .signup-form__button-{{ signup_form_id }} {
+    width: 100%;
+    padding: 14px 24px;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .signup-form__button-{{ signup_form_id }}:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  .signup-form__message-{{ signup_form_id }} {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    border: 1px solid var(--color-border);
+    color: var(--color-foreground);
+  }
+
+  .signup-form__success-{{ signup_form_id }} {
+    background-color: transparent;
+  }
+
+  .signup-form__error-{{ signup_form_id }} {
+    background-color: transparent;
+  }
+
+  @media screen and (max-width: 749px) {
+    .signup-form-{{ signup_form_id }} {
+      padding: {{ block.settings.padding | times: 0.7 }}px;
+    }
+
+    .signup-form__content-{{ signup_form_id }} {
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .signup-form__phone-group-{{ signup_form_id }} {
+      flex-direction: column;
+    }
+
+    .signup-form__country-select-{{ signup_form_id }} {
+      flex: none;
+    }
+  }
+{% endstyle %}
+
+<signup-form-{{ signup_form_id }}
+  class="signup-form-{{ signup_form_id }} color-{{ block.settings.color_scheme }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="signup-form__content-{{ signup_form_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="signup-form__heading-{{ signup_form_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    {% if block.settings.subtext != blank %}
+      <div class="signup-form__subtext-{{ signup_form_id }}">{{ block.settings.subtext }}</div>
+    {% endif %}<div class="signup-form__tabs-{{ signup_form_id }}"><button
+        type="button"
+        class="signup-form__tab-{{ signup_form_id }} active"
+        data-tab="email"
+      >
+        {{ block.settings.email_tab_label }}
+      </button>
+      <button
+        type="button"
+        class="signup-form__tab-{{ signup_form_id }}"
+        data-tab="phone"
+      >
+        {{ block.settings.phone_tab_label }}
+      </button>
+    </div>
+
+    <div class="signup-form__form-container-{{ signup_form_id }}">
+      {% form 'contact' %}
+                  <div class="signup-form__form-{{ signup_form_id }} active" data-form="email">
+          <input type="hidden" name="contact[signup_type]" value="email">
+          
+          <div class="signup-form__field-group-{{ signup_form_id }}">
+            <label for="email-{{ signup_form_id }}" class="signup-form__label-{{ signup_form_id }}">
+              {{ block.settings.email_label }}
+            </label>
+            <input
+              type="email"
+              id="email-{{ signup_form_id }}"
+              name="contact[email]"
+              class="signup-form__input-{{ signup_form_id }}"
+              placeholder="{{ block.settings.email_placeholder }}"
+              required
+              autocomplete="email"
+            >
+          </div>
+
+          <button type="submit" class="signup-form__button-{{ signup_form_id }}">
+            {{ block.settings.email_button_text }}
+          </button>
+
+          {% if form.posted_successfully? %}
+            <div class="signup-form__message-{{ signup_form_id }} signup-form__success-{{ signup_form_id }}">
+              {{ block.settings.success_message }}
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="signup-form__message-{{ signup_form_id }} signup-form__error-{{ signup_form_id }}">
+              {{ block.settings.error_message }}
+            </div>
+          {% endif %}
+        </div>
+      {% endform %}
+
+      {% form 'contact' %}
+        <div class="signup-form__form-{{ signup_form_id }}" data-form="phone">
+          <input type="hidden" name="contact[signup_type]" value="phone">
+          
+          <div class="signup-form__field-group-{{ signup_form_id }}">
+            <label for="phone-{{ signup_form_id }}" class="signup-form__label-{{ signup_form_id }}">
+              {{ block.settings.phone_label }}
+            </label>
+            <div class="signup-form__phone-group-{{ signup_form_id }}">
+              <select class="signup-form__country-select-{{ signup_form_id }}" name="contact[country_code]"><option value="+1">🇺🇸 +1</option>
+                <option value="+1">🇨🇦 +1</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+39">🇮🇹 +39</option>
+                <option value="+34">🇪🇸 +34</option>
+                <option value="+31">🇳🇱 +31</option>
+                <option value="+32">🇧🇪 +32</option>
+                <option value="+41">🇨🇭 +41</option>
+                <option value="+43">🇦🇹 +43</option>
+                <option value="+45">🇩🇰 +45</option>
+                <option value="+46">🇸🇪 +46</option>
+                <option value="+47">🇳🇴 +47</option>
+                <option value="+358">🇫🇮 +358</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+64">🇳🇿 +64</option>
+                <option value="+81">🇯🇵 +81</option>
+                <option value="+82">🇰🇷 +82</option>
+                <option value="+86">🇨🇳 +86</option>
+                <option value="+91">🇮🇳 +91</option>
+                <option value="+55">🇧🇷 +55</option>
+                <option value="+52">🇲🇽 +52</option>
+                <option value="+54">🇦🇷 +54</option>
+                <option value="+56">🇨🇱 +56</option>
+                <option value="+57">🇨🇴 +57</option>
+                <option value="+51">🇵🇪 +51</option>
+                <option value="+58">🇻🇪 +58</option>
+                <option value="+27">🇿🇦 +27</option>
+                <option value="+20">🇪🇬 +20</option>
+                <option value="+234">🇳🇬 +234</option>
+                <option value="+254">🇰🇪 +254</option>
+                <option value="+971">🇦🇪 +971</option>
+                <option value="+966">🇸🇦 +966</option>
+                <option value="+65">🇸🇬 +65</option>
+                <option value="+60">🇲🇾 +60</option>
+                <option value="+66">🇹🇭 +66</option>
+                <option value="+84">🇻🇳 +84</option>
+                <option value="+63">🇵🇭 +63</option>
+                <option value="+62">🇮🇩 +62</option>
+                <option value="+7">🇷🇺 +7</option>
+                <option value="+380">🇺🇦 +380</option>
+                <option value="+48">🇵🇱 +48</option>
+                <option value="+420">🇨🇿 +420</option>
+                <option value="+36">🇭🇺 +36</option>
+                <option value="+40">🇷🇴 +40</option>
+                <option value="+359">🇧🇬 +359</option>
+                <option value="+385">🇭🇷 +385</option>
+                <option value="+386">🇸🇮 +386</option>
+                <option value="+421">🇸🇰 +421</option>
+                <option value="+372">🇪🇪 +372</option>
+                <option value="+371">🇱🇻 +371</option>
+                <option value="+370">🇱🇹 +370</option>
+              </select>
+              <input
+                type="tel"
+                id="phone-{{ signup_form_id }}"
+                name="contact[phone]"
+                class="signup-form__input-{{ signup_form_id }} signup-form__phone-input-{{ signup_form_id }}"
+                placeholder="{{ block.settings.phone_placeholder }}"
+                required
+                autocomplete="tel"
+              >
+            </div>
+          </div>
+
+          <button type="submit" class="signup-form__button-{{ signup_form_id }}">
+            {{ block.settings.phone_button_text }}
+          </button>
+
+          {% if form.posted_successfully? %}
+            <div class="signup-form__message-{{ signup_form_id }} signup-form__success-{{ signup_form_id }}">
+              {{ block.settings.success_message }}
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="signup-form__message-{{ signup_form_id }} signup-form__error-{{ signup_form_id }}">
+              {{ block.settings.error_message }}
+            </div>
+          {% endif %}
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</signup-form-{{ signup_form_id }}>
+
+<script>
+  (function() {
+    class SignupForm{{ signup_form_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.signup-form__tab-{{ signup_form_id }}');
+        this.forms = this.querySelectorAll('.signup-form__form-{{ signup_form_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            const targetTab = tab.dataset.tab;
+            this.switchTab(targetTab);
+          });
+        });
+      }
+
+      switchTab(targetTab) {
+        this.tabs.forEach(tab => {
+          tab.classList.remove('active');
+          if (tab.dataset.tab === targetTab) {
+            tab.classList.add('active');
+          }
+        });
+
+        this.forms.forEach(form => {
+          form.classList.remove('active');
+          if (form.dataset.form === targetTab) {
+            form.classList.add('active');
+          }
+        });
+      }
+    }
+
+    customElements.define('signup-form-{{ signup_form_id }}', SignupForm{{ signup_form_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Email and phone signup",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Stay connected with us</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Get the latest updates and exclusive offers</p>"
+    },
+    {
+      "type": "text",
+      "id": "email_tab_label",
+      "label": "Email tab label",
+      "default": "Email signup"
+    },
+    {
+      "type": "text",
+      "id": "phone_tab_label",
+      "label": "Phone tab label",
+      "default": "SMS signup"
+    },
+    {
+      "type": "header",
+      "content": "Email form"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email field label",
+      "default": "Email address"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "email_button_text",
+      "label": "Email button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "Phone form"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Phone field label",
+      "default": "Phone number"
+    },
+    {
+      "type": "text",
+      "id": "phone_placeholder",
+      "label": "Phone placeholder",
+      "default": "Enter your phone number"
+    },
+    {
+      "type": "text",
+      "id": "phone_button_text",
+      "label": "Phone button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "Messages"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you for subscribing!"
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error message",
+      "default": "Please check your information and try again."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        },
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "max_width_type",
+      "label": "Maximum width type",
+      "options": [
+        {
+          "value": "px",
+          "label": "Pixels"
+        },
+        {
+          "value": "percent",
+          "label": "Percentage"
+        }
+      ],
+      "default": "px"
+    },
+    {
+      "type": "range",
+      "id": "max_width_px",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Maximum width (pixels)",
+      "default": 500,
+      "visible_if": "{{ block.settings.max_width_type == 'px' }}"
+    },
+    {
+      "type": "range",
+      "id": "max_width_percent",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Maximum width (percentage)",
+      "default": 80,
+      "visible_if": "{{ block.settings.max_width_type == 'percent' }}"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#0b2e25"
+    },
+    {
+      "type": "header",
+      "content": "Tab colors"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_bg",
+      "label": "Active tab background",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_text",
+      "label": "Active tab text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_inactive_bg",
+      "label": "Inactive tab background",
+      "default": "#f5f7f8"
+    },
+    {
+      "type": "color",
+      "id": "tab_inactive_text",
+      "label": "Inactive tab text",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_bg",
+      "label": "Tab hover background",
+      "default": "#e5edeb"
+    },
+    {
+      "type": "color",
+      "id": "tab_border_color",
+      "label": "Tab border color",
+      "default": "#bacbc6"
+    },
+    {
+      "type": "header",
+      "content": "Input colors"
+    },
+    {
+      "type": "color",
+      "id": "input_background",
+      "label": "Input background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input text color",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border color",
+      "default": "#bacbc6"
+    },
+    {
+      "type": "color",
+      "id": "input_focus_border",
+      "label": "Input focus border",
+      "default": "#1d4d41"
+    },
+    {
+      "type": "header",
+      "content": "Message colors"
+    },
+    {
+      "type": "color",
+      "id": "success_bg",
+      "label": "Success background",
+      "default": "#d4edda"
+    },
+    {
+      "type": "color",
+      "id": "success_text",
+      "label": "Success text",
+      "default": "#155724"
+    },
+    {
+      "type": "color",
+      "id": "success_border",
+      "label": "Success border",
+      "default": "#c3e6cb"
+    },
+    {
+      "type": "color",
+      "id": "error_bg",
+      "label": "Error background",
+      "default": "#f8d7da"
+    },
+    {
+      "type": "color",
+      "id": "error_text",
+      "label": "Error text",
+      "default": "#721c24"
+    },
+    {
+      "type": "color",
+      "id": "error_border",
+      "label": "Error border",
+      "default": "#f5c6cb"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "heading_type_preset",
+      "label": "Heading type preset",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        },
+        {
+          "value": "h4",
+          "label": "Heading 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heading 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "text_type_preset",
+      "label": "Text type preset",
+      "options": [
+        {
+          "value": "paragraph",
+          "label": "Paragraph"
+        },
+        {
+          "value": "h4",
+          "label": "Heading 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heading 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        }
+      ],
+      "default": "paragraph"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Border radius"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Form border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Tab border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Input border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Email and phone signup"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}
