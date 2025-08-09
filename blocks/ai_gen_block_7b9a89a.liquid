@@ -281,6 +281,22 @@
     opacity: 0.3;
   }
 
+  {% if block.settings.image_aspect_ratio != 'natural' %}
+    .ai-content-section__image-wrapper-{{ ai_gen_id }} {
+      aspect-ratio: {% case block.settings.image_aspect_ratio %}{% when '1:1' %}1 / 1{% when '4:3' %}4 / 3{% when '3:2' %}3 / 2{% when '16:9' %}16 / 9{% endcase %};
+    }
+
+    .ai-content-section__image-{{ ai_gen_id }} {
+      height: 100%;
+      object-fit: {{ block.settings.image_fit }};
+    }
+
+    .ai-content-section__image-placeholder-{{ ai_gen_id }} {
+      aspect-ratio: {% case block.settings.image_aspect_ratio %}{% when '1:1' %}1 / 1{% when '4:3' %}4 / 3{% when '3:2' %}3 / 2{% when '16:9' %}16 / 9{% endcase %};
+      height: auto;
+    }
+  {% endif %}
+
   .ai-content-section__button-{{ ai_gen_id }} {
     display: inline-flex;
     align-items: center;
@@ -428,7 +444,7 @@
             {% if block.settings.column_1_text != blank %}
               <div class="ai-content-section__text-{{ ai_gen_id }}">{{ block.settings.column_1_text }}</div>
             {% endif %}
-            {% if block.settings.column_1_button_text != blank and block.settings.column_1_button_url != blank %}
+            {% if block.settings.column_1_show_button and block.settings.column_1_button_text != blank and block.settings.column_1_button_url != blank %}
               <a href="{{ block.settings.column_1_button_url }}" class="ai-content-section__button-{{ ai_gen_id }}">
                 {{ block.settings.column_1_button_text }}
               </a>
@@ -463,7 +479,7 @@
             {% if block.settings.column_2_text != blank %}
               <div class="ai-content-section__text-{{ ai_gen_id }}">{{ block.settings.column_2_text }}</div>
             {% endif %}
-            {% if block.settings.column_2_button_text != blank and block.settings.column_2_button_url != blank %}
+            {% if block.settings.column_2_show_button and block.settings.column_2_button_text != blank and block.settings.column_2_button_url != blank %}
               <a href="{{ block.settings.column_2_button_url }}" class="ai-content-section__button-{{ ai_gen_id }}">
                 {{ block.settings.column_2_button_text }}
               </a>
@@ -781,6 +797,29 @@
       "content": "Image style"
     },
     {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        { "value": "natural", "label": "Natural" },
+        { "value": "1:1", "label": "1:1" },
+        { "value": "4:3", "label": "4:3" },
+        { "value": "3:2", "label": "3:2" },
+        { "value": "16:9", "label": "16:9" }
+      ],
+      "default": "natural"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" }
+      ],
+      "default": "cover"
+    },
+    {
       "type": "range",
       "id": "image_border_radius",
       "label": "Border radius",
@@ -834,6 +873,12 @@
       "type": "image_picker",
       "id": "column_1_image",
       "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "column_1_show_button",
+      "label": "Show button",
+      "default": true
     },
     {
       "type": "text",
@@ -891,6 +936,12 @@
       "label": "Image"
     },
     {
+      "type": "checkbox",
+      "id": "column_2_show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
       "type": "text",
       "id": "column_2_button_text",
       "label": "Button text"
@@ -908,3 +959,4 @@
   ]
 }
 {% endschema %}
+ 
