@@ -297,18 +297,6 @@
     }
   {% endif %}
 
-  {% if block.settings.image_fit == 'contain' and block.settings.contain_set_height %}
-    .ai-content-section__image-wrapper-{{ ai_gen_id }} {
-      height: {{ block.settings.contain_height }}px;
-    }
-
-    .ai-content-section__image-{{ ai_gen_id }} {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-  {% endif %}
-
   .ai-content-section__button-{{ ai_gen_id }} {
     display: inline-flex;
     align-items: center;
@@ -424,11 +412,6 @@
   }
 
   @media screen and (max-width: 749px) {
-    {% if block.settings.image_fit == 'contain' and block.settings.contain_set_height %}
-      .ai-content-section__image-wrapper-{{ ai_gen_id }} {
-        height: {{ block.settings.contain_height_mobile }}px;
-      }
-    {% endif %}
     {% if block.settings.mobile_padding_mode == 'custom' %}
       .ai-content-section-{{ ai_gen_id }} {
         {% if block.settings.mobile_padding_unit == 'px' %}
@@ -446,12 +429,7 @@
         grid-template-columns: 1fr;
       {% else %}
         grid-template-columns: 1fr 1fr;
-      {% endif %}
-      {% if block.settings.gap_mobile_mode == 'custom' %}
-        gap: {{ block.settings.gap_mobile }}px;
-      {% else %}
-        gap: {% if block.settings.image_fit == 'contain' and block.settings.use_contain_gap %}{{ block.settings.contain_gap | divided_by: 2 }}{% else %}{{ block.settings.gap | divided_by: 2 }}{% endif %}px;
-      {% endif %}
+      {% endif %}gap: {% if block.settings.image_fit == 'contain' and block.settings.use_contain_gap %}{{ block.settings.contain_gap | divided_by: 2 }}{% else %}{{ block.settings.gap | divided_by: 2 }}{% endif %}px;
     }
 
     .ai-content-section__container-{{ ai_gen_id }} {
@@ -686,7 +664,7 @@
       "visible_if": "{{ block.settings.show_spacing_group }}",
       "min": 0,
       "max": 200,
-      "step": 2,
+      "step": 4,
       "unit": "px",
       "default": 60
     },
@@ -697,7 +675,7 @@
       "visible_if": "{{ block.settings.show_spacing_group }}",
       "min": 0,
       "max": 200,
-      "step": 2,
+      "step": 4,
       "unit": "px",
       "default": 60
     },
@@ -725,28 +703,6 @@
       "type": "header",
       "content": "Mobile spacing",
       "visible_if": "{{ block.settings.show_mobile_group }}"
-    },
-    {
-      "type": "select",
-      "id": "gap_mobile_mode",
-      "label": "Mobile column gap",
-      "options": [
-        { "value": "inherit", "label": "Inherit desktop (or contain override)" },
-        { "value": "custom", "label": "Custom" }
-      ],
-      "default": "inherit",
-      "visible_if": "{{ block.settings.show_mobile_group }}"
-    },
-    {
-      "type": "range",
-      "id": "gap_mobile",
-      "label": "Custom mobile column gap",
-      "min": 0,
-      "max": 100,
-      "step": 2,
-      "unit": "px",
-      "default": 16,
-      "visible_if": "{{ block.settings.gap_mobile_mode == 'custom' }}"
     },
     {
       "type": "select",
@@ -1024,35 +980,6 @@
       "unit": "px",
       "default": 24,
       "visible_if": "{{ block.settings.use_contain_gap }}"
-    },
-    {
-      "type": "checkbox",
-      "id": "contain_set_height",
-      "label": "Set fixed height for Contain images",
-      "default": false,
-      "visible_if": "{{ block.settings.image_fit == 'contain' }}"
-    },
-    {
-      "type": "range",
-      "id": "contain_height",
-      "label": "Contain image height (desktop)",
-      "min": 100,
-      "max": 1000,
-      "step": 10,
-      "unit": "px",
-      "default": 400,
-      "visible_if": "{{ block.settings.contain_set_height }}"
-    },
-    {
-      "type": "range",
-      "id": "contain_height_mobile",
-      "label": "Contain image height (mobile)",
-      "min": 80,
-      "max": 800,
-      "step": 10,
-      "unit": "px",
-      "default": 240,
-      "visible_if": "{{ block.settings.contain_set_height }}"
     },
     {
       "type": "select",
