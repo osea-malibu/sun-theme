@@ -102,6 +102,11 @@
     display: none;
   }
 
+  /* Space between Email and Phone form blocks */
+  .signup-form__form-{{ signup_form_id }} + .signup-form__form-{{ signup_form_id }} {
+    margin-top: 24px;
+  }
+
   .signup-form__field-group-{{ signup_form_id }} {
     display: flex;
     flex-direction: column;
