@@ -31,7 +31,6 @@
 {% style %}
   .two-columns-{{ two_columns_block_id }} {
     width: 100%;
-    background-color: {{ block.settings.background_color }};
     padding-top: {{ block.settings.row_padding_top }}px;
     padding-bottom: {{ block.settings.row_padding_bottom }}px;
     padding-left: {{ block.settings.row_padding_left }}px;
@@ -110,16 +109,15 @@
   }
 
   .two-columns-heading-{{ two_columns_block_id }} {
-    color: {{ block.settings.heading_color }};
     margin: 0;
-    font-size: {{ block.settings.heading_size }}px;
-    line-height: 1.2;}
+    line-height: 1.2;
+    color: var(--color-foreground-heading);
+  }
 
   .two-columns-text-{{ two_columns_block_id }} {
-    color: {{ block.settings.text_color }};
     margin: 0;
-    font-size: {{ block.settings.text_size }}px;
     line-height: 1.5;
+    color: var(--color-foreground);
   }
 
   .two-columns-text-{{ two_columns_block_id }} p {
@@ -190,7 +188,10 @@
   }
 {% endstyle %}
 
-<div class="two-columns-{{ two_columns_block_id }}" {{ block.shopify_attributes }}>
+ <div class="two-columns-{{ two_columns_block_id }} spacing-style{% if block.settings.inherit_color_scheme == false %} color-{{ block.settings.color_scheme }}{% endif %}"
+   style="{% render 'spacing-padding', settings: block.settings %}"
+   {{ block.shopify_attributes }}
+ >
   <div class="two-columns-inner-{{ two_columns_block_id }}"><div class="two-columns-container-{{ two_columns_block_id }}"><div class="two-columns-column-{{ two_columns_block_id }} two-columns-column-left-{{ two_columns_block_id }}">
         {% if block.settings.left_column_image %}
           <div class="two-columns-image-wrapper-{{ two_columns_block_id }}"><img src="{{ block.settings.left_column_image | image_url: width: 1200 }}"
@@ -210,11 +211,11 @@
         {% endif %}
 
         {% if block.settings.left_column_heading != blank %}
-          <h2 class="two-columns-heading-{{ two_columns_block_id }}">{{ block.settings.left_column_heading }}</h2>
+          <h2 class="two-columns-heading-{{ two_columns_block_id }} text-block {{ block.settings.heading_preset }}">{{ block.settings.left_column_heading }}</h2>
         {% endif %}
 
         {% if block.settings.left_column_text != blank %}
-          <div class="two-columns-text-{{ two_columns_block_id }}">{{ block.settings.left_column_text }}</div>
+          <div class="two-columns-text-{{ two_columns_block_id }} text-block {{ block.settings.text_preset }}">{{ block.settings.left_column_text }}</div>
         {% endif %}
       </div>
 
@@ -239,11 +240,11 @@
         {% endif %}
 
         {% if block.settings.right_column_heading != blank %}
-          <h2 class="two-columns-heading-{{ two_columns_block_id }}">{{ block.settings.right_column_heading }}</h2>
+          <h2 class="two-columns-heading-{{ two_columns_block_id }} text-block {{ block.settings.heading_preset }}">{{ block.settings.right_column_heading }}</h2>
         {% endif %}
 
         {% if block.settings.right_column_text != blank %}
-          <div class="two-columns-text-{{ two_columns_block_id }}">{{ block.settings.right_column_text }}</div>
+          <div class="two-columns-text-{{ two_columns_block_id }} text-block {{ block.settings.text_preset }}">{{ block.settings.right_column_text }}</div>
         {% endif %}
       </div>
     </div>
@@ -283,11 +284,18 @@
       "visible_if": "{{ block.settings.show_layout == true }}"
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      "default": "#ffffff",
+      "type": "checkbox",
+      "id": "inherit_color_scheme",
+      "label": "t:settings.inherit_color_scheme",
+      "default": true,
       "visible_if": "{{ block.settings.show_layout == true }}"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ block.settings.show_layout == true and block.settings.inherit_color_scheme == false }}"
     },
     {
       "type": "range",
@@ -963,46 +971,37 @@
       "content": "Typography"
     },
     {
-      "type": "checkbox",
-      "id": "show_typography",
-      "label": "Show typography settings",
-      "default": true
+      "type": "select",
+      "id": "heading_preset",
+      "label": "t:settings.heading_preset",
+      "options": [
+        { "value": "", "label": "t:options.default" },
+        { "value": "paragraph", "label": "t:options.paragraph" },
+        { "value": "h1", "label": "t:options.h1" },
+        { "value": "h2", "label": "t:options.h2" },
+        { "value": "h3", "label": "t:options.h3" },
+        { "value": "h4", "label": "t:options.h4" },
+        { "value": "h5", "label": "t:options.h5" },
+        { "value": "h6", "label": "t:options.h6" }
+      ],
+      "default": "h3"
     },
     {
-      "type": "range",
-      "id": "heading_size",
-      "min": 16,
-      "max": 72,
-      "step": 2,
-      "unit": "px",
-      "label": "Heading size",
-      "default": 32,
-      "visible_if": "{{ block.settings.show_typography == true }}"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
-      "default": "#1d4d41",
-      "visible_if": "{{ block.settings.show_typography == true }}"
-    },
-    {
-      "type": "range",
-      "id": "text_size",
-      "min": 12,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "label": "Text size",
-      "default": 16,
-      "visible_if": "{{ block.settings.show_typography == true }}"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "default": "#1d4d41",
-      "visible_if": "{{ block.settings.show_typography == true }}"
+      "type": "select",
+      "id": "text_preset",
+      "label": "t:settings.preset",
+      "options": [
+        { "value": "rte", "label": "t:options.default" },
+        { "value": "paragraph", "label": "t:options.paragraph" },
+        { "value": "h1", "label": "t:options.h1" },
+        { "value": "h2", "label": "t:options.h2" },
+        { "value": "h3", "label": "t:options.h3" },
+        { "value": "h4", "label": "t:options.h4" },
+        { "value": "h5", "label": "t:options.h5" },
+        { "value": "h6", "label": "t:options.h6" }
+      ],
+      "default": "rte",
+      "info": "t:info.edit_presets_in_theme_settings"
     }
   ],
   "presets": [
