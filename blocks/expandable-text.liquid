@@ -10,6 +10,8 @@
   - Responsive design with mobile-optimized sizing
   - Accessible with proper ARIA attributes and keyboard navigation
   - Theme styling: inherits colors and typography; controls for spacing
+  - Background options: theme-based (Default, Primary, Transparent)
+  - Optional border: on/off, style, width, and radius
   - Padding controls: separate top/right/bottom/left for desktop and mobile (px or %)
   - Width control: Fit (page width) or Fill (full width)
   - Focus states for better accessibility
@@ -37,11 +39,22 @@
 {% style %}
   .expandable-text-{{ expandable_text_block_id }} {
     display: block;
-    background-color: var(--color-background);
+    {% case block.settings.background_style %}
+      {% when 'transparent' %}
+        background-color: transparent;
+      {% when 'primary' %}
+        background-color: var(--color-primary);
+      {% else %}
+        background-color: var(--color-background);
+    {% endcase %}
     padding-top: {{ block.settings.padding_top_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     padding-right: {{ block.settings.padding_right_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     padding-bottom: {{ block.settings.padding_bottom_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     padding-left: {{ block.settings.padding_left_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
+    {% if block.settings.border_enabled %}
+      border: {{ block.settings.border_width }}px {{ block.settings.border_style }} var(--color-border);
+      border-radius: {{ block.settings.border_radius }}px;
+    {% endif %}
     margin: 0 auto;
     {% if block.settings.width == 'fit' %}
       max-width: var(--normal-page-width);
@@ -269,6 +282,17 @@
     },
     {
       "type": "select",
+      "id": "background_style",
+      "label": "Background",
+      "options": [
+        { "value": "default", "label": "Default (Theme background)" },
+        { "value": "primary", "label": "Primary" },
+        { "value": "transparent", "label": "Transparent" }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "select",
       "id": "width",
       "label": "Width",
       "options": [
@@ -308,6 +332,47 @@
         }
       ],
       "default": "h2"
+    },
+    {
+      "type": "header",
+      "content": "Border"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_enabled",
+      "label": "Show border",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "border_style",
+      "label": "Border style",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "dashed", "label": "Dashed" },
+        { "value": "dotted", "label": "Dotted" }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
     },
     {
       "type": "select",
