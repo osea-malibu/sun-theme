@@ -114,24 +114,9 @@
     gap: 12px;
   }
 
-  {% if block.settings.button_position == 'right' %}
-  .signup-form__row-{{ signup_form_id }} {
-    flex-direction: row;
-    align-items: flex-end;
-  }
-  .signup-form__field-group-{{ signup_form_id }} {
-    flex: 1;
-  }
-  .signup-form__button-{{ signup_form_id }} {
-    width: auto;
-    align-self: flex-end;
-    white-space: nowrap;
-  }
-  {% else %}
   .signup-form__row-{{ signup_form_id }} {
     flex-direction: column;
   }
-  {% endif %}
 
   .signup-form__label-{{ signup_form_id }} {
     color: var(--color-foreground);
@@ -223,6 +208,12 @@
 
     .signup-form__row-{{ signup_form_id }} {
       flex-direction: column !important;
+      align-items: stretch !important;
+    }
+
+    .signup-form__button-{{ signup_form_id }} {
+      width: 100% !important;
+      align-self: stretch !important;
     }
 
     .signup-form__country-select-{{ signup_form_id }} {
@@ -545,17 +536,6 @@
       ],
       "default": "fit"
     },
-    {
-      "type": "select",
-      "id": "button_position",
-      "label": "Button position",
-      "options": [
-        { "value": "below", "label": "Below input" },
-        { "value": "right", "label": "Right of input" }
-      ],
-      "default": "below"
-    },
-    
     
     {
       "type": "range",
