@@ -15,12 +15,11 @@
   Notes
   - All colors derive from the selected theme color scheme
     (foreground, background, primary, border, hover).
-  - Typography inherits from the theme; alignment is configurable.
+  - Typography inherits from the theme.
   - Heading/Text presets apply theme typography classes only.
 
   Dependencies
   - Requires block.id for unique CSS class generation
-  - Form handling should be done by Shopify 'contact' form
 
   Author: Mirabelle Doiron
   Version: 1.3
@@ -33,7 +32,6 @@
     padding: {{ block.settings.padding }}px;
     background-color: var(--color-background);
     border-radius: {{ block.settings.border_radius }}px;
-    --text-align: {{ block.settings.text_alignment }};
     {% if block.settings.width == 'fit' %}
       max-width: var(--normal-content-width);
       margin: 0 auto;
@@ -52,12 +50,10 @@
   .signup-form__heading-{{ signup_form_id }} {
     color: var(--color-foreground-heading);
     margin: 0;
-    text-align: var(--text-align);
   }
 
   .signup-form__subtext-{{ signup_form_id }} {
     color: var(--color-foreground);
-    text-align: var(--text-align);
     margin: 0;
   }
 
@@ -553,26 +549,7 @@
       ],
       "default": "below"
     },
-    {
-      "type": "select",
-      "id": "text_alignment",
-      "label": "Text alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
-      ],
-      "default": "center"
-    },
+    
     
     {
       "type": "range",
