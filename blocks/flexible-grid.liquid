@@ -2,108 +2,61 @@
 # Flexible Grid Layout Block
 
 ## Overview
-A versatile grid layout block that creates customizable card-based content displays. Perfect for showcasing features, products, services, or any content that benefits from a structured grid presentation.
+A versatile grid layout block for card-based content displays. Perfect for showcasing features, products, or services.
 
 ## Features
-- **Flexible Layout Options**: 1-4 columns, 2-row layouts
+- **Flexible Layout Options**: 1–4 columns, 2-row layouts
 - **Responsive Design**: Separate mobile and desktop layouts
 - **Content Management**: Up to 8 individual content items
-- **Rich Styling**: Customizable colors, spacing, borders, shadows
+- **Theme Styling**: Inherits colors and typography from the active color scheme and type scale
 - **Image Support**: Optional images with placeholder fallbacks
-- **Typography Control**: Heading styles and text formatting
 - **Interactive Elements**: Optional call-to-action buttons
-- **Container Options**: Pixel or percentage-based widths
+- **Width Control**: Fit (page width) or Fill (full width)
 
 ## Usage
-Add this block to any section that supports blocks. Configure the layout, add content to individual items, and customize the styling to match your design requirements.
+Add this block to any section. Configure the layout, add content to items, and the block will style itself using the theme’s color scheme and typography.
 
 ## Content Structure
 Each grid item can contain:
-- **Image** (optional with placeholder fallback)
-- **Heading** (H1-H6 or body text)
-- **Description text**
+- **Image** (optional)
+- **Heading** (theme heading styles)
+- **Description text** (theme body style)
 - **Call-to-action button** (optional)
 
 ## Layout Options
 
+### Width
+- **Fit**: Constrains to the theme page width with side padding
+- **Fill**: Spans the full browser width
+
 ### Desktop Layouts
-- **1 Column**: Single column layout
-- **2 Columns**: Two-column grid
-- **3 Columns**: Three-column grid (default)
-- **4 Columns**: Four-column grid
-- **2 Rows, 2 Columns**: 2x2 grid layout
-- **2 Rows, 3 Columns**: 2x3 grid layout
+- 1, 2, 3 (default), or 4 columns
+- 2 rows × 2 columns, or 2 rows × 3 columns
 
 ### Mobile Layouts
-- **1 Column**: Single column on mobile
-- **2 Columns**: Two-column grid on mobile
+- 1 column
 
-## Styling Options
-
-### Container Settings
-- **Width Type**: Pixels (800-1400px) or Percentage (50-100%)
-- **Container Fit**: Full width or fit with padding
-- **Grid Gap**: 10-60px spacing between items
-
-### Section Styling
-- **Background Color**: Section background
-- **Padding**: Top and bottom section padding (0-100px)
-
-### Item Styling
-- **Background Color**: Individual item backgrounds
-- **Padding**: Item internal spacing (0-50px)
-- **Border Radius**: Rounded corners (0-30px)
-- **Border**: Optional border with custom width and color
-- **Shadow**: Optional drop shadow effect
-- **Minimum Height**: Item height control (200-600px)
-- **Content Alignment**: Top, center, or bottom alignment
-- **Text Alignment**: Left, center, or right text alignment
-
-### Image Settings
-- **Placeholder Images**: Show/hide placeholder images for empty slots
-- **Image Height**: 150-400px height control
-- **Border Radius**: Image corner rounding (0-30px)
-
-### Typography
-- **Heading Style**: H1-H6, body, or accent text
-- **Heading Color**: Custom heading color
-- **Text Color**: Custom body text color
-
-### Button Styling
-- **Background Color**: Button background
-- **Text Color**: Button text color
-- **Hover Color**: Button hover state
-- **Border Radius**: Button corner rounding (0-30px)
+## Styling
+- **Colors**: Inherits from the section’s color scheme (no per-block color pickers)
+- **Typography**: Uses theme heading and body styles (no per-block typography pickers)
+- **Items**: Controls for padding, corner radius, border width, optional shadow, min height, and alignment
+- **Buttons**: Uses theme primary button styles; supports corner radius
 
 ## Responsive Behavior
-- **Desktop**: Uses selected desktop layout
-- **Tablet (1024px)**: 4-column layouts automatically switch to 2 columns
-- **Mobile (768px)**: Uses selected mobile layout with reduced gaps
-- **Small Mobile (480px)**: Forces single column layout
-
-## Dependencies
-- Uses theme typography settings for font families and sizes
-- Relies on theme color scheme variables
-- Requires Shopify's image handling for responsive images
+- Desktop uses selected desktop layout
+- Tablet (≤1024px): 4-column layout collapses to 2 columns
+- Mobile (≤768px): Uses selected mobile layout and reduced gaps
+- Small mobile (≤480px): Forces single column
 
 ## Technical Notes
+- Uses CSS Grid for layout and flexbox for item content alignment
+- Derives colors from `color-<scheme>` CSS variables
 - Generates unique CSS classes using block ID to prevent conflicts
-- Uses CSS Grid for layout management
-- Implements flexbox for item content alignment
-- Supports lazy loading for images
-- Includes hover effects for interactive elements
-
-## Best Practices
-- Use consistent image heights for visual harmony
-- Consider mobile layout when choosing desktop column count
-- Balance content length across items for uniform appearance
-- Test button links and ensure they're accessible
-- Use placeholder images for consistent layout during content creation
 
 ## Author
 Mirabelle Doiron
-Version: 1.0
-Last Updated: 2025-01-27
+Version: 1.1
+Last Updated: 2025-08-09
 {% enddoc %}
 {% assign flexible_grid_block_id = block.id | replace: '_', '' | downcase %}
 
@@ -111,17 +64,14 @@ Last Updated: 2025-01-27
   .flexible-grid-{{ flexible_grid_block_id }} {
     width: 100%;
     padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
-    background-color: {{ block.settings.background_color }};
+    background-color: var(--color-background);
   }
 
   .flexible-grid-container-{{ flexible_grid_block_id }} {
-    {% if block.settings.container_width_type == 'percentage' %}
-      width: {{ block.settings.container_width_percent }}%;
-    {% else %}
-      max-width: {{ block.settings.container_width_px }}px;
-    {% endif %}
+    width: 100%;
     margin: 0 auto;
-    {% if block.settings.container_fit == 'fit' %}
+    {% if block.settings.width == 'fit' %}
+      max-width: var(--normal-page-width);
       padding: 0 20px;
     {% endif %}
   }
@@ -148,11 +98,11 @@ Last Updated: 2025-01-27
   }
 
   .flexible-grid-item-{{ flexible_grid_block_id }} {
-    background-color: {{ block.settings.item_background_color }};
+    background-color: var(--color-background);
     border-radius: {{ block.settings.item_border_radius }}px;
     padding: {{ block.settings.item_padding }}px;
     {% if block.settings.item_border_width > 0 %}
-      border: {{ block.settings.item_border_width }}px solid {{ block.settings.item_border_color }};
+      border: {{ block.settings.item_border_width }}px solid var(--color-border);
     {% endif %}
     {% if block.settings.item_shadow %}
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -194,79 +144,39 @@ Last Updated: 2025-01-27
   }
 
   .flexible-grid-heading-{{ flexible_grid_block_id }} {
-    color: {{ block.settings.heading_color }};
+    color: var(--font-h3--color);
     margin: 0 0 12px 0;
     line-height: 1.2;
-    {% case block.settings.heading_type %}
-      {% when 'h1' %}
-        font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
-        font-size: {{ settings.type_size_h1 }}px;
-        font-weight: {{ settings.type_heading_font.weight }};
-        text-transform: {{ settings.type_case_h1 }};
-        letter-spacing: {{ settings.type_letter_spacing_h1 }};{% when 'h2' %}
-        font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
-        font-size: {{ settings.type_size_h2 }}px;
-        font-weight: {{ settings.type_heading_font.weight }};
-        text-transform: {{ settings.type_case_h2 }};
-        letter-spacing: {{ settings.type_letter_spacing_h2 }};
-      {% when 'h3' %}
-        font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
-        font-size: {{ settings.type_size_h3 }}px;
-        font-weight: {{ settings.type_heading_font.weight }};
-        text-transform: {{ settings.type_case_h3 }};
-        letter-spacing: {{ settings.type_letter_spacing_h3 }};
-      {% when 'h4' %}
-        font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
-        font-size: {{ settings.type_size_h4 }}px;
-        font-weight: {{ settings.type_subheading_font.weight }};
-        text-transform: {{ settings.type_case_h4 }};
-        letter-spacing: {{ settings.type_letter_spacing_h4 }};
-      {% when 'h5' %}
-        font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
-        font-size: {{ settings.type_size_h5 }}px;
-        font-weight: {{ settings.type_subheading_font.weight }};
-        text-transform: {{ settings.type_case_h5 }};
-        letter-spacing: {{ settings.type_letter_spacing_h5 }};
-      {% when 'h6' %}
-        font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
-        font-size: {{ settings.type_size_h6 }}px;
-        font-weight: {{ settings.type_subheading_font.weight }};
-        text-transform: {{ settings.type_case_h6 }};
-        letter-spacing: {{ settings.type_letter_spacing_h6 }};
-      {% when 'body' %}
-        font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
-        font-size: {{ settings.type_size_paragraph }}px;
-        font-weight: {{ settings.type_body_font.weight }};{% when 'accent' %}
-        font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
-        font-size: {{ settings.type_size_paragraph }}px;
-        font-weight: {{ settings.type_accent_font.weight }};
-    {% endcase %}
+    font-family: var(--font-heading--family);
+    font-weight: var(--font-heading--weight);
+    font-size: var(--font-h3--size);
   }
 
   .flexible-grid-text-{{ flexible_grid_block_id }} {
-    color: {{ block.settings.text_color }};
+    color: var(--color-foreground);
     line-height: 1.5;
     margin: 0 0 16px 0;
     flex-grow: 1;
-    font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
-    font-size: {{ settings.type_size_paragraph }}px;
-    font-weight: {{ settings.type_body_font.weight }};}
+    font-family: var(--font-body--family);
+    font-size: var(--font-paragraph--size);
+    font-weight: var(--font-body--weight);
+  }
 
   .flexible-grid-button-{{ flexible_grid_block_id }} {
     display: inline-block;
     padding: 12px 24px;
-    background-color: {{ block.settings.button_background_color }};
-    color: {{ block.settings.button_text_color }};
+    background-color: var(--color-primary-button-background);
+    color: var(--color-primary-button-text);
     text-decoration: none;
     border-radius: {{ block.settings.button_border_radius }}px;
     font-weight: 500;
     transition: background-color 0.3s ease;
     margin-top: auto;
-    font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
   }
 
   .flexible-grid-button-{{ flexible_grid_block_id }}:hover {
-    background-color: {{ block.settings.button_hover_color }};
+    background-color: var(--color-primary-button-hover-background);
+    color: var(--color-primary-button-hover-text);
   }
 
   @media screen and (max-width: 1024px) {
@@ -279,15 +189,12 @@ Last Updated: 2025-01-27
 
   @media screen and (max-width: 768px) {
     .flexible-grid-layout-{{ flexible_grid_block_id }} {
-      {% case block.settings.mobile_layout %}
-        {% when '1' %}
-          grid-template-columns: 1fr;
-        {% when '2' %}
-          grid-template-columns: repeat(2, 1fr);{% endcase %}gap: {{ block.settings.grid_gap | times: 0.75 }}px;
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.grid_gap | times: 0.75 }}px;
     }
 
     .flexible-grid-container-{{ flexible_grid_block_id }} {
-      {% if block.settings.container_fit == 'fit' %}
+      {% if block.settings.width == 'fit' %}
         padding: 0 16px;
       {% endif %}
     }
@@ -343,21 +250,7 @@ Last Updated: 2025-01-27
             {% endif %}
 
             {% if item_heading != blank %}
-              {% case block.settings.heading_type %}
-                {% when 'h1' %}
-                  <h1 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h1>
-                {% when 'h2' %}
-                  <h2 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h2>
-                {% when 'h3' %}
-                  <h3 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h3>
-                {% when 'h4' %}
-                  <h4 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h4>
-                {% when 'h5' %}
-                  <h5 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h5>
-                {% when 'h6' %}
-                  <h6 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h6>
-                {% else %}
-                  <div class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</div>{% endcase %}
+              <h3 class="flexible-grid-heading-{{ flexible_grid_block_id }}">{{ item_heading }}</h3>
             {% endif %}
 
             {% if item_text != blank %}
@@ -383,6 +276,16 @@ Last Updated: 2025-01-27
     {
       "type": "header",
       "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        { "value": "fit", "label": "Fit" },
+        { "value": "fill", "label": "Fill" }
+      ],
+      "default": "fit"
     },
     {
       "type": "select",
@@ -416,78 +319,7 @@ Last Updated: 2025-01-27
       ],
       "default": "three_columns"
     },
-    {
-      "type": "select",
-      "id": "mobile_layout",
-      "label": "Mobile layout",
-      "options": [
-        {
-          "value": "1",
-          "label": "1 column"
-        },
-        {
-          "value": "2",
-          "label": "2 columns"
-        }
-      ],
-      "default": "1"
-    },
-    {
-      "type": "header",
-      "content": "Container"
-    },
-    {
-      "type": "select",
-      "id": "container_width_type",
-      "label": "Width type",
-      "options": [
-        {
-          "value": "pixels",
-          "label": "Pixels"
-        },
-        {
-          "value": "percentage",
-          "label": "Percentage"
-        }
-      ],
-      "default": "pixels"
-    },
-    {
-      "type": "range",
-      "id": "container_width_px",
-      "min": 800,
-      "max": 1400,
-      "step": 50,
-      "unit": "px",
-      "label": "Container width (pixels)",
-      "default": 1200
-    },
-    {
-      "type": "range",
-      "id": "container_width_percent",
-      "min": 50,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "label": "Container width (percentage)",
-      "default": 90
-    },
-    {
-      "type": "select",
-      "id": "container_fit",
-      "label": "Container fit",
-      "options": [
-        {
-          "value": "full",
-          "label": "Full width"
-        },
-        {
-          "value": "fit",
-          "label": "Fit with padding"
-        }
-      ],
-      "default": "fit"
-    },
+    
     {
       "type": "range",
       "id": "grid_gap",
@@ -501,12 +333,6 @@ Last Updated: 2025-01-27
     {
       "type": "header",
       "content": "Section style"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      "default": "#ffffff"
     },
     {
       "type": "range",
@@ -531,12 +357,6 @@ Last Updated: 2025-01-27
     {
       "type": "header",
       "content": "Item style"
-    },
-    {
-      "type": "color",
-      "id": "item_background_color",
-      "label": "Item background color",
-      "default": "#ffffff"
     },
     {
       "type": "range",
@@ -569,12 +389,6 @@ Last Updated: 2025-01-27
       "default": 0
     },
     {
-      "type": "color",
-      "id": "item_border_color",
-      "label": "Item border color",
-      "default": "#e6e6e6"
-    },
-    {
       "type": "checkbox",
       "id": "item_shadow",
       "label": "Item shadow",
@@ -595,18 +409,9 @@ Last Updated: 2025-01-27
       "id": "content_alignment",
       "label": "Content alignment",
       "options": [
-        {
-          "value": "flex-start",
-          "label": "Top"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "flex-end",
-          "label": "Bottom"
-        }
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Bottom" }
       ],
       "default": "flex-start"
     },
@@ -615,18 +420,9 @@ Last Updated: 2025-01-27
       "id": "text_alignment",
       "label": "Text alignment",
       "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
       ],
       "default": "left"
     },
@@ -662,81 +458,7 @@ Last Updated: 2025-01-27
     },
     {
       "type": "header",
-      "content": "Typography"
-    },
-    {
-      "type": "select",
-      "id": "heading_type",
-      "label": "Heading style",
-      "options": [
-        {
-          "value": "h1",
-          "label": "H1"
-        },
-        {
-          "value": "h2",
-          "label": "H2"
-        },
-        {
-          "value": "h3",
-          "label": "H3"
-        },
-        {
-          "value": "h4",
-          "label": "H4"
-        },
-        {
-          "value": "h5",
-          "label": "H5"
-        },
-        {
-          "value": "h6",
-          "label": "H6"
-        },
-        {
-          "value": "body",
-          "label": "Body"
-        },
-        {
-          "value": "accent",
-          "label": "Accent"
-        }
-      ],
-      "default": "h3"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "default": "#666666"
-    },
-    {
-      "type": "header",
       "content": "Buttons"
-    },
-    {
-      "type": "color",
-      "id": "button_background_color",
-      "label": "Button background",
-      "default": "#000f9f"
-    },
-    {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Button text color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "button_hover_color",
-      "label": "Button hover color",
-      "default": "#000000"
     },
     {
       "type": "range",
