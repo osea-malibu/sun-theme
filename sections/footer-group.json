@@ -604,7 +604,7 @@
         "ai_gen_block_8181ee2_CDeEVy": {
           "type": "ai_gen_block_8181ee2",
           "settings": {
-            "container_width": "page",
+            "width": "fit",
             "background_color": "#e5edeb",
             "column_gap": 0,
             "column_gap_mobile": 24,
@@ -613,7 +613,7 @@
             "image_aspect_ratio": "1/1",
             "image_height": 360,
             "image_height_mobile": 300,
-            "image_fit": "contain",
+            "image_fit": "cover",
             "image_border_radius": 8,
             "row_padding_top": 40,
             "row_padding_bottom": 40,
@@ -633,7 +633,7 @@
             "left_column_padding_top": 0,
             "left_column_padding_bottom": 0,
             "left_column_padding_left": 0,
-            "left_column_padding_right": 0,
+            "left_column_padding_right": 40,
             "left_column_padding_top_mobile": 0,
             "left_column_padding_bottom_mobile": 0,
             "left_column_padding_left_mobile": 0,
