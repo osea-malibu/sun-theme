@@ -157,7 +157,21 @@
       {% else %}
         <h2 class="expandable-text__heading-{{ expandable_text_block_id }} is-h2">{{ block.settings.heading }}</h2>
     {% endcase %}
-  {% endif %}<div class="expandable-text__content-{{ expandable_text_block_id }}"><div class="expandable-text__preview-{{ expandable_text_block_id }}">
+  {% endif %}
+
+  {% liquid
+    assign content_type_class = ''
+    case block.settings.text_type_preset
+      when 'h4'
+        assign content_type_class = ' is-h4'
+      when 'h5'
+        assign content_type_class = ' is-h5'
+      when 'h6'
+        assign content_type_class = ' is-h6'
+    endcase
+  %}
+
+  <div class="expandable-text__content-{{ expandable_text_block_id }}{{ content_type_class }}"><div class="expandable-text__preview-{{ expandable_text_block_id }}">
       {{ block.settings.preview_text }}
     </div>
 
@@ -320,26 +334,7 @@
       "default": "paragraph"
     },
     
-    {
-      "type": "range",
-      "id": "heading_size",
-      "min": 16,
-      "max": 48,
-      "step": 2,
-      "unit": "px",
-      "label": "Heading size",
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "text_size",
-      "min": 12,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "label": "Text size",
-      "default": 16
-    },
+    
     {
       "type": "header",
       "content": "Padding (Desktop)"
