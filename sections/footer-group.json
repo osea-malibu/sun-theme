@@ -604,8 +604,10 @@
         "ai_gen_block_8181ee2_CDeEVy": {
           "type": "two-columns",
           "settings": {
-            "show_layout": true,
+            "show_layout": false,
             "width": "fit",
+            "inherit_color_scheme": true,
+            "color_scheme": "",
             "column_gap": 0,
             "column_gap_mobile": 24,
             "mobile_layout": "image_first",
@@ -660,7 +662,9 @@
             "right_column_padding_top_mobile": 0,
             "right_column_padding_bottom_mobile": 0,
             "right_column_padding_left_mobile": 0,
-            "right_column_padding_right_mobile": 0
+            "right_column_padding_right_mobile": 0,
+            "heading_preset": "h3",
+            "text_preset": "paragraph"
           },
           "blocks": {}
         }
