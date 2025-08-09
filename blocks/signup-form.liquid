@@ -32,6 +32,7 @@
     padding: {{ block.settings.padding }}px;
     background-color: var(--color-background);
     border-radius: {{ block.settings.border_radius }}px;
+    box-sizing: border-box;
     {% if block.settings.width == 'fit' %}
       max-width: var(--normal-content-width);
       margin: 0 auto;
@@ -120,6 +121,11 @@
   }
   .signup-form__field-group-{{ signup_form_id }} {
     flex: 1;
+  }
+  .signup-form__button-{{ signup_form_id }} {
+    width: auto;
+    align-self: flex-end;
+    white-space: nowrap;
   }
   {% else %}
   .signup-form__row-{{ signup_form_id }} {
