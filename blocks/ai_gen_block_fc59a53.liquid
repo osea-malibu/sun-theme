@@ -1,284 +1,627 @@
 {% doc %}
   @prompt
-    can you give me a two column section?, could we add theme typography for heading and text?, I want the Typography to be only the pre set theme styles., add full width please
-    This must fill the full page or fit, full height is useless, remove
+    Can we add a section of either 2 columns or one, full page or fit, for text and or image?
+    but I would like if that section get hidden under the footer when scrolling over., I like this but i wonder why the section is not align on both side?, add type theme for the typography please, can you add the  Standard Shopify Theme Fields, Layout Controls and Typography Presets ?
 
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
-  .ai-two-column-{{ ai_gen_id }} {
-    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+  .ai-content-section-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 1;
     background-color: {{ block.settings.background_color }};
-    width: 100%;
-  }
-
-  .ai-two-column-container-{{ ai_gen_id }} {
-    {% if block.settings.full_width %}
-      width: 100%;
-      max-width: none;
-      padding: 0 {{ block.settings.container_padding }}px;
-    {% else %}
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
+    padding: {% if block.settings.zero_section_padding %}0 0 0{% else %}{{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px{% endif %};
+    {% if block.settings.width == 'full' %}
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
     {% endif %}
   }
 
-  .ai-two-column-grid-{{ ai_gen_id }} {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: {{ block.settings.column_gap }}px;
-    align-items: {{ block.settings.vertical_alignment }};
+  .ai-content-section__container-{{ ai_gen_id }} {
+    {% if block.settings.width == 'full' %}
+      max-width: none;
+      padding: 0 {% if block.settings.zero_container_padding %}0{% else %}40px{% endif %};
+    {% else %}
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 {% if block.settings.zero_container_padding %}0{% else %}20px{% endif %};
+    {% endif %}
   }
 
-  .ai-two-column-item-{{ ai_gen_id }} {
+  .ai-content-section__grid-{{ ai_gen_id }} {
+    display: grid;
+    gap: {% if block.settings.image_fit == 'contain' and block.settings.use_contain_gap %}{{ block.settings.contain_gap }}{% else %}{{ block.settings.gap }}{% endif %}px;
+    align-items: {{ block.settings.vertical_alignment }};
+    {% if block.settings.columns == '1' %}
+      grid-template-columns: 1fr;
+    {% else %}
+      grid-template-columns: 1fr 1fr;
+    {% endif %}
+  }
+
+  .ai-content-section__column-{{ ai_gen_id }} {
     display: flex;
     flex-direction: column;
+    gap: {% if block.settings.inner_gap_mode == 'same' %}{{ block.settings.gap }}{% else %}{{ block.settings.inner_gap }}{% endif %}px;
   }
 
-  .ai-two-column-image-wrapper-{{ ai_gen_id }} {
+  .ai-content-section__heading-{{ ai_gen_id }} {
+    color: {{ block.settings.heading_color }};
+    margin: 0;
+    line-height: 1.2;
+    {% case block.settings.heading_preset %}
+      {% when 'h1' %}
+        font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+        font-weight: {{ settings.type_heading_font.weight }};
+        font-size: {{ settings.type_size_h1 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h1 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h1 }});
+        text-transform: {{ settings.type_case_h1 }};
+      {% when 'h2' %}
+        font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+        font-weight: {{ settings.type_heading_font.weight }};
+        font-size: {{ settings.type_size_h2 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h2 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h2 }});
+        text-transform: {{ settings.type_case_h2 }};
+      {% when 'h3' %}
+        {% case settings.type_font_h3 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h3 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h3 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h3 }});
+        text-transform: {{ settings.type_case_h3 }};
+      {% when 'h4' %}
+        {% case settings.type_font_h4 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h4 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h4 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h4 }});
+        text-transform: {{ settings.type_case_h4 }};
+      {% when 'h5' %}
+        {% case settings.type_font_h5 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h5 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h5 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h5 }});
+        text-transform: {{ settings.type_case_h5 }};
+      {% when 'h6' %}
+        {% case settings.type_font_h6 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h6 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h6 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h6 }});
+        text-transform: {{ settings.type_case_h6 }};
+      {% else %}
+        font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        font-weight: {{ settings.type_body_font.weight }};
+        font-size: {{ settings.type_size_paragraph }}px;
+        line-height: var(--font-{{ settings.type_line_height_paragraph }});
+    {% endcase %}
+  }
+
+  .ai-content-section__text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    {% case block.settings.text_preset %}
+      {% when 'h1' %}
+        font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+        font-weight: {{ settings.type_heading_font.weight }};
+        font-size: {{ settings.type_size_h1 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h1 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h1 }});
+        text-transform: {{ settings.type_case_h1 }};
+      {% when 'h2' %}
+        font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+        font-weight: {{ settings.type_heading_font.weight }};
+        font-size: {{ settings.type_size_h2 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h2 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h2 }});
+        text-transform: {{ settings.type_case_h2 }};
+      {% when 'h3' %}
+        {% case settings.type_font_h3 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h3 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h3 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h3 }});
+        text-transform: {{ settings.type_case_h3 }};
+      {% when 'h4' %}
+        {% case settings.type_font_h4 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h4 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h4 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h4 }});
+        text-transform: {{ settings.type_case_h4 }};
+      {% when 'h5' %}
+        {% case settings.type_font_h5 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h5 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h5 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h5 }});
+        text-transform: {{ settings.type_case_h5 }};
+      {% when 'h6' %}
+        {% case settings.type_font_h6 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h6 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h6 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h6 }});
+        text-transform: {{ settings.type_case_h6 }};
+      {% else %}
+        font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        font-weight: {{ settings.type_body_font.weight }};
+        font-size: {{ settings.type_size_paragraph }}px;
+        line-height: var(--font-{{ settings.type_line_height_paragraph }});
+    {% endcase %}
+  }
+
+  .ai-content-section__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
     width: 100%;
-    margin-bottom: 20px;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    overflow: hidden;
   }
 
-  .ai-two-column-image-{{ ai_gen_id }} {
+  .ai-content-section__image-{{ ai_gen_id }} {
     width: 100%;
     height: auto;
-    object-fit: cover;
+    display: block;
     border-radius: {{ block.settings.image_border_radius }}px;
   }
 
-  .ai-two-column-image-placeholder-{{ ai_gen_id }} {
+  .ai-content-section__image-placeholder-{{ ai_gen_id }} {
     width: 100%;
-    aspect-ratio: 4/3;
+    height: 300px;
     background-color: #f4f4f4;
-    border-radius: {{ block.settings.image_border_radius }}px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: {{ block.settings.image_border_radius }}px;
   }
 
-  .ai-two-column-image-placeholder-{{ ai_gen_id }} svg {
+  .ai-content-section__image-placeholder-{{ ai_gen_id }} svg {
     width: 60%;
     height: 60%;
     opacity: 0.3;
   }
 
-  .ai-two-column-content-{{ ai_gen_id }} {
-    color: {{ block.settings.text_color }};
-  }
+  {% if block.settings.image_aspect_ratio != 'natural' %}
+    .ai-content-section__image-wrapper-{{ ai_gen_id }} {
+      aspect-ratio: {% case block.settings.image_aspect_ratio %}{% when '1:1' %}1 / 1{% when '4:3' %}4 / 3{% when '3:2' %}3 / 2{% when '16:9' %}16 / 9{% endcase %};
+    }
 
-  .ai-two-column-heading-{{ ai_gen_id }} {
-    color: {{ block.settings.heading_color }};
-    margin: 0 0 16px;
-  }
+    .ai-content-section__image-{{ ai_gen_id }} {
+      height: 100%;
+      object-fit: {{ block.settings.image_fit }};
+    }
 
-  .ai-two-column-text-{{ ai_gen_id }} {
-    margin: 0 0 20px;
-  }
+    .ai-content-section__image-placeholder-{{ ai_gen_id }} {
+      aspect-ratio: {% case block.settings.image_aspect_ratio %}{% when '1:1' %}1 / 1{% when '4:3' %}4 / 3{% when '3:2' %}3 / 2{% when '16:9' %}16 / 9{% endcase %};
+      height: auto;
+    }
+  {% endif %}
 
-  .ai-two-column-button-{{ ai_gen_id }} {
-    display: inline-block;
+  {% if block.settings.image_fit == 'contain' and block.settings.contain_set_height %}
+    .ai-content-section__image-wrapper-{{ ai_gen_id }} {
+      height: {{ block.settings.contain_height }}px;
+    }
+
+    .ai-content-section__image-{{ ai_gen_id }} {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  {% endif %}
+
+  .ai-content-section__button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 12px 24px;
-    background-color: {{ block.settings.button_color }};
+    background-color: {{ block.settings.button_background }};
     color: {{ block.settings.button_text_color }};
     text-decoration: none;
     border-radius: {{ block.settings.button_border_radius }}px;
-    transition: background-color 0.3s ease;
     font-weight: 500;
-    align-self: flex-start;
+    transition: background-color 0.3s ease;align-self: flex-start;
+    {% case block.settings.button_preset %}
+      {% when 'h1' %}
+        font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+        font-weight: {{ settings.type_heading_font.weight }};
+        font-size: {{ settings.type_size_h1 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h1 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h1 }});
+        text-transform: {{ settings.type_case_h1 }};
+      {% when 'h2' %}
+        font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+        font-weight: {{ settings.type_heading_font.weight }};
+        font-size: {{ settings.type_size_h2 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h2 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h2 }});
+        text-transform: {{ settings.type_case_h2 }};
+      {% when 'h3' %}
+        {% case settings.type_font_h3 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h3 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h3 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h3 }});
+        text-transform: {{ settings.type_case_h3 }};
+      {% when 'h4' %}
+        {% case settings.type_font_h4 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h4 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h4 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h4 }});
+        text-transform: {{ settings.type_case_h4 }};
+      {% when 'h5' %}
+        {% case settings.type_font_h5 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h5 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h5 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h5 }});
+        text-transform: {{ settings.type_case_h5 }};
+      {% when 'h6' %}
+        {% case settings.type_font_h6 %}
+          {% when 'heading' %}
+            font-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+            font-weight: {{ settings.type_heading_font.weight }};
+          {% when 'accent' %}
+            font-family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
+            font-weight: {{ settings.type_accent_font.weight }};
+          {% when 'subheading' %}
+            font-family: {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+            font-weight: {{ settings.type_subheading_font.weight }};
+          {% when 'body' %}
+            font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+            font-weight: {{ settings.type_body_font.weight }};
+        {% endcase %}
+        font-size: {{ settings.type_size_h6 }}px;
+        line-height: var(--font-{{ settings.type_line_height_h6 }});
+        letter-spacing: var(--font-{{ settings.type_letter_spacing_h6 }});
+        text-transform: {{ settings.type_case_h6 }};
+      {% else %}
+        font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        font-weight: {{ settings.type_body_font.weight }};
+        font-size: {{ settings.type_size_paragraph }}px;
+        line-height: var(--font-{{ settings.type_line_height_paragraph }});
+    {% endcase %}
   }
 
-  .ai-two-column-button-{{ ai_gen_id }}:hover {
-    background-color: {{ block.settings.button_hover_color }};
+  .ai-content-section__button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
   }
 
-  @media screen and (max-width: 768px) {
-    .ai-two-column-grid-{{ ai_gen_id }} {
-      grid-template-columns: 1fr;
-      gap: 40px;
+  @media screen and (max-width: 749px) {
+    {% if block.settings.image_fit == 'contain' and block.settings.contain_set_height %}
+      .ai-content-section__image-wrapper-{{ ai_gen_id }} {
+        height: {{ block.settings.contain_height_mobile }}px;
+      }
+    {% endif %}
+    {% if block.settings.mobile_padding_mode == 'custom' %}
+      .ai-content-section-{{ ai_gen_id }} {
+        {% if block.settings.mobile_padding_unit == 'px' %}
+          padding-top: {{ block.settings.mobile_padding_top }}px;
+          padding-bottom: {{ block.settings.mobile_padding_bottom }}px;
+        {% else %}
+          padding-top: {{ block.settings.mobile_padding_top }}%;
+          padding-bottom: {{ block.settings.mobile_padding_bottom }}%;
+        {% endif %}
+      }
+    {% endif %}
+
+    .ai-content-section__grid-{{ ai_gen_id }} {
+      {% if block.settings.columns_mobile == '1' %}
+        grid-template-columns: 1fr;
+      {% else %}
+        grid-template-columns: 1fr 1fr;
+      {% endif %}
+      {% if block.settings.gap_mobile_mode == 'custom' %}
+        gap: {{ block.settings.gap_mobile }}px;
+      {% else %}
+        gap: {% if block.settings.image_fit == 'contain' and block.settings.use_contain_gap %}{{ block.settings.contain_gap | divided_by: 2 }}{% else %}{{ block.settings.gap | divided_by: 2 }}{% endif %}px;
+      {% endif %}
     }
 
-    .ai-two-column-container-{{ ai_gen_id }} {
-      padding: 0 20px;
+    .ai-content-section__container-{{ ai_gen_id }} {
+      {% if block.settings.width == 'full' %}
+        padding: 0 {% if block.settings.zero_container_padding %}0{% else %}20px{% endif %};
+      {% else %}
+        padding: 0 {% if block.settings.zero_container_padding %}0{% else %}16px{% endif %};
+      {% endif %}
+    }
+
+    .ai-content-section__column-{{ ai_gen_id }} {
+      gap: {% if block.settings.inner_gap_mode == 'same' %}{{ block.settings.gap | divided_by: 2 }}{% else %}{{ block.settings.inner_gap | divided_by: 2 }}{% endif %}px;
     }
   }
 {% endstyle %}
 
-<div class="ai-two-column-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
-  <div class="ai-two-column-container-{{ ai_gen_id }}">
-    <div class="ai-two-column-grid-{{ ai_gen_id }}">
-      <div class="ai-two-column-item-{{ ai_gen_id }}">
-        {% if block.settings.image_1 %}
-          <div class="ai-two-column-image-wrapper-{{ ai_gen_id }}">
-            <img
-              src="{{ block.settings.image_1 | image_url: width: 1200 }}"
-              alt="{{ block.settings.image_1.alt | escape }}"
-              class="ai-two-column-image-{{ ai_gen_id }}"
-              loading="lazy"
-              width="{{ block.settings.image_1.width }}"
-              height="{{ block.settings.image_1.height }}"
-            >
-          </div>
-        {% elsif block.settings.heading_1 != blank or block.settings.text_1 != blank %}
-          <div class="ai-two-column-image-wrapper-{{ ai_gen_id }}"><div class="ai-two-column-image-placeholder-{{ ai_gen_id }}">
-              {{ 'image' | placeholder_svg_tag }}
-            </div></div>
-        {% endif %}<div class="ai-two-column-content-{{ ai_gen_id }}">
-          {% if block.settings.heading_1 != blank %}
-            <{{ block.settings.heading_tag }} class="ai-two-column-heading-{{ ai_gen_id }} {{ block.settings.heading_preset }}">{{ block.settings.heading_1 }}</{{ block.settings.heading_tag }}>
-          {% endif %}
-
-          {% if block.settings.text_1 != blank %}
-            <div class="ai-two-column-text-{{ ai_gen_id }} {{ block.settings.text_preset }}">{{ block.settings.text_1 }}</div>
-          {% endif %}
-
-          {% if block.settings.button_text_1 != blank and block.settings.button_link_1 != blank %}
-            <a href="{{ block.settings.button_link_1 }}" class="ai-two-column-button-{{ ai_gen_id }}">
-              {{ block.settings.button_text_1 }}
-            </a>
-          {% endif %}
-        </div>
-      </div>
-
-      <div class="ai-two-column-item-{{ ai_gen_id }}">
-        {% if block.settings.image_2 %}
-          <div class="ai-two-column-image-wrapper-{{ ai_gen_id }}">
-            <img
-              src="{{ block.settings.image_2 | image_url: width: 1200 }}"
-              alt="{{ block.settings.image_2.alt | escape }}"
-              class="ai-two-column-image-{{ ai_gen_id }}"
-              loading="lazy"
-              width="{{ block.settings.image_2.width }}"
-              height="{{ block.settings.image_2.height }}"
-            >
-          </div>
-        {% elsif block.settings.heading_2 != blank or block.settings.text_2 != blank %}
-          <div class="ai-two-column-image-wrapper-{{ ai_gen_id }}">
-            <div class="ai-two-column-image-placeholder-{{ ai_gen_id }}">
-              {{ 'image' | placeholder_svg_tag }}
+<div 
+  class="ai-content-section-{{ ai_gen_id }} color-{{ block.settings.color_scheme }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-content-section__container-{{ ai_gen_id }}"><div class="ai-content-section__grid-{{ ai_gen_id }}">
+      {% if block.settings.column_1_content != 'none' %}
+        <div class="ai-content-section__column-{{ ai_gen_id }}">
+          {% if block.settings.column_1_content == 'text' or block.settings.column_1_content == 'both' %}
+            {% if block.settings.column_1_heading != blank %}
+              <h2 class="ai-content-section__heading-{{ ai_gen_id }}">{{ block.settings.column_1_heading }}</h2>
+            {% endif %}
+            {% if block.settings.column_1_text != blank %}
+              <div class="ai-content-section__text-{{ ai_gen_id }}">{{ block.settings.column_1_text }}</div>
+            {% endif %}
+            {% if block.settings.column_1_show_button and block.settings.column_1_button_text != blank and block.settings.column_1_button_url != blank %}
+              <a href="{{ block.settings.column_1_button_url }}" class="ai-content-section__button-{{ ai_gen_id }}">
+                {{ block.settings.column_1_button_text }}
+              </a>
+            {% endif %}
+          {% endif %}{% if block.settings.column_1_content == 'image' or block.settings.column_1_content == 'both' %}
+            <div class="ai-content-section__image-wrapper-{{ ai_gen_id }}">
+              {% if block.settings.column_1_image %}
+                <img
+                  src="{{ block.settings.column_1_image | image_url: width: 800 }}"
+                  alt="{{ block.settings.column_1_image.alt | escape }}"
+                  class="ai-content-section__image-{{ ai_gen_id }}"
+                loading="lazy"
+                width="{{ block.settings.column_1_image.width }}"
+                  height="{{ block.settings.column_1_image.height }}"
+                >
+              {% else %}
+                <div class="ai-content-section__image-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
             </div>
-          </div>
-        {% endif %}
-
-        <div class="ai-two-column-content-{{ ai_gen_id }}">
-          {% if block.settings.heading_2 != blank %}
-            <{{ block.settings.heading_tag }} class="ai-two-column-heading-{{ ai_gen_id }} {{ block.settings.heading_preset }}">{{ block.settings.heading_2 }}</{{ block.settings.heading_tag }}>
-          {% endif %}
-
-          {% if block.settings.text_2 != blank %}
-            <div class="ai-two-column-text-{{ ai_gen_id }} {{ block.settings.text_preset }}">{{ block.settings.text_2 }}</div>
-          {% endif %}
-
-          {% if block.settings.button_text_2 != blank and block.settings.button_link_2 != blank %}
-            <a href="{{ block.settings.button_link_2 }}" class="ai-two-column-button-{{ ai_gen_id }}">
-              {{ block.settings.button_text_2 }}
-            </a>
           {% endif %}
         </div>
-      </div>
+      {% endif %}
+
+      {% if block.settings.columns == '2' and block.settings.column_2_content != 'none' %}
+        <div class="ai-content-section__column-{{ ai_gen_id }}">
+          {% if block.settings.column_2_content == 'text' or block.settings.column_2_content == 'both' %}
+            {% if block.settings.column_2_heading != blank %}
+              <h2 class="ai-content-section__heading-{{ ai_gen_id }}">{{ block.settings.column_2_heading }}</h2>
+            {% endif %}
+            {% if block.settings.column_2_text != blank %}
+              <div class="ai-content-section__text-{{ ai_gen_id }}">{{ block.settings.column_2_text }}</div>
+            {% endif %}
+            {% if block.settings.column_2_show_button and block.settings.column_2_button_text != blank and block.settings.column_2_button_url != blank %}
+              <a href="{{ block.settings.column_2_button_url }}" class="ai-content-section__button-{{ ai_gen_id }}">
+                {{ block.settings.column_2_button_text }}
+              </a>
+            {% endif %}
+          {% endif %}
+          {% if block.settings.column_2_content == 'image' or block.settings.column_2_content == 'both' %}
+            <div class="ai-content-section__image-wrapper-{{ ai_gen_id }}">
+              {% if block.settings.column_2_image %}
+                <img
+                  src="{{ block.settings.column_2_image | image_url: width: 800 }}"
+                  alt="{{ block.settings.column_2_image.alt | escape }}"
+                  class="ai-content-section__image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="{{ block.settings.column_2_image.width }}"
+                  height="{{ block.settings.column_2_image.height }}"
+                >
+              {% else %}
+                <div class="ai-content-section__image-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Two column",
+  "name": "Content section",
+  "tag": null,
   "settings": [
     {
-      "type": "header",
-      "content": "Layout options"
-    },
-    {
       "type": "checkbox",
-      "id": "full_width",
-      "label": "Full width",
+      "id": "show_layout_group",
+      "label": "Show Layout options",
       "default": false
     },
     {
-      "type": "range",
-      "id": "container_padding",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Container padding",
-      "default": 20
-    },
-    {
       "type": "header",
-      "content": "Column 1"
+      "content": "Layout",
+      "visible_if": "{{ block.settings.show_layout_group }}"
     },
     {
-      "type": "image_picker",
-      "id": "image_1",
-      "label": "Image"
+      "type": "select",
+      "id": "columns",
+      "label": "Columns",
+      "visible_if": "{{ block.settings.show_layout_group }}",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+      ],
+      "default": "2"
     },
     {
-      "type": "text",
-      "id": "heading_1",
-      "label": "Heading",
-      "default": "Column heading"
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "visible_if": "{{ block.settings.show_layout_group }}",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "1"
     },
     {
-      "type": "richtext",
-      "id": "text_1",
-      "label": "Text",
-      "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
-    },
-    {
-      "type": "text",
-      "id": "button_text_1",
-      "label": "Button text"
-    },
-    {
-      "type": "url",
-      "id": "button_link_1",
-      "label": "Button link"
-    },
-    {
-      "type": "header",
-      "content": "Column 2"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_2",
-      "label": "Image"
-    },
-    {
-      "type": "text",
-      "id": "heading_2",
-      "label": "Heading",
-      "default": "Column heading"
-    },
-    {
-      "type": "richtext",
-      "id": "text_2",
-      "label": "Text",
-      "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
-    },
-    {
-      "type": "text",
-      "id": "button_text_2",
-      "label": "Button text"
-    },
-    {
-      "type": "url",
-      "id": "button_link_2",
-      "label": "Button link"
-    },
-    {
-      "type": "header",
-      "content": "Layout"
+      "type": "select",
+      "id": "width",
+      "label": "Section width",
+      "visible_if": "{{ block.settings.show_layout_group }}",
+      "options": [
+        {
+          "value": "fit",
+          "label": "Fit to container"
+        },
+        {
+          "value": "full",
+          "label": "Full page width"
+        }
+      ],
+      "default": "fit"
     },
     {
       "type": "select",
       "id": "vertical_alignment",
       "label": "Vertical alignment",
+      "visible_if": "{{ block.settings.show_layout_group }}",
       "options": [
         {
-          "value": "flex-start",
+          "value": "start",
           "label": "Top"
         },
         {
@@ -286,7 +629,7 @@
           "label": "Center"
         },
         {
-          "value": "flex-end",
+          "value": "end",
           "label": "Bottom"
         }
       ],
@@ -294,115 +637,221 @@
     },
     {
       "type": "range",
-      "id": "column_gap",
-      "min": 20,
+      "id": "gap",
+      "label": "Column gap",
+      "visible_if": "{{ block.settings.show_layout_group }}",
+      "min": 0,
       "max": 100,
-      "step": 10,
+      "step": 4,
       "unit": "px",
-      "label": "Column spacing",
-      "default": 60
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "inner_gap_mode",
+      "label": "Inner items spacing",
+      "visible_if": "{{ block.settings.show_layout_group }}",
+      "options": [
+        { "value": "same", "label": "Tie to Column gap" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "same"
+    },
+    {
+      "type": "range",
+      "id": "inner_gap",
+      "label": "Custom inner gap",
+      "visible_if": "{{ block.settings.show_layout_group }}",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "show_spacing_group",
+      "label": "Show Spacing options",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Spacing",
+      "visible_if": "{{ block.settings.show_spacing_group }}"
     },
     {
       "type": "range",
       "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
       "label": "Top padding",
-      "default": 50
+      "visible_if": "{{ block.settings.show_spacing_group }}",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
       "label": "Bottom padding",
-      "default": 50
+      "visible_if": "{{ block.settings.show_spacing_group }}",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "checkbox",
+      "id": "zero_section_padding",
+      "label": "Remove section top/bottom padding",
+      "default": false,
+      "visible_if": "{{ block.settings.show_spacing_group }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "zero_container_padding",
+      "label": "Remove container left/right padding",
+      "default": false,
+      "visible_if": "{{ block.settings.show_spacing_group }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile_group",
+      "label": "Show Mobile spacing options",
+      "default": false
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "Mobile spacing",
+      "visible_if": "{{ block.settings.show_mobile_group }}"
+    },
+    {
+      "type": "select",
+      "id": "gap_mobile_mode",
+      "label": "Mobile column gap",
+      "options": [
+        { "value": "inherit", "label": "Inherit desktop (or contain override)" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "inherit",
+      "visible_if": "{{ block.settings.show_mobile_group }}"
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Custom mobile column gap",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ block.settings.gap_mobile_mode == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_padding_mode",
+      "label": "Mobile section padding",
+      "visible_if": "{{ block.settings.show_mobile_group }}",
+      "options": [
+        { "value": "inherit", "label": "Inherit desktop" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "select",
+      "id": "mobile_padding_unit",
+      "label": "Mobile padding unit",
+      "visible_if": "{{ block.settings.show_mobile_group }}",
+      "options": [
+        { "value": "px", "label": "Pixels (px)" },
+        { "value": "%", "label": "Percent (%)" }
+      ],
+      "default": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "visible_if": "{{ block.settings.show_mobile_group }}",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "visible_if": "{{ block.settings.show_mobile_group }}",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "show_colors_group",
+      "label": "Show Color options",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "visible_if": "{{ block.settings.show_colors_group }}"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "visible_if": "{{ block.settings.show_colors_group }}",
+      "default": "scheme-1"
     },
     {
       "type": "color",
       "id": "background_color",
-      "label": "Background",
+      "label": "Background color",
+      "visible_if": "{{ block.settings.show_colors_group }}",
       "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "heading_color",
-      "label": "Heading",
+      "label": "Heading color",
+      "visible_if": "{{ block.settings.show_colors_group }}",
       "default": "#000000"
     },
     {
       "type": "color",
       "id": "text_color",
-      "label": "Text",
+      "label": "Text color",
+      "visible_if": "{{ block.settings.show_colors_group }}",
       "default": "#666666"
     },
     {
-      "type": "color",
-      "id": "button_color",
-      "label": "Button background",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Button text",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "button_hover_color",
-      "label": "Button hover background",
-      "default": "#333333"
+      "type": "checkbox",
+      "id": "show_typography_group",
+      "label": "Show Typography options",
+      "default": false
     },
     {
       "type": "header",
-      "content": "Typography"
-    },
-    {
-      "type": "select",
-      "id": "heading_tag",
-      "label": "Heading tag",
-      "options": [
-        {
-          "value": "h1",
-          "label": "H1"
-        },
-        {
-          "value": "h2",
-          "label": "H2"
-        },
-        {
-          "value": "h3",
-          "label": "H3"
-        },
-        {
-          "value": "h4",
-          "label": "H4"
-        },
-        {
-          "value": "h5",
-          "label": "H5"
-        },
-        {
-          "value": "h6",
-          "label": "H6"
-        }
-      ],
-      "default": "h2"
+      "content": "Typography",
+      "visible_if": "{{ block.settings.show_typography_group }}"
     },
     {
       "type": "select",
       "id": "heading_preset",
-      "label": "Heading style",
+      "label": "Heading preset",
+      "visible_if": "{{ block.settings.show_typography_group }}",
       "options": [
+        {
+          "value": "paragraph",
+          "label": "Paragraph"
+        },
         {
           "value": "h1",
           "label": "H1"
@@ -433,7 +882,8 @@
     {
       "type": "select",
       "id": "text_preset",
-      "label": "Text style",
+      "label": "Text preset",
+      "visible_if": "{{ block.settings.show_typography_group }}",
       "options": [
         {
           "value": "paragraph",
@@ -467,35 +917,335 @@
       "default": "paragraph"
     },
     {
-      "type": "header",
-      "content": "Style"
+      "type": "select",
+      "id": "button_preset",
+      "label": "Button preset",
+      "visible_if": "{{ block.settings.show_typography_group }}",
+      "options": [
+        {
+          "value": "paragraph",
+          "label": "Paragraph"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ],
+      "default": "paragraph"
     },
     {
-      "type": "range",
-      "id": "image_border_radius",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "label": "Image border radius",
-      "default": 8
+      "type": "checkbox",
+      "id": "show_button_style_group",
+      "label": "Show Button style options",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Button style",
+      "visible_if": "{{ block.settings.show_button_style_group }}"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "visible_if": "{{ block.settings.show_button_style_group }}",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "visible_if": "{{ block.settings.show_button_style_group }}",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "visible_if": "{{ block.settings.show_button_style_group }}",
+      "default": "#ffffff"
     },
     {
       "type": "range",
       "id": "button_border_radius",
+      "label": "Border radius",
+      "visible_if": "{{ block.settings.show_button_style_group }}",
       "min": 0,
-      "max": 50,
+      "max": 40,
       "step": 2,
       "unit": "px",
-      "label": "Button border radius",
       "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_style_group",
+      "label": "Show Image style options",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Image style",
+      "visible_if": "{{ block.settings.show_image_style_group }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_contain_gap",
+      "label": "Override column gap when Image fit is Contain",
+      "default": false,
+      "visible_if": "{{ block.settings.show_image_style_group }}"
+    },
+    {
+      "type": "range",
+      "id": "contain_gap",
+      "label": "Contain mode column gap",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.use_contain_gap }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "contain_set_height",
+      "label": "Set fixed height for Contain images",
+      "default": false,
+      "visible_if": "{{ block.settings.image_fit == 'contain' }}"
+    },
+    {
+      "type": "range",
+      "id": "contain_height",
+      "label": "Contain image height (desktop)",
+      "min": 100,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 400,
+      "visible_if": "{{ block.settings.contain_set_height }}"
+    },
+    {
+      "type": "range",
+      "id": "contain_height_mobile",
+      "label": "Contain image height (mobile)",
+      "min": 80,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 240,
+      "visible_if": "{{ block.settings.contain_set_height }}"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "visible_if": "{{ block.settings.show_image_style_group }}",
+      "options": [
+        { "value": "natural", "label": "Natural" },
+        { "value": "1:1", "label": "1:1" },
+        { "value": "4:3", "label": "4:3" },
+        { "value": "3:2", "label": "3:2" },
+        { "value": "16:9", "label": "16:9" }
+      ],
+      "default": "natural"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "visible_if": "{{ block.settings.show_image_style_group }}",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Border radius",
+      "visible_if": "{{ block.settings.show_image_style_group }}",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_column_1_group",
+      "label": "Show Column 1 options",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Column 1",
+      "visible_if": "{{ block.settings.show_column_1_group }}"
+    },
+    {
+      "type": "select",
+      "id": "column_1_content",
+      "label": "Content type",
+      "visible_if": "{{ block.settings.show_column_1_group }}",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "text",
+          "label": "Text only"
+        },
+        {
+          "value": "image",
+          "label": "Image only"
+        },
+        {
+          "value": "both",
+          "label": "Text and image"
+        }
+      ],
+      "default": "both"
+    },
+    {
+      "type": "text",
+      "id": "column_1_heading",
+      "label": "Heading",
+      "visible_if": "{{ block.settings.show_column_1_group }}",
+      "default": "Your heading here"
+    },
+    {
+      "type": "richtext",
+      "id": "column_1_text",
+      "label": "Text",
+      "visible_if": "{{ block.settings.show_column_1_group }}",
+      "default": "<p>Add your content here. This flexible section allows you to create engaging layouts with text and images.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_1_image",
+      "label": "Image",
+      "visible_if": "{{ block.settings.show_column_1_group }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "column_1_show_button",
+      "label": "Show button",
+      "default": true,
+      "visible_if": "{{ block.settings.show_column_1_group }}"
+    },
+    {
+      "type": "text",
+      "id": "column_1_button_text",
+      "label": "Button text",
+      "visible_if": "{{ block.settings.show_column_1_group }}"
+    },
+    {
+      "type": "url",
+      "id": "column_1_button_url",
+      "label": "Button link",
+      "visible_if": "{{ block.settings.show_column_1_group }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_column_2_group",
+      "label": "Show Column 2 options",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Column 2",
+      "visible_if": "{{ block.settings.show_column_2_group }}"
+    },
+    {
+      "type": "select",
+      "id": "column_2_content",
+      "label": "Content type",
+      "visible_if": "{{ block.settings.show_column_2_group }}",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "text",
+          "label": "Text only"
+        },
+        {
+          "value": "image",
+          "label": "Image only"
+        },
+        {
+          "value": "both",
+          "label": "Text and image"
+        }
+      ],
+      "default": "both"
+    },
+    {
+      "type": "text",
+      "id": "column_2_heading",
+      "label": "Heading",
+      "visible_if": "{{ block.settings.show_column_2_group }}",
+      "default": "Second column"
+    },
+    {
+      "type": "richtext",
+      "id": "column_2_text",
+      "label": "Text",
+      "visible_if": "{{ block.settings.show_column_2_group }}",
+      "default": "<p>Add content for your second column. Perfect for creating balanced layouts with complementary information.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_2_image",
+      "label": "Image",
+      "visible_if": "{{ block.settings.show_column_2_group }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "column_2_show_button",
+      "label": "Show button",
+      "default": true,
+      "visible_if": "{{ block.settings.show_column_2_group }}"
+    },
+    {
+      "type": "text",
+      "id": "column_2_button_text",
+      "label": "Button text",
+      "visible_if": "{{ block.settings.show_column_2_group }}"
+    },
+    {
+      "type": "url",
+      "id": "column_2_button_url",
+      "label": "Button link",
+      "visible_if": "{{ block.settings.show_column_2_group }}"
     }
   ],
   "presets": [
     {
-      "name": "Two column"
+      "name": "Content section"
     }
-  ],
-  "tag": null
+  ]
 }
 {% endschema %}
+ 
