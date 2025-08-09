@@ -45,7 +45,13 @@
     padding-bottom: {{ block.settings.padding_bottom_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     padding-left: {{ block.settings.padding_left_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     {% if block.settings.border_enabled %}
-      border: {{ block.settings.border_width }}px {{ block.settings.border_style }} var(--color-border);
+      {% liquid
+        assign computed_border_style = block.settings.border_style
+        if computed_border_style == 'dotted'
+          assign computed_border_style = 'dashed'
+        endif
+      %}
+      border: {{ block.settings.border_width }}px {{ computed_border_style }} var(--color-border);
       border-radius: {{ block.settings.border_radius }}px;
     {% endif %}
     margin: 0 auto;
@@ -343,8 +349,7 @@
       "label": "Border style",
       "options": [
         { "value": "solid", "label": "Solid" },
-        { "value": "dashed", "label": "Dashed" },
-        { "value": "dotted", "label": "Dotted" }
+        { "value": "dotted", "label": "Dashed" }
       ],
       "default": "solid"
     },
