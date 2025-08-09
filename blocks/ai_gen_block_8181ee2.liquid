@@ -118,7 +118,8 @@
     }
 
     .ai-two-columns-container-{{ ai_gen_id }} {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       gap: {{ block.settings.column_gap_mobile }}px;
     }
 
@@ -145,13 +146,15 @@
     }
 
     {% if block.settings.mobile_layout == 'image_first' %}
-      .ai-two-columns-column-left-{{ ai_gen_id }} {
-        order: 1;
-      }{% endif %}}
+      .ai-two-columns-column-right-{{ ai_gen_id }} {
+        order: -1;
+      }
+    {% endif %}
+  }
 {% endstyle %}<div class="ai-two-columns-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   <div class="ai-two-columns-inner-{{ ai_gen_id }}"><div class="ai-two-columns-container-{{ ai_gen_id }}"><div class="ai-two-columns-column-{{ ai_gen_id }} ai-two-columns-column-left-{{ ai_gen_id }}">
         {% if block.settings.left_column_image %}
-          <div class="ai-two-columns-image-wrapper-{{ ai_gen_id }}"><imgsrc="{{ block.settings.left_column_image | image_url: width:1200}}"
+          <div class="ai-two-columns-image-wrapper-{{ ai_gen_id }}"><img src="{{ block.settings.left_column_image | image_url: width: 1200 }}"
               alt="{{ block.settings.left_column_image.alt | escape }}"
               class="ai-two-columns-image-{{ ai_gen_id }}"
               loading="lazy"
