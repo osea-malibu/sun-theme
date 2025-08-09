@@ -1,11 +1,4 @@
 {% doc %}
-  @prompt
-    Two columns block
-    image or text or both
-    FULL control of padding for all columns and row, both desktop and mobile
-    Style theme, we need to able to control the image size 
-    and cover or contain for the images
-    and page or full for the main wrapper, Mobile layout, image first and text first is inverted. please adjust
 
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
@@ -37,6 +30,7 @@
     display: flex;
     flex-direction: column;
     gap:16px;
+    box-sizing: border-box;
   }
 
   .ai-two-columns-column-left-{{ ai_gen_id }} {
@@ -59,18 +53,25 @@
     width: 100%;
     border-radius: {{ block.settings.image_border_radius }}px;
     overflow: hidden;
-    {% if block.settings.image_height_type == 'fixed' %}
-      height: {{ block.settings.image_height }}px;
-    {% else %}
-      aspect-ratio: {{ block.settings.image_aspect_ratio }};
+    {% if block.settings.image_fit == 'cover' %}
+      {% if block.settings.image_height_type == 'fixed' %}
+        height: {{ block.settings.image_height }}px;
+      {% else %}
+        aspect-ratio: {{ block.settings.image_aspect_ratio }};
+      {% endif %}
     {% endif %}
   }
 
   .ai-two-columns-image-{{ ai_gen_id }} {
     width: 100%;
-    height: 100%;
     display: block;
-    object-fit: {{ block.settings.image_fit }};
+    {% if block.settings.image_fit == 'cover' %}
+      height: 100%;
+      object-fit: cover;
+    {% else %}
+      height: auto;
+      object-fit: contain;
+    {% endif %}
   }
 
   .ai-two-columns-image-placeholder-{{ ai_gen_id }} {
@@ -140,8 +141,10 @@
     }
 
     .ai-two-columns-image-wrapper-{{ ai_gen_id }} {
-      {% if block.settings.image_height_type == 'fixed' %}
-        height: {{ block.settings.image_height_mobile }}px;
+      {% if block.settings.image_fit == 'cover' %}
+        {% if block.settings.image_height_type == 'fixed' %}
+          height: {{ block.settings.image_height_mobile }}px;
+        {% endif %}
       {% endif %}
     }
 
@@ -167,7 +170,9 @@
       {% endif %}
     {% endif %}
   }
-{% endstyle %}<div class="ai-two-columns-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+{% endstyle %}
+
+<div class="ai-two-columns-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   <div class="ai-two-columns-inner-{{ ai_gen_id }}"><div class="ai-two-columns-container-{{ ai_gen_id }}"><div class="ai-two-columns-column-{{ ai_gen_id }} ai-two-columns-column-left-{{ ai_gen_id }}">
         {% if block.settings.left_column_image %}
           <div class="ai-two-columns-image-wrapper-{{ ai_gen_id }}"><img src="{{ block.settings.left_column_image | image_url: width: 1200 }}"
