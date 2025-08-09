@@ -31,8 +31,9 @@
             "success_message": "Thank you for subscribing!",
             "error_message": "Please check your information and try again.",
             "width": "fill",
-            "button_position": "below",
-            "padding": 20,
+            "padding_unit": "px",
+            "padding_px": 40,
+            "padding_percent": 4,
             "color_scheme": "scheme-2",
             "heading_preset": "h3",
             "text_preset_body": "rte",
@@ -47,7 +48,8 @@
       "block_order": [
         "signup_form_T9RLqD"
       ],
-      "name": "t:names.custom_section",
+      "disabled": true,
+      "name": "Testing Signup Form",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
