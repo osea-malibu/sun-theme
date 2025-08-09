@@ -597,7 +597,7 @@
             "columns_mobile": "1",
             "width": "fit",
             "vertical_alignment": "center",
-            "gap": 0,
+            "gap": 12,
             "padding_top": 60,
             "padding_bottom": 60,
             "color_scheme": "scheme-50cfbab7-a6e4-4192-ab32-8ab11e7af8b7",
