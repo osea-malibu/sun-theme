@@ -610,7 +610,7 @@
             "column_gap_mobile": 24,
             "mobile_layout": "image_first",
             "image_height_type": "aspect_ratio",
-            "image_aspect_ratio": "16/9",
+            "image_aspect_ratio": "3/2",
             "image_height": 360,
             "image_height_mobile": 300,
             "image_fit": "contain",
