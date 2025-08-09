@@ -630,19 +630,9 @@
     },
     "175469474033cf52de": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_7b9a89a_6UggzC": {
-          "type": "social-media",
-          "settings": {},
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_7b9a89a_6UggzC"
-      ],
       "name": "Our Story Section",
       "settings": {
-        "content_direction": "column",
+        "content_direction": "row",
         "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
