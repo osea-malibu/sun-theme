@@ -325,7 +325,7 @@
             "heading_type_preset": "h2",
             "text_type_preset": "paragraph",
             "width": "fit",
-            "border_enabled": true,
+            "border_enabled": false,
             "border_style": "dotted",
             "border_width": 1,
             "border_radius": 8,
