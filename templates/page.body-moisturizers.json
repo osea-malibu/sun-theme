@@ -331,10 +331,9 @@
             "padding_left_desktop": 0,
             "padding_unit_mobile": "percent",
             "padding_top_mobile": 5,
-            "padding_right_mobile": 10,
-            "padding_bottom_mobile": 10,
-            "padding_left_mobile": 10,
-            "border_radius": 8
+            "padding_right_mobile": 5,
+            "padding_bottom_mobile": 5,
+            "padding_left_mobile": 5
           },
           "blocks": {}
         }
