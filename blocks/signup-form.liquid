@@ -29,7 +29,11 @@
 
 {% style %}
   .signup-form-{{ signup_form_id }} {
-    padding: {{ block.settings.padding }}px;
+    {% if block.settings.padding_unit == 'percent' %}
+      padding: {{ block.settings.padding_percent }}%;
+    {% else %}
+      padding: {{ block.settings.padding_px }}px;
+    {% endif %}
     background-color: var(--color-background);
     border-radius: {{ block.settings.border_radius }}px;
     box-sizing: border-box;
@@ -102,9 +106,10 @@
     display: none;
   }
 
-  /* Space between Email and Phone form blocks */
-  .signup-form__form-{{ signup_form_id }} + .signup-form__form-{{ signup_form_id }} {
-    margin-top: 24px;
+  .signup-form__rows-{{ signup_form_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 
   .signup-form__field-group-{{ signup_form_id }} {
@@ -199,7 +204,11 @@
 
   @media screen and (max-width: 749px) {
     .signup-form-{{ signup_form_id }} {
-      padding: {{ block.settings.padding | times: 0.7 }}px;
+      {% if block.settings.padding_unit == 'percent' %}
+        padding: {{ block.settings.padding_percent }}%;
+      {% else %}
+        padding: {{ block.settings.padding_px | times: 0.7 }}px;
+      {% endif %}
     }
 
     .signup-form__content-{{ signup_form_id }} {
@@ -254,7 +263,7 @@
       </button>
     </div>
 
-    <div class="signup-form__form-container-{{ signup_form_id }}">
+    <div class="signup-form__form-container-{{ signup_form_id }} signup-form__rows-{{ signup_form_id }}">
       {% form 'contact' %}
                   <div class="signup-form__form-{{ signup_form_id }} active" data-form="email">
           <input type="hidden" name="contact[signup_type]" value="email">
@@ -541,17 +550,40 @@
       ],
       "default": "fit"
     },
-    
+    {
+      "type": "select",
+      "id": "padding_unit",
+      "label": "Padding unit",
+      "options": [
+        { "value": "px", "label": "Pixels" },
+        { "value": "percent", "label": "Percent" }
+      ],
+      "default": "px"
+    },
     {
       "type": "range",
-      "id": "padding",
-      "min": 20,
-      "max": 80,
+      "id": "padding_px",
+      "min": 0,
+      "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "Padding",
-      "default": 40
+      "label": "Padding (px)",
+      "default": 40,
+      "visible_if": "{{ block.settings.padding_unit == 'px' }}"
     },
+    {
+      "type": "range",
+      "id": "padding_percent",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "%",
+      "label": "Padding (%)",
+      "default": 4,
+      "visible_if": "{{ block.settings.padding_unit == 'percent' }}"
+    },
+    
+    
     {
       "type": "header",
       "content": "Appearance"
