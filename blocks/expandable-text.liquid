@@ -39,14 +39,7 @@
 {% style %}
   .expandable-text-{{ expandable_text_block_id }} {
     display: block;
-    {% case block.settings.background_style %}
-      {% when 'transparent' %}
-        background-color: transparent;
-      {% when 'primary' %}
-        background-color: var(--color-primary);
-      {% else %}
-        background-color: var(--color-background);
-    {% endcase %}
+    background-color: var(--color-background);
     padding-top: {{ block.settings.padding_top_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     padding-right: {{ block.settings.padding_right_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
     padding-bottom: {{ block.settings.padding_bottom_desktop }}{% if block.settings.padding_unit_desktop == 'percent' %}%{% else %}px{% endif %};
@@ -150,7 +143,7 @@
 {% endstyle %}
 
 <expandable-text-{{ expandable_text_block_id }}
-  class="expandable-text-{{ expandable_text_block_id }}"
+  class="expandable-text-{{ expandable_text_block_id }} {% if block.settings.background_color != blank %}color-{{ block.settings.background_color }}{% endif %}"
   {{ block.shopify_attributes }}
 >
   {% if block.settings.heading != blank %}
@@ -281,15 +274,48 @@
       "content": "Style"
     },
     {
+      "type": "color_scheme",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
       "type": "select",
-      "id": "background_style",
-      "label": "Background",
+      "id": "heading_type_preset",
+      "label": "Heading",
       "options": [
-        { "value": "default", "label": "Default (Theme background)" },
-        { "value": "primary", "label": "Primary" },
-        { "value": "transparent", "label": "Transparent" }
+        { "value": "h1", "label": "Heading 1" },
+        { "value": "h2", "label": "Heading 2" },
+        { "value": "h3", "label": "Heading 3" },
+        { "value": "h4", "label": "Heading 4" },
+        { "value": "h5", "label": "Heading 5" },
+        { "value": "h6", "label": "Heading 6" }
       ],
-      "default": "default"
+      "default": "h2"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "select",
+      "id": "text_type_preset",
+      "label": "Text",
+      "options": [
+        { "value": "paragraph", "label": "Paragraph" },
+        { "value": "h4", "label": "Heading 4" },
+        { "value": "h5", "label": "Heading 5" },
+        { "value": "h6", "label": "Heading 6" }
+      ],
+      "default": "paragraph"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
     },
     {
       "type": "select",
@@ -300,38 +326,6 @@
         { "value": "fill", "label": "Fill" }
       ],
       "default": "fit"
-    },
-    {
-      "type": "select",
-      "id": "heading_type_preset",
-      "label": "Heading type preset",
-      "options": [
-        {
-          "value": "h1",
-          "label": "Heading 1"
-        },
-        {
-          "value": "h2",
-          "label": "Heading 2"
-        },
-        {
-          "value": "h3",
-          "label": "Heading 3"
-        },
-        {
-          "value": "h4",
-          "label": "Heading 4"
-        },
-        {
-          "value": "h5",
-          "label": "Heading 5"
-        },
-        {
-          "value": "h6",
-          "label": "Heading 6"
-        }
-      ],
-      "default": "h2"
     },
     {
       "type": "header",
@@ -373,30 +367,6 @@
       "unit": "px",
       "label": "Border radius",
       "default": 8
-    },
-    {
-      "type": "select",
-      "id": "text_type_preset",
-      "label": "Text type preset",
-      "options": [
-        {
-          "value": "paragraph",
-          "label": "Paragraph"
-        },
-        {
-          "value": "h4",
-          "label": "Heading 4"
-        },
-        {
-          "value": "h5",
-          "label": "Heading 5"
-        },
-        {
-          "value": "h6",
-          "label": "Heading 6"
-        }
-      ],
-      "default": "paragraph"
     },
     
     
